@@ -1,10 +1,12 @@
 import React from 'react';
 import "./loadgen.css";
+import { Title } from '../../components';
 
 const Loadgen = () => {
   return (
   <div className='loadgenContain'>
-    <h1>loadgen something</h1>
+    <Title name="Loadgen Configuration"/>
+    <h1>somehting else</h1>
   </div>
   )
 };

@@ -1,10 +1,12 @@
 import React from 'react';
 import "./model.css";
+import { Title } from '../../components';
 
 const Model = () => {
   return (
   <div className='modelContain'>
-    <h1>model somthing</h1>
+    <Title name="Model Configuration"/>
+    <h1>somehting else</h1>
   </div>
   )
 };

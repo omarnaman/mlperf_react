@@ -1,10 +1,12 @@
 import React from 'react';
 import "./startTab.css";
+import { Title } from '../../components';
 
 const StartTab = () => {
   return (
   <div className='startTabContain'>
-    <h1>start something</h1>
+    <Title name="Experiment Status"/>
+    <h1>somehting else</h1>
   </div>
   )
 };
