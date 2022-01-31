@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Parameter, StartButton, Title } from './components';
+import { Loadgen, StartTab, Model } from './containers';
 
 const App = () => {
   return (
