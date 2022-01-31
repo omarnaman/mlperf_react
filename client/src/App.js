@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Parameter, StartButton, Title } from './components';
+
 const App = () => {
   return (
   <div>
