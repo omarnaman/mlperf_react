@@ -1,12 +1,14 @@
 import React from 'react';
 import './startButton.css';
 
-const StartButton = () => {
-  return (
-  <div>
-
-  </div>
-  )
-};
+class StartButton extends React.Component {
+  render() {
+    return (
+      <div>
+        <p className='StartButton'>Begin Experiment</p>
+      </div>
+    )
+  }
+}
 
 export default StartButton;
