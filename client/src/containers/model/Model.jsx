@@ -3,8 +3,8 @@ import "./model.css";
 
 const Model = () => {
   return (
-  <div>
-
+  <div className='modelContain'>
+    <h1>model somthing</h1>
   </div>
   )
 };

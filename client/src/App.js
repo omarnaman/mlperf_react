@@ -1,12 +1,14 @@
 import React from 'react';
-
+import "./App.css"
 import { Parameter, StartButton, Title } from './components';
 import { Loadgen, StartTab, Model } from './containers';
 
 const App = () => {
   return (
-  <div>
-    <h1>something</h1>
+  <div className="App">
+    <Model />
+    <Loadgen />
+    <StartTab />
   </div>
   )
 };

@@ -3,8 +3,8 @@ import "./loadgen.css";
 
 const Loadgen = () => {
   return (
-  <div>
-
+  <div className='loadgenContain'>
+    <h1>loadgen something</h1>
   </div>
   )
 };
