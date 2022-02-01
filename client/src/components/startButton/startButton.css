@@ -9,3 +9,13 @@
   font-weight: bold;
   border-radius: 40px;
 }
+
+.StartButton:hover {
+  background-color: #7693be;
+}
+
+.StartButton:active {
+  background-color: #7693be;
+  box-shadow: 0 2px #666;
+  transform: translateY(1px);
+}
