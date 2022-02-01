@@ -1,8 +1,33 @@
 .loadgenContain {
-  background-color: rgb(188, 200, 200);
+  background-color: rgb(207, 224, 224);
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.paramContain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0px;
+}
+
+.paramTogether {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.numBox {
+  width: 40px;
+  height: 25px;
+  margin-left: 20px;
+}
+
+.fillSpace2 {
+  padding: 345px 0px;
+  font-size: 21px;
 }

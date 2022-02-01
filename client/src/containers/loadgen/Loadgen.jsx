@@ -1,12 +1,18 @@
 import React from 'react';
 import "./loadgen.css";
-import { Title } from '../../components';
+import { Title, Parameter } from '../../components';
 
 const Loadgen = () => {
   return (
   <div className='loadgenContain'>
     <Title name="Loadgen Configuration"/>
-    <h1>somehting else</h1>
+    <div className='paramContain'>
+      <div className='paramTogether'>
+        <Parameter title="Clients" num=""/>
+        <input className="numBox" type="text"></input>
+      </div>
+    </div>
+    <p className='fillSpace2'>list more parameters as needed</p>
   </div>
   )
 };
