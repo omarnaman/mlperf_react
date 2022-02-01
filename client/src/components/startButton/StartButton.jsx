@@ -14,6 +14,13 @@ class StartButton extends React.Component {
             .then(data => this.setState(data), () => console.log(this.state.id))
   }
 
+  componentDidMount(){
+    console.log(this.state.id);
+    this.setState({id:"something else", timeMs:100, clients:3});
+    setTimeout((console.log("waiting")),1000)
+    console.log(this.state.id);
+  }
+
 
   render() {
     return (
