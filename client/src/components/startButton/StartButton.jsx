@@ -49,7 +49,7 @@ class StartButton extends React.Component {
     return (
       <div className='startContain'>
         <img id="status" className="statusIcon" src={pause}></img>
-        <p id="statusDescription"></p>
+        <p id="statusDescription">no job is running</p>
         <button onClick={this.handleStart} className='StartButton'>Begin Experiment</button>
       </div>
     )
