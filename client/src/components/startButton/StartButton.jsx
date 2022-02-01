@@ -1,7 +1,7 @@
 import React from 'react';
 import './startButton.css';
 import pause from './pause-button.png';
-import load from './loading2.png';
+import load from './loading.png';
 
 class StartButton extends React.Component {
   constructor() {
