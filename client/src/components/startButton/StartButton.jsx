@@ -10,8 +10,8 @@ class StartButton extends React.Component {
   handleStart() {
     console.log("button clicked");
     fetch("/StartJob/4/10")
-    .then(res => res.json())
-    .then(data => this.setState(data), () => console.log(this.state.id))
+            .then(res => res.json())
+            .then(data => this.setState(data), () => console.log(this.state.id))
   }
 
 
