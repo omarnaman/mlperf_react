@@ -25,7 +25,7 @@ class StartButton extends React.Component {
       .then(data => console.log(data), () => console.log("test fetched"))
   }*/
 
-  /*componentDidMount() {
+  componentDidMount() {
     var timeID = setInterval(() => {
       let runningURL = "IsRunning/" + this.state.id;
       let resp = {};
@@ -42,8 +42,8 @@ class StartButton extends React.Component {
         }, () => {            
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("status").src = pause})
-    },500);
-  } */
+    },700);
+  } 
 
   render() {
     return (
