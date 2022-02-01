@@ -19,3 +19,15 @@
   box-shadow: 0 2px #666;
   transform: translateY(1px);
 }
+
+.statusIcon {
+  width: 200px;
+  height: 200px;
+}
+
+.startContain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
