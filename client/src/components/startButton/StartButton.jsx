@@ -17,11 +17,11 @@ class StartButton extends React.Component {
 
   }
   
-  componentDidMount(){
+  /*componentDidMount(){
     fetch('test')
       .then(res => res.json())
       .then(data => console.log(data), () => console.log("test fetched"))
-  }
+  }*/
 
   render() {
     return (
