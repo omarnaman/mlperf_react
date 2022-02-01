@@ -105,6 +105,10 @@ app.get('/StartJob/:clients/:time', function (req, res) {
 
 })
 
+app.get('/test', function (req, res) {
+    res.end(JSON.stringify({test:"works"}))
+})
+
 var server = app.listen(PORT, function () {
     console.log("Listening on http://0.0.0.0:%s", PORT)
 })
