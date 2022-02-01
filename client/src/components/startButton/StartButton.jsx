@@ -34,7 +34,7 @@ class StartButton extends React.Component {
         .then(data => {
           if (data.isRunning){
             document.getElementById("status").src = load
-            document.getElementById("statusDescription").innerHTML = "jobId " + this.state.id + " is running"
+            document.getElementById("statusDescription").innerHTML = "jobId: " + this.state.id + " is running"
           } else {
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("status").src = pause
@@ -42,14 +42,14 @@ class StartButton extends React.Component {
         }, () => {            
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("status").src = pause})
-    },5000);
+    },500);
   } 
 
   render() {
     return (
       <div className='startContain'>
         <img id="status" className="statusIcon" src={pause}></img>
-        <p id="statusDescription">no job is running</p>
+        <p className="descript" id="statusDescription">no job is running</p>
         <button onClick={this.handleStart} className='StartButton'>Begin Experiment</button>
       </div>
     )
