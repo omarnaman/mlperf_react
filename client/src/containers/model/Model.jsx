@@ -9,7 +9,7 @@ const Model = () => {
     <div className='paramContain'>
       <div className='paramTogether'>
         <Parameter title="Parameter" num="1"/>
-        <input checked="checked" className="checkBox" type="checkbox"></input>
+        <input defaultChecked className="checkBox" type="checkbox"></input>
       </div>
       <div className='paramTogether'>
         <Parameter title="Parameter" num="2"/>
