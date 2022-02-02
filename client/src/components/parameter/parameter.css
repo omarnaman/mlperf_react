@@ -1,5 +1,7 @@
 .paramTitle {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
   font-family: "PT sans";
+  padding: 5px;
+  margin: 5px;
 }

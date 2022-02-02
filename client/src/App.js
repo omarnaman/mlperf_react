@@ -1,6 +1,6 @@
 import React from 'react';
 import "./App.css"
-import { Parameter, StartButton, Title } from './components';
+//import { Parameter, StartButton, Title, ImportButton } from './components';
 import { Loadgen, StartTab, Model } from './containers';
 
 const App = () => {

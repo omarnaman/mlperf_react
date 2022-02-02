@@ -5,7 +5,7 @@ class Parameter extends React.Component {
   render(){
     return (
       <div>
-        <p className="paramTitle">{this.props.title} {this.props.num}:</p>
+        <p className="paramTitle">{this.props.title}{this.props.num}:</p>
       </div>
     )
   }

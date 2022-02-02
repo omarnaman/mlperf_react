@@ -16,24 +16,43 @@
 }
 
 .fillSpace3 {
-  padding: 312px 0px;
+  padding: 20px 0px 238px;
   font-size: 21px;
 }
 
 .TextBox {
   width: 60px;
   height: 25px;
-  margin-left: 20px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
 }
 
 .paramTogether {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 3px;
 }
 
 .checkBox {
   width: 25px;
   height: 25px;
   margin-left: 20px;
+}
+
+.numBox {
+  width: 40px;
+  height: 25px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+
+.dropdown {
+  width: 100px;
+  height: 25px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
 }
