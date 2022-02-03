@@ -6,7 +6,7 @@ const StartTab = () => {
   return (
   <div className='startTabContain'>
     <Title name="Experiment Status"/>
-    <p className='fillSpace'>some animated graphic to show progress</p>
+    <p id="test" className='fillSpace'>some animated graphic to show progress</p>
     <StartButton />
   </div>
   )

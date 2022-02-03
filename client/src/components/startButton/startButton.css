@@ -38,3 +38,37 @@
   font-weight: bold;
   font-family: "PT Sans", sans-serif;
 }
+
+.barLabel {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "PT Sans", sans-serif;
+}
+
+.progressTogether {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.bar {
+  border: 1px solid #666;
+  height: 20px;
+  width: 100%;
+  display: none;
+}
+
+.in {
+  height: 100%;
+  background-color: rgb(144, 171, 212);
+}
+
+@keyframes fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
