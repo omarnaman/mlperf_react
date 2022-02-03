@@ -49,7 +49,7 @@ class StartButton extends React.Component {
         }, () => {            
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("status").src = pause})
-    },700);
+    },500);
   }  
 
   render() {
