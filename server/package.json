@@ -7,8 +7,11 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "concurrently \"node server.js\" \"node storage.js\"",
-    "server": "concurrently \"nodemon server.js\" \"nodemon storage.js\""
+    "client-install": "cd client && npm install",
+    "both-install": "concurrently \"npm run client-install\" \"npm install\"",
+    "server": "concurrently \"nodemon server.js\" \"nodemon storage.js\"",
+    "client": "cd ../ && cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "name": "server",
   "version": "1.0.0",
