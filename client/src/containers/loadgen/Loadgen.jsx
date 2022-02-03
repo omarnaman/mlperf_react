@@ -12,7 +12,7 @@ const Loadgen = () => {
         <input placeholder=" num" className="numBox" type="text"></input>
       </div>
       <div className='paramTogether'>
-        <Parameter title="Scenario" num=""/>
+        <Parameter title="Network Communication" num=""/>
         <select className='dropdown'>
           <option>TCP</option>
           <option>HTTP</option>
