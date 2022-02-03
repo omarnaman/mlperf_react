@@ -70,6 +70,7 @@ function RunJob(job) {
         setTimeout(() => {
             data = generateSeries(job)
             results = { id: job.id, dataX: data.dataX, dataY: data.dataY }
+            //console.log(results)
             SendToStorage(results)
             IS_RUNNING[job.id] = false
             console.log("Job {%s} resolved", job.id)
