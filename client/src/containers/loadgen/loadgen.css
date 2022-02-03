@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin: 3px;
 }
 
 .numBox {
@@ -28,6 +29,6 @@
 }
 
 .fillSpace2 {
-  padding: 10px 0px;
+  padding: 10px 0px 374px;
   font-size: 21px;
 }

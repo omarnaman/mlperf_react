@@ -9,7 +9,7 @@ const Model = () => {
     <div className='paramContain'>
       <div className='paramTogether'>
         <Parameter title="Threads per Client" num=""/>
-        <input placeholder=" 1" className="numBox" type="text"></input>
+        <input placeholder=" num" className="numBox" type="text"></input>
       </div>
       <div className='paramTogether'>
         <Parameter title="Model" num=""/>
@@ -46,7 +46,7 @@ const Model = () => {
       </div>
       <div className='paramTogether'>
         <Parameter title="Parameter" num=" 2"/>
-        <input placeholder=" filler"className="TextBox" type="text"></input>
+        <input placeholder=" text"className="TextBox" type="text"></input>
       </div>
     </div>
     <p className='fillSpace3'>list more parameters as needed</p>

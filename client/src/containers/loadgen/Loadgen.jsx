@@ -9,7 +9,26 @@ const Loadgen = () => {
     <div className='paramContain'>
       <div className='paramTogether'>
         <Parameter title="Clients" num=""/>
-        <input className="numBox" type="text"></input>
+        <input placeholder=" num" className="numBox" type="text"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Scenario" num=""/>
+        <select className='dropdown'>
+          <option>TCP</option>
+          <option>HTTP</option>
+        </select>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Duration" num=""/>
+        <input placeholder=" num" className="numBox" type="text"></input>
+      </div>
+            <div className='paramTogether'>
+        <Parameter title="Accuracy" num=""/>
+        <input placeholder=" num" className="numBox" type="text"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Timeout Duration" num=""/>
+        <input placeholder=" num" className="numBox" type="text"></input>
       </div>
     </div>
     <p className='fillSpace2'>list more parameters as needed</p>
