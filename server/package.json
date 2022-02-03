@@ -7,7 +7,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "client-install": "cd client && npm install",
+    "client-install": "cd ../ && cd client && npm install",
     "both-install": "concurrently \"npm run client-install\" \"npm install\"",
     "server": "concurrently \"nodemon server.js\" \"nodemon storage.js\"",
     "client": "cd ../ && cd client && npm start",
