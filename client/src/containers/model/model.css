@@ -45,8 +45,10 @@
   width: 40px;
   height: 25px;
   margin-left: 10px;
+  margin-right: 10px;
   border-radius: 8px;
   border: 2px solid black;
+  padding: 0px 2px;
 }
 
 .dropdown {
