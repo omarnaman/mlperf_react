@@ -7,7 +7,7 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"node server.js\" \"node storage.js\"",
     "server": "nodemon server.js"
   },
   "name": "server",
