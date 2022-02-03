@@ -17,12 +17,12 @@ class StartButton extends React.Component {
 
   handleStart() {
     document.getElementById('bar').style.display = "flex"
-    document.getElementById("in").style.animation = "fill 6s linear 1"
+    document.getElementById("in").style.animation = "fill 5.5s linear 1"
     document.getElementById('test').style.padding = "167px 0px 62px"
     setTimeout(() => {
       document.getElementById('bar').style.display = "none";
       document.getElementById('test').style.padding = "167px 0px 135px"
-    }, 6500) 
+    },6000) 
 
     fetch('StartJob/5/5')
       .then(res => res.json())
