@@ -55,7 +55,7 @@ class StartButton extends React.Component {
   render() {
     return (
       <div className='startContain'>
-        <img id="status" className="statusIcon" src={pause}></img>
+        <img alt="progress Icon" id="status" className="statusIcon" src={pause}></img>
         {/* <div className='progressTogether'>
           <label className="barLabel">Job Progress: </label>
           <p className="barLabel" id="progressNum"> None Running</p> 

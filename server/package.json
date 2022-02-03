@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "concurrently \"node server.js\" \"node storage.js\"",
-    "server": "nodemon server.js"
+    "server": "concurrently \"nodemon server.js\" \"nodemon storage.js\""
   },
   "name": "server",
   "version": "1.0.0",
