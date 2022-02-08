@@ -5,7 +5,7 @@ import { Loadgen, StartTab, Model } from '../../containers';
 
 const Config = () => {
   return (
-  <div className="App">
+  <div className="config">
     <Model />
     <Loadgen />
     <StartTab />

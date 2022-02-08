@@ -1,0 +1,9 @@
+.page {
+  background-color: rgb(176, 204, 204);
+  display: flex;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}

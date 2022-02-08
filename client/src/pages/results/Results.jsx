@@ -1,10 +1,12 @@
 import React from 'react';
 import "./results.css";
+import { ResultsLeft, ResultsRight } from '../../containers';
 
 const Results = () => {
   return (
-  <div>
-    <h1>testting results page</h1>
+  <div className="page">
+    <ResultsLeft/>
+    <ResultsRight/>
   </div>
   )
 };
