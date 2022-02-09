@@ -50,7 +50,7 @@ function StartButton() {
         visualProgress(data.id)
         setid(data.id)
         settimeMs(data.timeMs)
-        setclients(data.clients)}, () => console.log("job started"));
+        setclients(data.clients)}, () => console.log("job start failed"));
   }
 
   return (
