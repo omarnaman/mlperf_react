@@ -1,8 +1,11 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var http = require("http");
 var uuid = require("uuid");
 const PORT = 8081;
+
+app.use(cors())
 
 var IS_RUNNING = {};
 const SERIES_SIZE = 100;

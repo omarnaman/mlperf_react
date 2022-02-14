@@ -48,6 +48,7 @@ function StartButton() {
       .then(res => res.json())
       .then(data => {
         visualProgress(data.id)
+        localStorage.setItem("id", JSON.stringify(data.id));
         setid(data.id)
         settimeMs(data.timeMs)
         setclients(data.clients)}, () => console.log("job start failed"));
