@@ -1,11 +1,12 @@
 import React from 'react';
 import "./resultsRight.css"
-import { Title } from '../../components';
+import { Title, TestGraph } from '../../components';
 
 const ResultsRight = () => {
   return (
   <div className='rightContain'>
-    <Title name="Right"/>
+    <Title name="Graph Display"/>
+    <TestGraph />
   </div>
   )
 };

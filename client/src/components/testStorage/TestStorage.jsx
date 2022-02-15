@@ -19,18 +19,29 @@ class TestStorage extends React.Component {
         newId = data[0].id}, () => console.log("failed to get results"))
 
         setTimeout(() => {
-          for (let i = 0; i < 5; i++){
-          document.getElementById("dataX" + i).innerHTML = xData[i];
-          document.getElementById("dataY" + i).innerHTML = yData[i];
-        }}, 500)
-  }
+          document.getElementById("Id").innerHTML = "ID: " + newId;
+          let tableref = document.getElementById("table");
+          for (let i = 0; i < 10; i++) {  
+            let newRow = tableref.insertRow(-1);
+            let newCell = newRow.insertCell(0);
+            let newCell2 = newRow.insertCell(-1);
+            let newText = document.createTextNode(xData[i]);
+            let newText2 = document.createTextNode(yData[i]);
+            newCell.append(newText);
+            newCell2.append(newText2);
+          }
+          document.getElementById("tableContain").style.padding = "0px 0px 291px 0px";
+        }
+        , 30);
 
+  }
 
   render(){
     return (
-      <div>
-        <button onClick={this.getResult}>Get Results</button>
-        <table>
+      <div id="tableContain" className="tableContain">
+        <button className="populateButton" onClick={this.getResult}>Display Results</button>
+        <p className='Id' id="Id">ID: Waiting for Results</p>
+        <table id="table">
           <thead>
             <tr>
               <th>dataX</th>
@@ -38,26 +49,6 @@ class TestStorage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td id="dataX0">filler for now</td>
-              <td id="dataY0"></td>
-            </tr>
-            <tr>
-              <td id="dataX1"></td>
-              <td id="dataY1"></td>
-            </tr>
-            <tr>
-              <td id="dataX2"></td>
-              <td id="dataY2"></td>
-            </tr>
-            <tr>
-              <td id="dataX3"></td>
-              <td id="dataY3"></td>
-            </tr>
-            <tr>
-              <td id="dataX4"></td>
-              <td id="dataY4"></td>
-            </tr>
           </tbody>
         </table>
       </div>

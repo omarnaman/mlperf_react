@@ -5,7 +5,7 @@ import { Title, TestStorage } from '../../components';
 const ResultsLeft = () => {
   return (
   <div className='leftContain'>
-    <Title name="Left"/>
+    <Title name="Table Display"/>
     <TestStorage />
   </div>
   )
