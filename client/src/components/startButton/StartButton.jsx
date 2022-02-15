@@ -44,7 +44,7 @@ function StartButton() {
       document.getElementById('test').style.padding = "190px 0px 134px"
     },5500) 
     setTimeout(() => {
-      //navigate("/results");
+      navigate("/results");
     },5500)
 
     fetch('StartJob/5/5')
