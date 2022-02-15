@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './startButton.css';
 import pause from './pause-button.png';
-import load from './loading.png';
 import { useNavigate } from "react-router-dom";
+import MoonLoader from "react-spinners/MoonLoader"
 
 function StartButton() {
   const [id, setid] = useState("sdfa12");
@@ -19,29 +19,32 @@ function StartButton() {
         .then(res => res.json())
         .then(data => {
           if (data.isRunning){
-            document.getElementById("status").src = load
             document.getElementById("statusDescription").innerHTML = "jobId: " + id + " is running"
+            document.getElementById("moon").style.display = "flex";
+            document.getElementById("status").style.display = "none";
           } else {
             document.getElementById("statusDescription").innerHTML = "no job is running"
-            document.getElementById("status").src = pause
+            document.getElementById("status").style.display = "flex";
+            document.getElementById("moon").style.display = "none";
             clearInterval(timeID)
           }
         }, () => {            
             document.getElementById("statusDescription").innerHTML = "no job is running"
-            document.getElementById("status").src = pause})
+            document.getElementById("moon").style.display = "none";
+            document.getElementById("status").style.display = "flex";})
     },500);
   }
 
   async function handleStart(){
     document.getElementById('bar').style.display = "flex"
     document.getElementById("in").style.animation = "fill 5s linear 1"
-    document.getElementById('test').style.padding = "167px 0px 62px"
+    document.getElementById('test').style.padding = "190px 0px 63px"
     setTimeout(() => {
       document.getElementById('bar').style.display = "none";
-      document.getElementById('test').style.padding = "167px 0px 135px"
+      document.getElementById('test').style.padding = "190px 0px 134px"
     },5500) 
     setTimeout(() => {
-      navigate("/results");
+      //navigate("/results");
     },5500)
 
     fetch('StartJob/5/5')
@@ -57,6 +60,9 @@ function StartButton() {
   return (
     <div className='startContain'>
       <img alt="progress Icon" id="status" className="statusIcon" src={pause}></img>
+      <div id="moon" style={{ display: "none", margin: "0px 0px 56px 0px" }}>
+        <MoonLoader size={150} />
+      </div>
       <div id="bar" class="bar">
         <div id="in" class="in"></div>
       </div>
