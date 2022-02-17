@@ -41,10 +41,10 @@ function StartButton() {
     document.getElementById('bar').style.display = "flex"
     document.getElementById("in").style.animation = "fill 5s linear 1"
     document.getElementById('test').style.padding = "190px 0px 63px"
-    setTimeout(() => {
-      document.getElementById('bar').style.display = "none";
-      document.getElementById('test').style.padding = "190px 0px 134px"
-    },5500) 
+    // setTimeout(() => {
+    //   document.getElementById('bar').style.display = "none";
+    //   document.getElementById('test').style.padding = "190px 0px 134px"
+    // },5500) 
 
     fetch('StartJob/5/5')
       .then(res => res.json())
