@@ -13,7 +13,7 @@ function StartButton() {
 
   let visualProgress = (id) => {
     var timeID = setInterval(() => {
-      console.log(id)
+      //console.log(id)
       let runningURL = "IsRunning/" + id;
       fetch(runningURL)
         .then(res => res.json())
@@ -29,7 +29,8 @@ function StartButton() {
             navigate("/results");
             clearInterval(timeID)
           }
-        }, () => {            
+        }, () => { 
+            console.log("some error")           
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("moon").style.display = "none";
             document.getElementById("status").style.display = "flex";})
