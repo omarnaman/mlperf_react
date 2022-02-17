@@ -26,6 +26,7 @@ function StartButton() {
             document.getElementById("statusDescription").innerHTML = "no job is running"
             document.getElementById("status").style.display = "flex";
             document.getElementById("moon").style.display = "none";
+            navigate("/results");
             clearInterval(timeID)
           }
         }, () => {            
@@ -43,9 +44,6 @@ function StartButton() {
       document.getElementById('bar').style.display = "none";
       document.getElementById('test').style.padding = "190px 0px 134px"
     },5500) 
-    setTimeout(() => {
-      navigate("/results");
-    },5500)
 
     fetch('StartJob/5/5')
       .then(res => res.json())
