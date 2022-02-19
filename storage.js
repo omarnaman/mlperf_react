@@ -1,4 +1,6 @@
-const { assert } = require('console');
+const {
+    assert
+} = require('console');
 var express = require('express');
 var app = express();
 const sqlite3 = require('sqlite3').verbose();
@@ -11,7 +13,7 @@ app.use(express.json())
  * A wrapper around the sqlite/sqlite3 driver
  */
 class SQLiteDB {
-    constructor(filepath = ":memory:") {
+    constructor(filepath = "data.db") {
         this.filepath = filepath
         this._init()
     }
@@ -21,58 +23,75 @@ class SQLiteDB {
             filename: this.filepath,
             driver: sqlite3.Database
         })
-        this.db.run('CREATE TABLE results(ID, X, Y)')
+        this.db.run(`CREATE TABLE IF NOT EXISTS 
+                        qps(experiment_id, selector, qps)`)
+        this.db.run(`CREATE TABLE IF NOT EXISTS 
+                        latencies(experiment_id, selector, latencies)`)
     }
-    
     /**
-     * prints all rows in the results table
+     * insert qps results into the qps table
+     * @param {string} eid the id of the experiment 
+     * @param {string} selector the selector of a point in the experiment
+     * @param {float} qps the qps of the job
      */
-    printAll() {
-        let sql = `SELECT ID, X, Y FROM results`
-        this.db.each(sql, [], (err, row) => {
-            console.log({ dataX: row.X.split(','), dataY: row.Y.split(','), id: id })
-        })
+    async addQPS(eid, selector, qps) {
+        let sql = "INSERT INTO qps(experiment_id, selector, qps) \
+        VALUES(?, ?, ?)"
+        const _ = await this.db.run(sql, [eid, selector, qps])
     }
 
     /**
-     * returns all the rows in the results table
-     * @returns {Array} {"dataX": Array, "dataY": Array, id: string}
+     * insert latency results into the latencies table
+     * @param {string} eid the id of the experiment 
+     * @param {string} selector the selector of a point in the experiment
+     * @param {Array} latencies the latencies of the samples sent by the job
      */
-    async getAll() {
+    async addLatencies(eid, selector, latencies) {
+        let ls = latencies.join(",")
+        let sql = "INSERT INTO latencies(experiment_id, selector, latencies) \
+        VALUES(?, ?, ?)"
+        const _ = await this.db.run(sql, [eid, selector, ls])
+    }
+
+    /**
+     * get the qps results of the jobs with the provided experiment id 
+     * @param {string} eid id of the experiment
+     * @returns {Array} a list of the selected rows 
+     */
+    async getQPS(eid) {
+        let sql = `SELECT experiment_id, selector, qps 
+                FROM qps 
+                WHERE experiment_id=?`
         let results = []
-        let sql = `SELECT ID, X, Y FROM results`
-
-        let x = await this.db.all(sql, [])
-        x.forEach(row => {
-            results.push({ dataX: row.X.split(','), dataY: row.Y.split(','), id: id })
+        let rows = await this.db.all(sql, [eid])
+        rows.forEach(row => {
+            results.push({
+                experiment_id: row.experiment_id,
+                selector: row.selector,
+                qps: row.qps
+            })
         })
         return results
-
     }
 
     /**
-     * insert results into the results table
-     * @param {string} id the id of the job 
-     * @param {Array} X the X series of the results 
-     * @param {Array} Y the Y series of the results
+     * get the latency results of the jobs with the provided 
+     *  experiment id 
+     * @param {string} eid id of the experiment
+     * @returns {Array} a list of the selected rows 
      */
-    async addResults(id, X, Y) {
-        const _ = await this.db.run(`INSERT INTO results(ID, X, Y) VALUES(?, ?, ?)`, [id, X.join(","), Y.join(",")])
-    }
-
-    /**
-     * get the results of the job with the provided id 
-     * @param {string} id id of the job
-     * @returns {Array} the rows with the provided id
-     */
-    async getResults(id) {
-        let sql = `SELECT ID, X, Y
-            FROM results
-            WHERE ID = ?`
-        let results = []
-        let rows = await this.db.all(sql, [id])
+    async getLatencies(eid) {
+        let sql = `SELECT experiment_id, selector, latencies 
+                FROM latencies 
+                WHERE experiment_id=?`
+                let results = []
+        let rows = await this.db.all(sql, [eid])
         rows.forEach(row => {
-            results.push({ dataX: row.X.split(','), dataY: row.Y.split(','), id: id })
+            results.push({
+                experiment_id: row.experiment_id,
+                selector: row.selector,
+                qps: row.latencies
+            })
         })
         return results
     }
@@ -81,38 +100,52 @@ class SQLiteDB {
 var DB = new SQLiteDB();
 
 /**
- * Store the results of the experiment with :id, the results of the experiment should be in the payload as {dataX}, {dataY}, and {id} the id of the job 
- * @param {string} id the id of the job
+ * Store the results of the experiment with :eid, the results 
+ *  of the experiment should be in the payload as 
+ *  {eid} the id of the experiment 
+ *  {selector} as the id of the job/point in the experiment 
+ *  {qps}: the latencies of the samples sent by the job
  */
-app.post('/StoreResults/:id', function (req, res) {
-    dataX = req.body.dataX
-    dataY = req.body.dataY
-    assert(req.body.id == req.params.id, `params: ${req.params.id}, body: ${req.body.id}`)
-    id = req.body.id
-    DB.addResults(id, dataX, dataY)
+app.post('/qps/', function (req, res) {
+    eid = req.body.experiment_id
+    selector = req.body.selector
+    qps = req.body.qps
+    DB.addQPS(eid, selector, qps)
     res.end()
-
 })
 
 /**
- * Get the results of a single job
- * @param {string} id the id of the job
+ * Store the results of the experiment with :eid, the results 
+ *  of the experiment should be in the payload as 
+ *  {eid} the id of the experiment 
+ *  {selector} as the id of the job/point in the experiment 
+ *  {latencies}: the latencies result of the job
  */
-app.get('/GetResults/:id', async (req, res) => {
-    results = await DB.getResults(req.params.id)
-    res.end(JSON.stringify(results))
-
+app.post('/latencies/', function (req, res) {
+    eid = req.body.experiment_id
+    selector = req.body.selector
+    latencies = req.body.latencies
+    DB.addLatencies(eid, selector, latencies)
+    res.end()
 })
 
 /**
- * Get the results of all jobs
+ * Get the qps of an experiment's jobs
+ * @param {string} id the id of the experiment
  */
-app.get('/GetALL/', async (req, res) => {
-    results = await DB.getAll()
+app.get('/qps/:eid', async (req, res) => {
+    results = await DB.getQPS(req.params.eid)
     res.end(JSON.stringify(results))
-
 })
 
+/**
+ * Get the latencies of an experiment's jobs
+ * @param {string} id the id of the experiment
+ */
+app.get('/latencies/:eid', async (req, res) => {
+    results = await DB.getLatencies(req.params.eid)
+    res.end(JSON.stringify(results))
+})
 
 var server = app.listen(PORT, function () {
     console.log("Listening on http://0.0.0.0:%s", PORT)
