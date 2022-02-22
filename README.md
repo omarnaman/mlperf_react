@@ -20,13 +20,11 @@ This operation has no extra parameters.
 ```json
 [
     {
-        "experiment_id": {experiment_id: String},
-        "selector": {job_selector: String},
-        "qps": {QPS_Result: float}
+        "experiment_id": "{experiment_id: String}",
+        "selector": "{job_selector: String}",
+        "qps": "{QPS_Result: float}"
     }
-.
-.
-.
+
 ]
 ```
 
@@ -39,7 +37,7 @@ This operation has no extra parameters.
 | -------------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
 | experiment_id  | The ID of the experiment that the list of latencies is associated with. Used to select multiple related jobs. | String      |
 | selector       | The ID of a specific job that the list of latencies is associated with.                                       | String      |
-| latencies      | The QPS result of the job, one for each sample in the job                                                     | List[Float] |
+| latencies      | The list of latency results of the job, one for each sample in the job.                                                    | List[Float] |
 ---
 ### `GET` /latencies/{experiment_id}
 This operation has no extra parameters. 
@@ -47,12 +45,10 @@ This operation has no extra parameters.
 ```json
 [
     {
-        "experiment_id": {experiment_id: String},
-        "selector": {job_selector: String},
-        "latencies": {Latency_Results: comma-separated floats}
+        "experiment_id": "{experiment_id: String}",
+        "selector": "{job_selector: String}",
+        "latencies": "{Latency_Results: comma-separated floats}"
     }
-.
-.
-.
+
 ]
 ```
