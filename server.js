@@ -9,6 +9,9 @@ const SERIES_SIZE = 100;
 
 const STORAGE_IP = process.argv[2]
 
+console.error("THIS FILE IS ONLY FOR DOCUMENTATION AND IS CONSIDERED DEPRICATED")
+exit()
+
 /**
  * A class responsible for generating unique IDs (uuids for now)
  */
