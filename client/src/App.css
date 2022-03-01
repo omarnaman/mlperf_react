@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2vh 4vw 2vh 4vw;
+  background-color: antiquewhite;
+  font-size: 3vh;
+  font-family: "PT Sans", sans-serif;
+  font-weight: bold;
+}
+
+.main {
+  height: 92vh;
+  display: flex;
+}
+
+.pageBar {
+  height: 100%;
+  background-color: beige;
+  font-size: 35px;
+  font-family: "PT Sans", sans-serif;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.pageTab {
+  padding: 10vh 0vw 2vh 0vw;
+  height: 33%;
+  background-color: azure;
+  border-bottom: 2px solid black;
+}
+
+.display {
+  flex-grow: 12;
+}
