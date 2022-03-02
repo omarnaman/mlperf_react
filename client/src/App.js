@@ -1,10 +1,11 @@
 import React from 'react';
 import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PageBar } from './components';
 import Config from './pages/config/Config';
 import Results from "./pages/results/Results"
 
-const App = () => {
+function App(){
   return (
     <Router>
       <div className='header'>
@@ -13,11 +14,7 @@ const App = () => {
         <p>Tool Version: </p>
       </div>
       <div className='main'>
-        <div className='pageBar'>
-          <p className='pageTab'>Configuration</p>
-          <p className='pageTab'>Results</p>
-          <p className='pageTab'>Settings</p>
-        </div>
+        <PageBar />
         <div className='display'>
           <Routes>
             <Route path="/" element={<Config />}></Route>

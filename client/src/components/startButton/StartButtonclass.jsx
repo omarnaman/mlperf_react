@@ -2,7 +2,6 @@ import React from 'react';
 import './startButton.css';
 import pause from './pause-button.png';
 import load from './loading.png';
-import { Link } from "react-router-dom";
 
 class StartButton extends React.Component {
   constructor() {

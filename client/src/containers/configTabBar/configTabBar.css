@@ -1,0 +1,35 @@
+.configFull {
+  height: 100%;
+}
+
+.configTabBar {
+  height: 100%;
+  font-size: 3vh;
+  font-family: "PT Sans", sans-serif;
+  font-weight: bold;
+}
+
+.configTab,
+.configTab2,
+.configTab3,
+.configTab4,
+.configTab5 {
+  height: 20%;
+  border-bottom: 0vh solid black;
+}
+
+.configTab2 {
+  border-right: 0.3vh solid black;
+}
+
+.configTab3 {
+  border-right: 0.3vh solid black;
+}
+
+.configTab4 {
+  border-right: 0.3vh solid black;
+}
+
+.configTab5 {
+  border-right: 0.3vh solid black;
+}
