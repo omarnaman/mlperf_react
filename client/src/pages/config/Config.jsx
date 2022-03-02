@@ -7,8 +7,7 @@ const Config = () => {
   return (
   <div className="config">
     <ConfigTabBar/>
-    {/* <p className='fillconfig'></p>
-    <StartTab /> */}
+    <StartTab />
   </div>
   )
 };

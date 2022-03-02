@@ -13,6 +13,7 @@ function ConfigTabBar() {
       </div>
       <div>
         {/* put each config page tab here */}
+        <p className='fillcon'>yeet</p>
       </div>
     </div>
   )

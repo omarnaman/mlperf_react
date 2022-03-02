@@ -1,14 +1,14 @@
 .StartButton {
   background-color: #678abe;
   border: 3px solid black;
-  padding: 20px 70px;
+  padding: 2vh 7vh;
   text-align: center;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 3vh;
   font-family: "PT Sans", sans-serif;
   font-weight: bold;
   border-radius: 40px;
-  margin: 20px;
+  margin: 7vh 0vh;
 }
 
 .StartButton:hover {
@@ -22,11 +22,14 @@
 }
 
 .statusIcon {
-  width: 250px;
-  height: 250px;
+  margin: 10vh 0vh;
+  width: 13vw;
+  height: 25vh;
 }
 
 .startContain {
+  height: 100%;
+  width: 25vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +37,7 @@
 }
 
 .descript {
-  font-size: 20px;
+  font-size: 2vh;
   font-weight: bold;
   font-family: "PT Sans", sans-serif;
 }
@@ -54,8 +57,8 @@
 
 .bar {
   border: 1px solid #666;
-  height: 20px;
-  width: 100%;
+  height: 2.7vh;
+  width: 90%;
   display: none;
 }
 

@@ -15,5 +15,6 @@
 }
 
 .display {
+  height: 100%;
   flex-grow: 12;
 }
