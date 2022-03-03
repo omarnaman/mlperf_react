@@ -4,7 +4,7 @@ import { Title, Parameter, ImportButton } from '../../components';
 
 const LoadGenerator = () => {
   return (
-  <div className='loadgenContain'>
+  <div className='genConfig'>
     <Title name="Load Generatator Configuration"/>
     <ImportButton />
   </div>

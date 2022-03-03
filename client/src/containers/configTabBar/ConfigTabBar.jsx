@@ -12,7 +12,7 @@ function ConfigTabBar() {
         <p className='configTab4'>Profiles</p>
         <p className='configTab5'>Cloud Development</p>
       </div>
-      <div>
+      <div className='loadgenContain'>
         {/* put each config page tab here */}
         <LoadGenerator/>
 
