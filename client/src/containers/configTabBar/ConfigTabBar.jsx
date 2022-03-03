@@ -1,5 +1,6 @@
 import React from 'react';
 import "./configTabBar.css"
+import LoadGenerator, { loadGenerator } from '.././loadGenerator/LoadGenerator'
 
 function ConfigTabBar() {
   return (
@@ -13,7 +14,8 @@ function ConfigTabBar() {
       </div>
       <div>
         {/* put each config page tab here */}
-        <p className='fillcon'>yeet</p>
+        <LoadGenerator/>
+
       </div>
     </div>
   )
