@@ -1,6 +1,8 @@
 .page {
   background-color: rgb(176, 204, 204);
   display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 * {

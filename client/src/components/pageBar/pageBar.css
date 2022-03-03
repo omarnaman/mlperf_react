@@ -20,3 +20,17 @@
   border-bottom: 0.3vh solid black;
   border-right: 0.3vh solid black;
 }
+
+.pageTab2:hover,
+.pageTab3:hover,
+.pageTab:hover {
+  background-color: #7693be;
+}
+
+.pageTab2:active,
+.pageTab3:active,
+.pageTab:active {
+  background-color: #7693be;
+  box-shadow: 0 2px #666;
+  transform: translateY(1px);
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import "./loadGenerator.css";
-import { Title, Parameter, ImportButton } from '../../components';
+import { Title, Parameter, ImportButton } from '../../../components';
 
 const LoadGenerator = () => {
   return (
@@ -31,11 +31,27 @@ const LoadGenerator = () => {
         <input placeholder=" num" className="numBox" type="text"></input>
       </div>
       <div className='paramTogether'>
-        <Parameter title="Max-Batchsize" num=""/>
+        <Parameter title="Max Batchsize" num=""/>
         <input placeholder=" num" className="numBox" type="text"></input>
       </div>
       <div className='paramTogether'>
         <Parameter title="Record Accuracy" num=""/>
+        <input defaultChecked className="checkBox" type="checkbox"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Time" num=""/>
+        <input placeholder=" text"className="TextBox" type="text"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Samples Per Query" num=""/>
+        <input placeholder=" text"className="TextBox" type="text"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Pipeline" num=""/>
+        <input defaultChecked className="checkBox" type="checkbox"></input>
+      </div>
+      <div className='paramTogether'>
+        <Parameter title="Max Outgoing" num=""/>
         <input defaultChecked className="checkBox" type="checkbox"></input>
       </div>
     </div>
