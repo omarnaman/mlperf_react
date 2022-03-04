@@ -1,0 +1,60 @@
+/* .modelContain {
+  background-color: rgb(224, 238, 238);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paramContain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0px;
+}
+
+.fillSpace3 {
+  padding: 20px 0px 238px;
+  font-size: 21px;
+}
+
+.TextBox {
+  width: 60px;
+  height: 25px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+
+.paramTogether {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 3px;
+}
+
+.checkBox {
+  width: 25px;
+  height: 25px;
+  margin-left: 20px;
+}
+
+.numBox {
+  width: 40px;
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
+  padding: 0px 2px;
+}
+
+.dropdown {
+  width: 100px;
+  height: 25px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 2px solid black;
+} */

@@ -1,0 +1,10 @@
+.config {
+  background-color: rgb(161, 223, 223);
+  display: flex;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
