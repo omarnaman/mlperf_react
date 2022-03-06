@@ -1,6 +1,6 @@
 import React from 'react';
 import "./loadgen.css";
-import { Title, Parameter, ImportButton } from '../../components';
+import { Title, Parameter, Button } from '../../components';
 
 const Loadgen = () => {
   return (
@@ -32,7 +32,7 @@ const Loadgen = () => {
       </div>
     </div>
     <p className='fillSpace2'>list more parameters as needed</p>
-    <ImportButton />
+    <Button text='Import Configuration From Disk'/>
   </div>
   )
 };

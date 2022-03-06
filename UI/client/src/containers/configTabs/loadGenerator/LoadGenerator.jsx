@@ -1,6 +1,6 @@
 import React from 'react';
 import "./loadGenerator.css";
-import { Title, Parameter, ImportButton } from '../../../components';
+import { Title, Parameter, Button } from '../../../components';
 
 const LoadGenerator = () => {
   return (
@@ -55,7 +55,7 @@ const LoadGenerator = () => {
         <input defaultChecked className="checkBox" type="checkbox"></input>
       </div>
     </div>
-    <ImportButton />
+    <Button text="Import Configuration From Disk"/>
   </div>
   )
 };

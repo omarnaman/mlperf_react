@@ -1,6 +1,6 @@
 import React from 'react';
 import "./systemTest.css";
-import { Title, Parameter, ImportButton } from '../../../components';
+import { Title, Parameter, Button } from '../../../components';
 
 const SystemTest = () => {
   return (
@@ -34,7 +34,7 @@ const SystemTest = () => {
       </div>
 
     </div>
-    <ImportButton />
+    <Button text="Import Configuration From Disk"/>
   </div>
   )
 };

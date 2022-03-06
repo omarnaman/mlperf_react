@@ -1,4 +1,4 @@
-.ImportButton {
+.Button {
   background-color: #678abe;
   border: 0.3vh solid black;
   padding: 1.5vh 5vh;
@@ -11,11 +11,11 @@
   margin: 2vh;
 }
 
-.ImportButton:hover {
+.Button:hover {
   background-color: #7693be;
 }
 
-.ImportButton:active {
+.Button:active {
   background-color: #7693be;
   box-shadow: 0 2px #666;
   transform: translateY(1px);

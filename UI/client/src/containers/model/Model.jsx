@@ -1,6 +1,6 @@
 import React from 'react';
 import "./model.css";
-import { Title, Parameter, ImportButton } from '../../components';
+import { Title, Parameter, Button } from '../../components';
 
 const Model = () => {
   return (
@@ -50,7 +50,7 @@ const Model = () => {
       </div>
     </div>
     <p className='fillSpace3'>list more parameters as needed</p>
-    <ImportButton />
+    <Button text='Import Configuration From Disk' />
   </div>
   )
 };
