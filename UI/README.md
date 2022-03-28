@@ -1,3 +1,8 @@
+to use:
+cd into "UI" folder
+use command "npm install"
+use command "npm start"
+
 🚀 [See it live](https://windmillui.com/dashboard-react)
 
 This is not a template. This is a complete application, built on top of React, with all tiny details taken care of so you just need to bring the data to feed it.
