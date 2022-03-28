@@ -4,6 +4,7 @@ import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnno
 
 const Layout = lazy(() => import('./containers/Layout'))
 
+//app component rendered in index.js
 function App() {
   return (
     <>

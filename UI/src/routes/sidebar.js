@@ -47,6 +47,9 @@ const routes = [
     icon: 'OutlineCogIcon',
     name: 'Settings',
   },
+  
+  //commented out code is the original template sidebar code, uncomment to access original template pages
+
   // {
   //   path: '/app/dashboard', // the url
   //   icon: 'HomeIcon', // the component being exported from icons/index.js
