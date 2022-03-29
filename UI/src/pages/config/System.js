@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { Component, useState, useContext } from 'react'
+import { ConfigContext } from '../../context/ConfigContext';
 
-import { useState } from "react";
 import PageTitle from '../../components/Typography/PageTitle'
 import { Input, Label, Select, Button } from '@windmill/react-ui'
 
 function System() {
+  const [config, setConfig] = useContext(ConfigContext)
 
-  const [inputs, setInputs] = useState({});
-
-  function HandleChange(e) {
+  const updateConfig = e => {
+    e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
-    setInputs(values => ({ ...values, [name]: value }))
+    setConfig(prevConfig => ({...prevConfig, [name]:value }))
+    console.log(config);
   }
+
   function save(target) {
     target.preventDefault();
     // Save to global state
@@ -26,12 +28,12 @@ function System() {
 
           <Label className="mt-4">
             <span>Model Threads</span>
-            <Input className="mt-1" placeholder="Number of threads dedicated to each request on the server side" type="num" name="modelThreads" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="Number of threads dedicated to each request on the server side" type="num" name="modelThreads" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>Model</span>
-            <Select className="mt-1" name="model" onChange={HandleChange}>
+            <Select className="mt-1" name="model" onChange={updateConfig}>
               <option>ssd-mobilnet</option>
               <option>USPP</option>
             </Select>
@@ -39,7 +41,7 @@ function System() {
 
           <Label className="mt-4">
             <span>Runtime</span>
-            <Select className="mt-1" name="runtime" onChange={HandleChange}>
+            <Select className="mt-1" name="runtime" onChange={updateConfig}>
               <option>tflite</option>
               <option>tensorflow</option>
               <option>pytorch</option>
@@ -50,7 +52,7 @@ function System() {
 
           <Label className="mt-4">
             <span>Consumer Threads</span>
-            <Input className="mt-1" placeholder="The number of requests processed concurrently" type="number" name="consumerThreads" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="The number of requests processed concurrently" type="number" name="consumerThreads" onChange={updateConfig} />
           </Label>
 
           <div className="mt-4">

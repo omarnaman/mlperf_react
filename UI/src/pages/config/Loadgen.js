@@ -1,18 +1,29 @@
-import React, { Component } from 'react'
-import { useState } from "react";
+import React, { Component, useState, useContext } from 'react'
+import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
 import { Input, Label, Select, Button } from '@windmill/react-ui'
 
 
 function Loadgen() {
-  const [inputs, setInputs] = useState({});
+  const [config, setConfig] = useContext(ConfigContext)
+  // const [inputs, setInputs] = useState({});
 
-  function HandleChange(e) {
+  // function HandleChange(e) {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   setInputs(values => ({ ...values, [name]: value }))
+  //   console.log(inputs);
+  // }
+
+  const updateConfig = e => {
+    e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
-    setInputs(values => ({ ...values, [name]: value }))
+    setConfig(prevConfig => ({...prevConfig, [name]:value }))
+    console.log(config);
   }
+
   function save(target) {
     target.preventDefault();
     // Save to global state
@@ -26,7 +37,7 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Data Set</span>
-            <Select className="mt-1" name="dataset" onChange={HandleChange}>
+            <Select className="mt-1" name="dataset" onChange={updateConfig}>
               <option>Imagenet2012</option>
               <option>Coco</option>
             </Select>
@@ -34,7 +45,7 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Scenario</span>
-            <Select className="mt-1" name="scenario" onChange={HandleChange}>
+            <Select className="mt-1" name="scenario" onChange={updateConfig}>
               <option>SingleStream</option>
               <option>MultiStream</option>
               <option>Offline</option>
@@ -43,37 +54,37 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Sample Count</span>
-            <Input className="mt-1" placeholder="The number of samples to be loaded from the dataset" type="number" name="sampleCount" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="The number of samples to be loaded from the dataset" type="number" name="sampleCount" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>Number of Clients</span>
-            <Input className="mt-1" placeholder="The number of clients to run concurrently" type="number" name="threadCount" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="The number of clients to run concurrently" type="number" name="threadCount" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4" check>
-            <Input type="checkbox" name="accuracy" onChange={HandleChange} />
+            <Input type="checkbox" name="accuracy" onChange={updateConfig} />
             <span className="ml-2">Record Accuracy</span>
           </Label>
 
           <Label className="mt-4" >
             <span>Time</span>
-            <Input className="mt-1" placeholder="Experiment duration in seconds" type="number" name="time" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="Experiment duration in seconds" type="number" name="time" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4" check>
-            <Input type="checkbox" name="pipeline" onChange={HandleChange} />
+            <Input type="checkbox" name="pipeline" onChange={updateConfig} />
             <span className="ml-2">Pipeline requests</span>
           </Label>
 
           <Label className="mt-4">
             <span>Samples Per Query</span>
-            <Input className="mt-1" placeholder="Samples to send per query" type="number" name="samplesPerQuery" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="Samples to send per query" type="number" name="samplesPerQuery" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>Max Outgoing Queries</span>
-            <Input className="mt-1" placeholder="Maximum outgoing queries in case of pipelining" type="number" name="maxOutgoing" onChange={HandleChange} />
+            <Input className="mt-1" placeholder="Maximum outgoing queries in case of pipelining" type="number" name="maxOutgoing" onChange={updateConfig} />
           </Label>
 
           <div className="mt-4">
