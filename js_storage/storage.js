@@ -1,13 +1,12 @@
-const {
-    assert
-} = require('console');
+const { assert } = require('console');
 var express = require('express');
+var cors = require('cors');
 var app = express();
 const sqlite3 = require('sqlite3').verbose();
 const sqlite = require('sqlite');
 const PORT = 8082;
 app.use(express.json())
-
+app.use(cors())
 
 /**
  * A wrapper around the sqlite/sqlite3 driver
