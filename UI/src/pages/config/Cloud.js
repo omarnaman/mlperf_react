@@ -17,6 +17,11 @@ function Cloud() {
 
   function save(target) {
     target.preventDefault();
+    const ids = ["cloudDeployment", "cloudProvider"];
+    ids.forEach(id => {
+      setConfig(prevConfig => ({...prevConfig, [id]:document.getElementById(id).value}))
+    })
+    console.log(config);
     // Save to global state
   }
 
@@ -28,13 +33,13 @@ function Cloud() {
         <form onSubmit={save}>
         
           <Label className="mt-4" check>
-            <Input type="checkbox" name="cloudDeployment" onChange={updateConfig}/>
+            <Input id="cloudDeployment" type="checkbox" name="cloudDeployment" onChange={updateConfig}/>
             <span className="ml-2">Enable Cloud Deployment</span>
           </Label>
 
           <Label className="mt-4">
             <span>Cloud Provider</span>
-            <Select className="mt-1" name="cloudProvider" onChange={updateConfig}>
+            <Select id="cloudProvider" className="mt-1" name="cloudProvider" onChange={updateConfig}>
               <option>AWS</option>
               <option>Google Cloud</option>
               <option>MS Azure</option>
@@ -43,6 +48,10 @@ function Cloud() {
 
           <div className="mt-4">
             <Button size="large">Import Configuration from Disk</Button>
+          </div>
+
+          <div className="mt-4">
+            <Input type="submit" value="Save Config" />
           </div>
         </form>
       </div>

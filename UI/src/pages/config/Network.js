@@ -17,8 +17,14 @@ function Network() {
 
   function save(target) {
     target.preventDefault();
+    const ids = ["tcClient", "tcClientDelay", "tcClientBW", "tcClientDrop", "tcServer", "tcServerDelay", "tcServerBW", "tcServerDrop"];
+    ids.forEach(id => {
+      setConfig(prevConfig => ({...prevConfig, [id]:document.getElementById(id).value}))
+    })
+    console.log(config);
     // Save to global state
   }
+
   return (
     <>
       <PageTitle>Network Emulation Configuration</PageTitle>
@@ -26,23 +32,23 @@ function Network() {
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
           <Label className="mt-4" check>
-            <Input type="checkbox" name="tc" onChange={updateConfig} />
+            <Input id="tcClient" type="checkbox" name="tcClient" onChange={updateConfig} />
             <span className="ml-2">Enable Client-side Traffic Emulation</span>
           </Label>
 
 
           <Label className="mt-4">
             <span>tc-delay</span>
-            <Input className="mt-1" placeholder="Emulated network delay from the client side (10ms, 1s, ...)" type="text" name="tcClientDelay" onChange={updateConfig} />
+            <Input id="tcClientDelay" className="mt-1" placeholder="Emulated network delay from the client side (10ms, 1s, ...)" type="text" name="tcClientDelay" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input className="mt-1" placeholder="Emulated network bandwidth from the client side (10kbps, 1mbps, ...)" type="text" name="tcClientBW" onChange={updateConfig} />
+            <Input id="tcClientBW" className="mt-1" placeholder="Emulated network bandwidth from the client side (10kbps, 1mbps, ...)" type="text" name="tcClientBW" onChange={updateConfig} />
           </Label>
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input className="mt-1" placeholder="Emulated network random drop probability on the client side" type="text" name="tcClientDrop" onChange={updateConfig} />
+            <Input id="tcClientDrop" className="mt-1" placeholder="Emulated network random drop probability on the client side" type="text" name="tcClientDrop" onChange={updateConfig} />
           </Label>
 
 
@@ -50,28 +56,32 @@ function Network() {
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
           <Label className="mt-4" check>
-            <Input type="checkbox" name="tc" onChange={updateConfig} />
+            <Input id="tcServer" type="checkbox" name="tcServer" onChange={updateConfig} />
             <span className="ml-2">Enable Server-side Traffic Emulation</span>
           </Label>
 
           <Label className="mt-4">
             <span>tc-delay</span>
-            <Input className="mt-1" placeholder="Emulated network delay from the server side (10ms, 1s, ...)" type="text" name="tcServerDelay" onChange={updateConfig} />
+            <Input id="tcServerDelay" className="mt-1" placeholder="Emulated network delay from the server side (10ms, 1s, ...)" type="text" name="tcServerDelay" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input className="mt-1" placeholder="Emulated network bandwidth from the server side (10kbps, 1mbps, ...)" type="text" name="tcServerBW" onChange={updateConfig} />
+            <Input id="tcServerBW" className="mt-1" placeholder="Emulated network bandwidth from the server side (10kbps, 1mbps, ...)" type="text" name="tcServerBW" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input className="mt-1" placeholder="Emulated network random drop probability on the server side" type="text" name="tcClientDrop" onChange={updateConfig} />
+            <Input id="tcServerDrop" className="mt-1" placeholder="Emulated network random drop probability on the server side" type="text" name="tcServerDrop" onChange={updateConfig} />
           </Label>
 
         </div>
         <div className="mt-4">
           <Button size="large">Import Configuration from Disk</Button>
+        </div>
+
+        <div className="mt-4">
+            <Input type="submit" value="Save Config" />
         </div>
       </form>
     </>
