@@ -14,7 +14,7 @@ const Cloud = lazy(() => import('../pages/config/Cloud'))
 const Loadgen = lazy(() => import('../pages/config/Loadgen'))
 const Network = lazy(() => import('../pages/config/Network'))
 const Profiles = lazy(() => import('../pages/config/Profiles'))
-const Run = lazy(() => import('../pages/config/Run'))
+const Run = lazy(() => import('../pages/Run'))
 const System = lazy(() => import('../pages/config/System'))
 const Settings = lazy(() => import('../pages/Settings'))
 const Results = lazy(() => import('../pages/Results'))
@@ -51,7 +51,7 @@ const routes = [
     component: Network,
   },
   {
-    path: '/config/run',
+    path: '/run',
     component: Run,
   },
   {

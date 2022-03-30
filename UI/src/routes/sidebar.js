@@ -31,11 +31,12 @@ const routes = [
         path: '/app/config/cloud',
         name: 'Cloud Deployment',
       },      
-      {
-        path: '/app/config/run',
-        name: 'Run Experiment',
-      },
     ],
+  },
+  {
+    path: '/app/run',
+    icon: 'ChartsIcon',
+    name: 'Run Experiment',
   },
   {
     path: '/app/results',
