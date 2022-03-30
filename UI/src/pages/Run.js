@@ -8,10 +8,13 @@ import { Card, CardBody } from '@windmill/react-ui'
 function Run() {
   
   async function handleStart(){
-    fetch("http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/")
+    const address = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/";
+    const address2 = "http://3.133.91.254:8087/latencies/testing";
+    fetch(address2)
       .then(res => res.json)
       .then(data => {
         console.log(data)
+        console.log(address2)
       })
   }
 
