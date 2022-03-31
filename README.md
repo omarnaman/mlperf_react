@@ -52,3 +52,19 @@ This operation has no extra parameters.
 
 ]
 ```
+## /experiments
+
+### `GET` /experiments/ 
+This operation has no extra parameters. 
+### **Returns** the list of latency results associated with the Experiment ID, one for each job.
+```json
+{
+    "experiments" : [
+        eid1,
+        eid2,
+        .
+        .
+        .
+    ]
+}
+```
