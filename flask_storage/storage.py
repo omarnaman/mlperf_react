@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 import flask
+from flask_cors import CORS, cross_origin
 from flask import request
 import sqlite3
 
 app = flask.Flask(__name__)
+CORS(app)
 PORT = 8082;
 
 
@@ -99,11 +101,13 @@ def print_all():
     return "Done"
 
 @app.route("/qps/<eid>", methods=["GET"])
+@cross_origin()
 def get_qps(eid: str):
     db = SQLiteDB()
     return flask.jsonify(db.get_qps(eid))
 
 @app.route("/latencies/<eid>", methods=["GET"])
+@cross_origin()
 def get_latencies(eid: str):
     db = SQLiteDB()
     return flask.jsonify(db.get_latencies(eid))
