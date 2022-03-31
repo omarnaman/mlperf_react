@@ -36,6 +36,7 @@ class JobSpec {
     }
 }
 
+// eid and selector accept strings, args accepts an array of strings
 export function createJobYAML(eid, selector, args) {
     const args_full = [eid, selector].concat(args)
     const o = {
