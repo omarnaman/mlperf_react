@@ -1,0 +1,46 @@
+    // //http request to k8s service
+    // fetch(k8sService)
+    //   .then(res => res.json())
+    //   .then(data => console.log(data.paths))
+
+    // // http request to storage service latencies endpoint
+    // // retrieves an array of objects, with experiment id, the latencies as one long string of numbers seperated by commas, and the selector
+    // fetch(storageLatencies)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //     console.log(data.length)
+    //     console.log(data[0])
+    //     console.log(data[0].latencies)})
+
+    // // http request to storage service qps endpoint
+    // // retrieves an array of objects, with experiment id, the qps as a num or float, and the selector
+    // fetch(storageQps)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //     console.log(data.length)
+    //     console.log(data[data.length - 1])})
+
+    // http request to check a jobs status, will work if name is correct and job is currently running
+    // fetch(k8sServiceJobStatus)
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+
+    // http request to start a job and then check it's status after 1 second
+    // fetch(k8sServiceStartJob, {
+    //   method: 'POST',
+    //   mode: 'cors', 
+    //   headers: {
+    //     'Content-Type': 'application/yaml'
+    //   },
+    //   body: createJobYAML(eid, testSelector, ["--scenario", "Offline", "--time", "10", "--threads", "4", "--count", "400"])
+    // })
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+
+    //   setTimeout(() => {
+    //     fetch(k8sServiceJobStatus)
+    //     .then(res => res.json())
+    //     .then(data => console.log(data))
+    //   }, 1000)

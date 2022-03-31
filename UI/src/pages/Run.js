@@ -10,10 +10,16 @@ import { createJobYAML } from "../utils/yaml_builder"
 function Run() {
   
   async function handleStart(){
+    
+
+    document.getElementById("statusImg").src = "https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-8.png"
+    document.getElementById("statusTxt").innerHTML = "experiment is running"
+
+    var eid = "testing";
     var testSelector = "client400"
     const k8sService = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/";
-    const storageLatencies = "http://3.133.91.254:8087/latencies/testing";
-    const storageQps = "http://3.133.91.254:8087/qps/testing";
+    const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid;
+    const storageQps = "http://3.133.91.254:8087/qps/" + eid;
     const k8sServiceStartJob = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs"
     const k8sServiceJobStatus = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs/" + testSelector
 
@@ -47,16 +53,16 @@ function Run() {
     //   .then(data => console.log(data))
 
     // http request to start a job and then check it's status after 1 second
-    fetch(k8sServiceStartJob, {
-      method: 'POST',
-      mode: 'cors', 
-      headers: {
-        'Content-Type': 'application/yaml'
-      },
-      body: createJobYAML("testing", testSelector, ["--scenario", "Offline", "--time", "10", "--threads", "4", "--count", "400"])
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
+    // fetch(k8sServiceStartJob, {
+    //   method: 'POST',
+    //   mode: 'cors', 
+    //   headers: {
+    //     'Content-Type': 'application/yaml'
+    //   },
+    //   body: createJobYAML(eid, testSelector, ["--scenario", "Offline", "--time", "10", "--threads", "4", "--count", "400"])
+    // })
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
 
     //   setTimeout(() => {
     //     fetch(k8sServiceJobStatus)
@@ -72,10 +78,11 @@ function Run() {
 
         <Card>
           <CardBody>
-            <SectionTitle>No Experiment is Running</SectionTitle>
+            <SectionTitle id="statusText">Experiment Status:</SectionTitle>
+            <p id="statusTxt" className="text-white font-bold">No experiment is running</p>
 
             <div className='mt-10'>
-              <img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
+              <img id="statusImg" src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
             </div>
 
             <div className='mt-10'>
