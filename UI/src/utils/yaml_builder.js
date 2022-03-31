@@ -49,9 +49,9 @@ function createJobYAML(eid, selector, args) {
             }
         }
     }
-    return o
+    return yaml.dump(o)
 }
 
 
 
-// body = yaml.dump(createJobYAML("testing", "1", ["--scenario", "SingleStream", "--threads", "1"]), {"quotingType":'"'})
+// createJobYAML("testing", "1", ["--scenario", "SingleStream", "--threads", "1"]), {"quotingType":'"'}
