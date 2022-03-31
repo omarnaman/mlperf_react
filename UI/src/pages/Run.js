@@ -10,7 +10,7 @@ import { createJobYAML } from "../utils/yaml_builder"
 function Run() {
   
   async function handleStart(){
-    var testSelector = "client12"
+    var testSelector = "client200"
     const k8sService = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/";
     const storageLatencies = "http://3.133.91.254:8087/latencies/testing";
     const storageQps = "http://3.133.91.254:8087/qps/testing";
@@ -47,23 +47,23 @@ function Run() {
     //   .then(data => console.log(data))
 
     // http request to start a job and then check it's status after 1 second
-    // fetch(k8sServiceStartJob, {
-    //   method: 'POST',
-    //   mode: 'cors', 
-    //   headers: {
-    //     'Content-Type': 'application/yaml'
-    //   },
-    //   body: createJobYAML("testing", testSelector, ["testing", "client7" ,"--scenario", "Offline", "--time", "10", "--threads", "4", "--count", "400"])
-    // })
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
+    fetch(k8sServiceStartJob, {
+      method: 'POST',
+      mode: 'cors', 
+      headers: {
+        'Content-Type': 'application/yaml'
+      },
+      body: createJobYAML("testing", testSelector, ["testing", "client7" ,"--scenario", "Offline", "--time", "10", "--threads", "4", "--count", "400"])
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
 
     //   setTimeout(() => {
     //     fetch(k8sServiceJobStatus)
     //     .then(res => res.json())
     //     .then(data => console.log(data))
     //   }, 1000)
-    
+
   }
 
   return (
