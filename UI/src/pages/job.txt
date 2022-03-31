@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: "client5"
+  labels:
+    name: lg
+spec:
+  ttlSecondsAfterFinished: 10
+  template:
+    spec:
+      containers:
+      - image: loadgen
+        name: lg
+        args: ["testing", "client5" ,"--scenario", "Offline", "--time", "20", "--threads", "4", "--count", "400"]
+        imagePullPolicy: Never
+      initContainers:
+      - image: busybox
+        name: wait-sut
+        command: ["sh", "-c", "wget sut:8086 2>&1 | grep refused; while [[ $? == 0 ]]; do sleep 2; wget sut:8086 2>&1 | grep refused; done;"]
+      restartPolicy: Never
