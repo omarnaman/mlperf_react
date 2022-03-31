@@ -49,7 +49,7 @@ function createJobYAML(eid, selector, args) {
             }
         }
     }
-    return yaml.dump(o)
+    return yaml.dump(o, {"quotingType":'"'})
 }
 
 
