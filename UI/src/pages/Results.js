@@ -25,7 +25,7 @@ import {
 
 function Results() {
 
-  var eid = "testing"
+  var eid = "test2"
   const storageQps = "http://3.133.91.254:8087/qps/" + eid;
   const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid;
   const qpsSec = ["qsel0", "qsel1", "qsel2", "qsel3"]
@@ -38,7 +38,7 @@ function Results() {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        for (var idx = 0; idx < data.length - 1 && idx < 4; idx++){
+        for (var idx = 0; idx < data.length && idx < 4; idx++){
           document.getElementById(qpsSec[idx]).innerHTML = data[idx].selector;
           document.getElementById(qpsids[idx]).innerHTML = data[idx].qps;
         }
@@ -51,7 +51,7 @@ function Results() {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        for (var idx = 0; idx < data.length - 1 && idx < 4; idx++){
+        for (var idx = 0; idx < data.length && idx < 4; idx++){
           document.getElementById(latSec[idx]).innerHTML = data[idx].selector;
           document.getElementById(latids[idx]).innerHTML = data[idx].latencies.split(',').map(element => {
           return element.substring(0,1);
