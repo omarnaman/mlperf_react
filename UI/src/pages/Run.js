@@ -8,8 +8,13 @@ const fs = require('fs');
 
 
 function Run() {
-  
+
   async function handleStart(){
+
+    document.getElementById("statusImg").src = "https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-8.png"
+    document.getElementById("statusTxt").innerHTML = "experiment is running"
+    
+
     const k8sService = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/";
     const storageLatencies = "http://3.133.91.254:8087/latencies/testing";
     const storageQps = "http://3.133.91.254:8087/qps/testing";
@@ -67,10 +72,11 @@ function Run() {
 
         <Card>
           <CardBody>
-            <SectionTitle>No Experiment is Running</SectionTitle>
+            <SectionTitle id="statusText">Experiment Status:</SectionTitle>
+            <p id="statusTxt" className="text-white font-bold">No experiment is running</p>
 
             <div className='mt-10'>
-              <img src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
+              <img id="statusImg" src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
             </div>
 
             <div className='mt-10'>

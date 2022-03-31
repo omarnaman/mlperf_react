@@ -28,7 +28,10 @@ function Results() {
       <PageTitle>Results</PageTitle>
 
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <SectionTitle>Jobid: 04f645f2-92a5-8260-91c2bc267b71</SectionTitle>
+
+        <SectionTitle>Experiment Results</SectionTitle>
+
+        {/* <SectionTitle>Jobid: 04f645f2-92a5-8260-91c2bc267b71</SectionTitle>
 
         <ChartCard title="Lines">
           <Line {...lineOptions} />
@@ -93,7 +96,7 @@ function Results() {
               <Pagination totalResults={4} resultsPerPage={4} onChange={() => {}} label="Table navigation" />
             </TableFooter>
           </TableContainer>
-        </div>
+        </div> */}
 
       </div>
     </>
