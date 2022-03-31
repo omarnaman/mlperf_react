@@ -29,7 +29,7 @@ function Loadgen() {
     target.preventDefault();
     const ids = ["dataset", "scenario", "sampleCount", "threadCount", "accuracy", "time", "pipeline", "samplesPerQuery", "maxOutgoing"];
     ids.forEach(id => {
-      setConfig(prevConfig => ({...prevConfig, [id]:document.getElementById(id).value}))
+      setConfig(prevConfig => ({...prevConfig, [document.getElementById(id).name]:document.getElementById(id).value}))
     })
     console.log(config);
     // Save to global state
@@ -43,7 +43,7 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Data Set</span>
-            <Select id="dataset" className="mt-1" name="dataset" onChange={updateConfig}>
+            <Select id="dataset" className="mt-1" name="--dataset" onChange={updateConfig}>
               <option>Imagenet2012</option>
               <option>Coco</option>
             </Select>
@@ -51,7 +51,7 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Scenario</span>
-            <Select id="scenario" className="mt-1" name="scenario" onChange={updateConfig}>
+            <Select id="scenario" className="mt-1" name="--scenario" onChange={updateConfig}>
               <option>SingleStream</option>
               <option>MultiStream</option>
               <option>Offline</option>
@@ -60,37 +60,37 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Sample Count</span>
-            <Input id="sampleCount" className="mt-1" placeholder="The number of samples to be loaded from the dataset" type="number" name="sampleCount" onChange={updateConfig} />
+            <Input id="sampleCount" className="mt-1" placeholder="The number of samples to be loaded from the dataset" type="number" name="--count" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>Number of Clients</span>
-            <Input id="threadCount" className="mt-1" placeholder="The number of clients to run concurrently" type="number" name="threadCount" onChange={updateConfig} />
+            <Input id="threadCount" className="mt-1" placeholder="The number of clients to run concurrently" type="number" name="--threads" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4" check>
-            <Input id="accuracy" type="checkbox" name="accuracy" onChange={updateConfig} />
+            <Input id="accuracy" type="checkbox" name="--accuracy" onChange={updateConfig} />
             <span className="ml-2">Record Accuracy</span>
           </Label>
 
           <Label className="mt-4" >
             <span>Time</span>
-            <Input id="time" className="mt-1" placeholder="Experiment duration in seconds" type="number" name="time" onChange={updateConfig} />
+            <Input id="time" className="mt-1" placeholder="Experiment duration in seconds" type="number" name="--time" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4" check>
-            <Input id="pipeline" type="checkbox" name="pipeline" onChange={updateConfig} />
+            <Input id="pipeline" type="checkbox" name="--pl" onChange={updateConfig} />
             <span className="ml-2">Pipeline requests</span>
           </Label>
 
           <Label className="mt-4">
             <span>Samples Per Query</span>
-            <Input id="samplesPerQuery" className="mt-1" placeholder="Samples to send per query" type="number" name="samplesPerQuery" onChange={updateConfig} />
+            <Input id="samplesPerQuery" className="mt-1" placeholder="Samples to send per query" type="number" name="--samples-per-query" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>Max Outgoing Queries</span>
-            <Input id="maxOutgoing" className="mt-1" placeholder="Maximum outgoing queries in case of pipelining" type="number" name="maxOutgoing" onChange={updateConfig} />
+            <Input id="maxOutgoing" className="mt-1" placeholder="Maximum outgoing queries in case of pipelining" type="number" name="--max_outgoing" onChange={updateConfig} />
           </Label>
 
           <div className="mt-4">

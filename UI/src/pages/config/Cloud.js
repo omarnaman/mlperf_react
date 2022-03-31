@@ -19,7 +19,7 @@ function Cloud() {
     target.preventDefault();
     const ids = ["cloudDeployment", "cloudProvider"];
     ids.forEach(id => {
-      setConfig(prevConfig => ({...prevConfig, [id]:document.getElementById(id).value}))
+      setConfig(prevConfig => ({...prevConfig, [document.getElementById(id).name]:document.getElementById(id).value}))
     })
     console.log(config);
     // Save to global state

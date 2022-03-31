@@ -19,7 +19,7 @@ function Network() {
     target.preventDefault();
     const ids = ["tcClient", "tcClientDelay", "tcClientBW", "tcClientDrop", "tcServer", "tcServerDelay", "tcServerBW", "tcServerDrop"];
     ids.forEach(id => {
-      setConfig(prevConfig => ({...prevConfig, [id]:document.getElementById(id).value}))
+      setConfig(prevConfig => ({...prevConfig, [document.getElementById(id).name]:document.getElementById(id).value}))
     })
     console.log(config);
     // Save to global state
@@ -32,19 +32,19 @@ function Network() {
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
           <Label className="mt-4" check>
-            <Input id="tcClient" type="checkbox" name="tcClient" onChange={updateConfig} />
+            <Input id="tcClient" type="checkbox" name="--tc" onChange={updateConfig} />
             <span className="ml-2">Enable Client-side Traffic Emulation</span>
           </Label>
 
 
           <Label className="mt-4">
             <span>tc-delay</span>
-            <Input id="tcClientDelay" className="mt-1" placeholder="Emulated network delay from the client side (10ms, 1s, ...)" type="text" name="tcClientDelay" onChange={updateConfig} />
+            <Input id="tcClientDelay" className="mt-1" placeholder="Emulated network delay from the client side (10ms, 1s, ...)" type="text" name="--tc_delay" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input id="tcClientBW" className="mt-1" placeholder="Emulated network bandwidth from the client side (10kbps, 1mbps, ...)" type="text" name="tcClientBW" onChange={updateConfig} />
+            <Input id="tcClientBW" className="mt-1" placeholder="Emulated network bandwidth from the client side (10kbps, 1mbps, ...)" type="text" name="--tc_bandwidth" onChange={updateConfig} />
           </Label>
           <Label className="mt-4">
             <span>tc-bandwidth</span>
