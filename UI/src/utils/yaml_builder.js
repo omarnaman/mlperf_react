@@ -36,9 +36,9 @@ class JobSpec {
     }
 }
 
-function createJobYAML(eid, selector, args) {
-    args_full = [eid, selector].concat(args)
-    o = {
+export function createJobYAML(eid, selector, args) {
+    const args_full = [eid, selector].concat(args)
+    const o = {
         apiVersion:"batch/v1",
         kind: "Job",
         metadata: new metadata(selector, "lg"),
