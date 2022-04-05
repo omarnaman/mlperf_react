@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
+import { ConfigContext } from '../context/ConfigContext';
 import { Input, Label, Select, Button } from '@windmill/react-ui'
 import PageTitle from '../components/Typography/PageTitle'
 import SectionTitle from '../components/Typography/SectionTitle'
@@ -24,17 +25,20 @@ import {
 
 
 function Results() {
+  const {eidContext, configContext} = useContext(ConfigContext);
+  const [eid,setEid] = eidContext;
+  const [config,setConfig] = configContext;
 
-  var eid = ""
+  var eid1 = ""
 
   function HandleChange(e) {
     const value = e.target.value;
     console.log(value)
-    eid = value;
+    eid1 = value;
   }
 
   function handlePopulateQps() {
-    const storageQps = "http://3.133.91.254:8087/qps/" + eid;
+    const storageQps = "http://3.133.91.254:8087/qps/" + eid1;
     const qpsSec = ["qsel0", "qsel1", "qsel2", "qsel3"]
     const qpsids = ["qps0", "qps1", "qps2", "qps3"]
     fetch(storageQps)
@@ -50,7 +54,7 @@ function Results() {
   }
 
   function handlePopulateLatency() {
-    const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid;
+    const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid1;
     const latSec = ["lsel0", "lsel1", "lsel2", "lsel3"]
     const latPerids = [["lat010", "lat050", "lat090"], ["lat110", "lat150", "lat190"], ["lat210", "lat250", "lat290"], ["lat310", "lat350", "lat390"]]
     fetch(storageLatencies)
@@ -92,7 +96,7 @@ function Results() {
         <div className="mt-4">
           <Button onClick={handlePopulateQps} size="small">Display Results of Experiment (QPS)</Button>
           <div className="mt-4">
-            <SectionTitle>Experiment ID: {eid}</SectionTitle>
+            <SectionTitle>Experiment ID: {eid1}</SectionTitle>
             <TableContainer>
               <Table>
                 <TableHeader>
@@ -153,7 +157,7 @@ function Results() {
 
         <div className="mt-4">
           <Button onClick={handlePopulateLatency} size="small">Display Results of Experiment (Latency)</Button>
-          <SectionTitle>Experiment ID: {eid}</SectionTitle>
+          <SectionTitle>Experiment ID: {eid1}</SectionTitle>
           <div className="mt-4">
             <TableContainer>
               <Table>
@@ -236,76 +240,7 @@ function Results() {
             </TableContainer>
           </div>
         </div>
-
-        {/* <SectionTitle>Jobid: 04f645f2-92a5-8260-91c2bc267b71</SectionTitle>
-
-        <ChartCard title="Lines">
-          <Line {...lineOptions} />
-          <ChartLegend legends={lineLegends} />
-        </ChartCard>
-
-        <div className="mt-10">
-          <SectionTitle>Jobid: 04f645f2-92a5-8260-91c2bc267b71</SectionTitle>
-          <TableContainer>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableCell>DataX</TableCell>
-                  <TableCell>DataY</TableCell>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <span className="font-semibold ml-2">1</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">4</span>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <span className="font-semibold ml-2">2  </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">48</span>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <span className="font-semibold ml-2">3  </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">40</span>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>
-                    <div className="flex items-center text-sm">
-                      <span className="font-semibold ml-2">4  </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">54</span>
-                  </TableCell>
-                </TableRow>
-                
-              </TableBody>
-            </Table>
-            <TableFooter>
-              <Pagination totalResults={4} resultsPerPage={4} onChange={() => {}} label="Table navigation" />
-            </TableFooter>
-          </TableContainer>
-        </div> */}
-
-
-
+        
       </div>
     </>
   )

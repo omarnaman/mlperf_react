@@ -7,17 +7,24 @@ import { Card, CardBody } from '@windmill/react-ui'
 import { createJobYAML } from "../utils/yaml_builder"
 import { ConfigContext } from '../context/ConfigContext';
 import { Input, Label } from '@windmill/react-ui'
+import { useHistory } from "react-router-dom";
 
 
 function Run() {
-  const [config, setConfig] = useContext(ConfigContext)
-  var eid = ""
+  let history = useHistory();
+  const {eidContext, configContext} = useContext(ConfigContext);
+  const [eid,setEid] = eidContext;
+  const [config,setConfig] = configContext;
 
-  function HandleChange(e) {
+  function HandleEidChange(e) {
     const value = e.target.value;
-    eid = value;
+    setEid(value);
+    console.log(eid);
   }
 
+  function reDirect(){
+    history.push("/app/results");
+  }
 
   async function handleStart(){
 
@@ -115,6 +122,7 @@ function Run() {
         })
       }, 1000)
     }
+    document.getElementById("directBut").className = 'bg-green-600 text-white rounded-lg px-10'
   }
   
   
@@ -127,7 +135,7 @@ function Run() {
           <CardBody>
             <Label className="mt-4">
               <span>Experiment ID</span>
-              <Input id="eid" className="mt-1" placeholder="The experiment's ID" onChange={HandleChange} />
+              <Input id="eid" className="mt-1" placeholder="The experiment's ID" onChange={HandleEidChange} />
             </Label>
             <SectionTitle id="statusText">Experiment Status:</SectionTitle>
             <p id="statusTxt" className="text-white font-bold">No experiment is running</p>
@@ -136,8 +144,9 @@ function Run() {
               <img id="statusImg" src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
             </div>
 
-            <div className='mt-10'>
+            <div className='mt-10 flex justify-between'>
               <Button onClick={handleStart} size="larger">Begin Experiment</Button>
+              <button id="directBut" onClick={reDirect} className='bg-gray-500 text-white rounded-lg px-10'>Results Page</button>
             </div>
           </CardBody>
         </Card>
