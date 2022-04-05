@@ -74,6 +74,17 @@ class SQLiteDB():
             res.append(json.copy())
         return res
 
+    def get_experiments(self):
+        cursor = self.connection.cursor()
+        sql = "SELECT experiment_id FROM latencies"
+        res = []
+        for row in cursor.execute(sql, ()):
+            eid = row[0]
+            if eid not in res:
+                res.append(eid)
+        return {"experiments": list(res)}
+        
+
 @app.route("/qps", methods=["POST"])
 def add_qps():
     db = SQLiteDB()
@@ -111,6 +122,13 @@ def get_qps(eid: str):
 def get_latencies(eid: str):
     db = SQLiteDB()
     return flask.jsonify(db.get_latencies(eid))
+
+@app.route("/experiments", methods=["GET"])
+@cross_origin()
+def get_experiments():
+    db = SQLiteDB()
+    return flask.jsonify(db.get_experiments())
+
 
 if __name__=="__main__":
     app.run(debug=True, port=PORT, host="0.0.0.0",)

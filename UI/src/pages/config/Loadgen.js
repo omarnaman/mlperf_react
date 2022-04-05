@@ -27,7 +27,7 @@ function Loadgen() {
   //saving all configuration at once
   function save(target) {
     target.preventDefault();
-    const ids = ["dataset", "scenario", "sampleCount", "threadCount", "accuracy", "time", "pipeline", "samplesPerQuery", "maxOutgoing"];
+    const ids = ["dataset", "scenario", "sampleCount", "threadCountRange", "accuracy", "time", "pipeline", "samplesPerQuery", "maxOutgoing"];
     ids.forEach(id => {
       setConfig(prevConfig => ({...prevConfig, [document.getElementById(id).name]:document.getElementById(id).value}))
     })
@@ -64,8 +64,8 @@ function Loadgen() {
           </Label>
 
           <Label className="mt-4">
-            <span>Number of Clients</span>
-            <Input id="threadCount" className="mt-1" placeholder="The number of clients to run concurrently" type="number" name="--threads" onChange={updateConfig} />
+            <span>Range of Clients</span>
+            <Input id="threadCountRange" className="mt-1" placeholder="The range of the number of clients to run concurrently (1-10, 3-6)" type="text" name="--threads" onChange={updateConfig} />
           </Label>
 
           <Label className="mt-4" check>
