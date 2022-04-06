@@ -60,11 +60,8 @@ This operation has no extra parameters.
 ```json
 {
     "experiments" : [
-        eid1,
-        eid2,
-        .
-        .
-        .
+        "eid1",
+        "eid2"
     ]
 }
 ```
