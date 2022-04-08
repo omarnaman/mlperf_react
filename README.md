@@ -56,7 +56,7 @@ This operation has no extra parameters.
 
 ### `GET` /experiments/ 
 This operation has no extra parameters. 
-### **Returns** the list of latency results associated with the Experiment ID, one for each job.
+### **Returns** the list of experiment IDs for all previously ran experiments.
 ```json
 {
     "experiments" : [
