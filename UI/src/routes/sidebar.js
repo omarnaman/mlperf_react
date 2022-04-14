@@ -35,13 +35,18 @@ const routes = [
   },
   {
     path: '/app/run',
-    icon: 'ChartsIcon',
+    icon: 'CardsIcon',
     name: 'Run Experiment',
   },
   {
     path: '/app/results',
     icon: 'ChartsIcon',
     name: 'Results',
+  },
+  {
+    path: '/app/resultsGraph',
+    icon: 'ChartsIcon',
+    name: 'Results Graphed',
   },
   {
     path: '/app/settings',

@@ -18,6 +18,7 @@ const Run = lazy(() => import('../pages/Run'))
 const System = lazy(() => import('../pages/config/System'))
 const Settings = lazy(() => import('../pages/Settings'))
 const Results = lazy(() => import('../pages/Results'))
+const ResultsGraph = lazy(() => import('../pages/ResultsGraph'))
 
 /**
  * ⚠ These are internal routes!
@@ -65,6 +66,10 @@ const routes = [
   {
     path: '/results',
     component: Results,
+  },
+  {
+    path: '/resultsGraph',
+    component: ResultsGraph,
   },
   {
     path: '/forms',

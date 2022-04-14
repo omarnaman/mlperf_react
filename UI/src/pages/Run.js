@@ -2,12 +2,11 @@ import React, { useContext } from 'react'
 
 import PageTitle from '../components/Typography/PageTitle'
 import SectionTitle from '../components/Typography/SectionTitle'
-import { Button } from '@windmill/react-ui' 
-import { Card, CardBody } from '@windmill/react-ui'
+import { Card, CardBody,Input, Label, HelperText, Button } from '@windmill/react-ui'
 import { createJobYAML } from "../utils/yaml_builder"
 import { ConfigContext } from '../context/ConfigContext';
-import { Input, Label } from '@windmill/react-ui'
 import { useHistory } from "react-router-dom";
+import { CircleSpinner } from "react-spinners-kit";
 
 
 function Run() {
@@ -88,8 +87,10 @@ function Run() {
       running = true
       const testSelector = `${index}`;
       const configArgs = args.concat(["--threads", testSelector])
-      document.getElementById("statusImg").src = "https://www.freeiconspng.com/thumbs/load-icon-png/load-icon-png-8.png"
-      document.getElementById("statusTxt").innerHTML = `Experiment ID: ${eid}, job with: ${testSelector} clients is running`
+      document.getElementById("statusImg").style.display = "none"
+      document.getElementById("spinner").className = "";
+      document.getElementById("expTxt").innerHTML = `Experiment ID: ${eid}`
+      document.getElementById("jobTxt").innerHTML = `Job with: ${testSelector} clients is running`
       const k8sServiceStartJob = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs"
       const k8sServiceJobStatus = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs/" + testSelector
       console.log(`Starting (${testSelector} clients)`)
@@ -114,8 +115,10 @@ function Run() {
             console.log(`job (${testSelector} clients) still active`);
           } else {
             console.log(`job (${testSelector} clients) finished`);
-            document.getElementById("statusTxt").innerHTML = "No experiment is running"
-            document.getElementById("statusImg").src = "https://cdn-icons-png.flaticon.com/512/16/16427.png"
+            document.getElementById("expTxt").innerHTML = "No experiment is running"
+            document.getElementById("jobTxt").innerHTML = ""
+            document.getElementById("statusImg").style.display = "block"
+            document.getElementById("spinner").className = "hidden";
             running = false
             clearInterval(JobCheckInterval);
           }
@@ -133,16 +136,24 @@ function Run() {
 
         <Card>
           <CardBody>
-            <Label className="mt-4">
-              <span>Experiment ID</span>
-              <Input id="eid" className="mt-1" placeholder="The experiment's ID" onChange={HandleEidChange} />
+            <Label className="mt-2 mb-4">
+              <span className='text-lg'>Experiment ID</span>
+              <Input id="eid" className="mt-1" onChange={HandleEidChange} />
+              <HelperText>The ID of the experiment (will be used to identify the experiment and retrieve it's results)</HelperText>
             </Label>
-            <SectionTitle id="statusText">Experiment Status:</SectionTitle>
-            <p id="statusTxt" className="text-white font-bold">No experiment is running</p>
 
-            <div className='mt-10'>
+            <SectionTitle id="statusText">Experiment Status:</SectionTitle>
+
+            <div className='mt-10 mb-10'>
               <img id="statusImg" src="https://cdn-icons-png.flaticon.com/512/16/16427.png" className='object-cover h-48 w-96'></img>
+              <div id="spinner" className='hidden'>
+                <CircleSpinner size={170} color="#000000" loading={true}></CircleSpinner>
+              </div>
             </div>
+
+
+            <p id="expTxt" className="text-white font-bold">No experiment is running</p> 
+            <p id="jobTxt" className="text-white font-bold"></p>
 
             <div className='mt-10 flex justify-between'>
               <Button onClick={handleStart} size="larger">Begin Experiment</Button>

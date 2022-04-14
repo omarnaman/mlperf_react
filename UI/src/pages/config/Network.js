@@ -2,7 +2,7 @@ import React, { Component, useState, useContext } from 'react'
 import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
-import { Input, Label, Button } from '@windmill/react-ui'
+import { Input, Label, Button, HelperText } from '@windmill/react-ui'
 
 function Network() {
   const {eidContext, configContext} = useContext(ConfigContext);
@@ -41,16 +41,20 @@ function Network() {
 
           <Label className="mt-4">
             <span>tc-delay</span>
-            <Input id="tcClientDelay" className="mt-1" placeholder="Emulated network delay from the client side (10ms, 1s, ...)" type="text" name="--tc_delay" onChange={updateConfig} />
+            <Input id="tcClientDelay" className="mt-1" type="text" name="--tc_delay" onChange={updateConfig} />
+            <HelperText>Emulated network delay from the client side (10ms, 1s, ...) </HelperText>
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input id="tcClientBW" className="mt-1" placeholder="Emulated network bandwidth from the client side (10kbps, 1mbps, ...)" type="text" name="--tc_bandwidth" onChange={updateConfig} />
+            <Input id="tcClientBW" className="mt-1" type="text" name="--tc_bandwidth" onChange={updateConfig} />
+            <HelperText>Emulated network bandwidth from the client side (10kbps, 1mbps, ...)</HelperText>
           </Label>
+
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input id="tcClientDrop" className="mt-1" placeholder="Emulated network random drop probability on the client side" type="text" name="tcClientDrop" onChange={updateConfig} />
+            <Input id="tcClientDrop" className="mt-1" type="text" name="tcClientDrop" onChange={updateConfig} />
+            <HelperText>Emulated network random drop probability on the client side</HelperText>
           </Label>
 
 
@@ -64,27 +68,30 @@ function Network() {
 
           <Label className="mt-4">
             <span>tc-delay</span>
-            <Input id="tcServerDelay" className="mt-1" placeholder="Emulated network delay from the server side (10ms, 1s, ...)" type="text" name="tcServerDelay" onChange={updateConfig} />
+            <Input id="tcServerDelay" className="mt-1" type="text" name="tcServerDelay" onChange={updateConfig} />
+            <HelperText>Emulated network delay from the server side (10ms, 1s, ...)</HelperText>
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input id="tcServerBW" className="mt-1" placeholder="Emulated network bandwidth from the server side (10kbps, 1mbps, ...)" type="text" name="tcServerBW" onChange={updateConfig} />
+            <Input id="tcServerBW" className="mt-1" type="text" name="tcServerBW" onChange={updateConfig} />
+            <HelperText>Emulated network bandwidth from the server side (10kbps, 1mbps, ...)</HelperText>
           </Label>
 
           <Label className="mt-4">
             <span>tc-bandwidth</span>
-            <Input id="tcServerDrop" className="mt-1" placeholder="Emulated network random drop probability on the server side" type="text" name="tcServerDrop" onChange={updateConfig} />
+            <Input id="tcServerDrop" className="mt-1" type="text" name="tcServerDrop" onChange={updateConfig} />
+            <HelperText>Emulated network random drop probability on the server side</HelperText>
           </Label>
 
         </div>
         <div className="mt-4">
-          <Button size="large">Import Configuration from Disk</Button>
+          <Button size="large">Import Configuration from Desk</Button>
         </div>
 
-        <div className="mt-4">
+        {/* <div className="mt-4">
             <Input type="submit" value="Save Config" />
-        </div>
+        </div> */}
       </form>
     </>
   )

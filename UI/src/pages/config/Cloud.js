@@ -2,7 +2,7 @@ import React, { Component, useState, useContext } from 'react'
 import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
-import { Input, Label, Select, Button } from '@windmill/react-ui'
+import { Input, Label, Select, Button, HelperText } from '@windmill/react-ui'
 
 function Cloud() {
   const {eidContext, configContext} = useContext(ConfigContext);
@@ -49,12 +49,12 @@ function Cloud() {
           </Label>
 
           <div className="mt-4">
-            <Button size="large">Import Configuration from Disk</Button>
+            <Button size="large">Import Configuration from Desk</Button>
           </div>
 
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <Input type="submit" value="Save Config" />
-          </div>
+          </div> */}
         </form>
       </div>
     </>
