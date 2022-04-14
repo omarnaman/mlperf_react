@@ -2,7 +2,7 @@ import React, { Component, useState, useContext } from 'react'
 import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
-import { Input, Label, Select, Button } from '@windmill/react-ui'
+import { Input, Label, Select, Button, HelperText } from '@windmill/react-ui'
 
 function System() {
   const {eidContext, configContext} = useContext(ConfigContext);
@@ -35,7 +35,8 @@ function System() {
 
           <Label className="mt-4">
             <span>Model Threads</span>
-            <Input id="modelThreads" className="mt-1" placeholder="Number of threads dedicated to each request on the server side" type="num" name="--model-threads" onChange={updateConfig} />
+            <Input id="modelThreads" className="mt-1" type="number" name="--model-threads" onChange={updateConfig} />
+            <HelperText>Number of threads dedicated to each request on the server side</HelperText>
           </Label>
 
           <Label className="mt-4">
@@ -44,6 +45,7 @@ function System() {
               <option>ssd-mobilnet</option>
               <option>USPP</option>
             </Select>
+            <HelperText>The model to load onto the runtime</HelperText>
           </Label>
 
           <Label className="mt-4">
@@ -55,19 +57,21 @@ function System() {
               <option>pytorch-native</option>
               <option>unnxruntime</option>
             </Select>
+            <HelperText>The runtime to load the model</HelperText>
           </Label>
 
           <Label className="mt-4">
             <span>Consumer Threads</span>
-            <Input id="consumerThreads" className="mt-1" placeholder="The number of requests processed concurrently" type="number" name="--consumer-threads" onChange={updateConfig} />
+            <Input id="consumerThreads" className="mt-1" type="number" name="--consumer-threads" onChange={updateConfig} />
+            <HelperText>The number of requests processed concurrently</HelperText>
           </Label>
 
           <div className="mt-4">
-            <Button size="large">Import Configuration from Disk</Button>
+            <Button size="large">Import Configuration from Desk</Button>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <Input type="submit" value="Save Config" />
-          </div>
+          </div> */}
         </form>
       </div>
     </>

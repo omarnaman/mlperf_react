@@ -3,12 +3,21 @@ import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
 import { Input, Label, Select, Button, HelperText } from '@windmill/react-ui'
+import { Modal, ModalHeader, ModalBody } from '@windmill/react-ui'
 
 
 function Loadgen() {
   const {eidContext, configContext} = useContext(ConfigContext);
   const [eid,setEid] = eidContext;
   const [config,setConfig] = configContext;
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  function openModal() {
+    setIsModalOpen(true)
+  }
+  function closeModal() {
+    setIsModalOpen(false)
+  }
   // const [inputs, setInputs] = useState({});
 
   // function HandleChange(e) {
@@ -49,16 +58,28 @@ function Loadgen() {
               <option>Imagenet2012</option>
               <option>Coco</option>
             </Select>
+            <HelperText>The dataset used in the evaluation</HelperText>
           </Label>
 
           <Label className="mt-4">
-            <span>Scenario</span>
+            <div className='m-0 flex justify-between'>
+              <span>Scenario</span>
+              <Button size="small" onClick={openModal}>?</Button>
+            </div>
             <Select id="scenario" value={config["--scenario"]} className="mt-1" name="--scenario" onChange={updateConfig}>
               <option>Offline</option>
               <option>SingleStream</option>
               <option>MultiStream</option>
             </Select>
+            <HelperText>The scenario that defines the query generation pattern/frequency</HelperText>
           </Label>
+
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalHeader>Scenario Info</ModalHeader>
+            <ModalBody>
+              Filler Information about the Scenarios to describe them further...
+            </ModalBody>
+          </Modal>
 
           <Label className="mt-4">
             <span>Sample Count</span>
@@ -97,14 +118,15 @@ function Loadgen() {
           <Label className="mt-4">
             <span>Max Outgoing Queries</span>
             <Input id="maxOutgoing" className="mt-1" placeholder="Maximum outgoing queries in case of pipelining" type="number" name="--max_outgoing" onChange={updateConfig} />
+            <HelperText>The maximum number of pipelined requests</HelperText>
           </Label>
 
           <div className="mt-4">
-            <Button size="large">Import Configuration from Disk</Button>
+            <Button size="large">Import Configuration from Desk</Button>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <Input type="submit" value="Save Config" />
-          </div>
+          </div> */}
 
         </form>
       </div>
