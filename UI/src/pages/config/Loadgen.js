@@ -53,7 +53,7 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Scenario</span>
-            <Select id="scenario" className="mt-1" name="--scenario" onChange={updateConfig}>
+            <Select id="scenario" value={config["--scenario"]} className="mt-1" name="--scenario" onChange={updateConfig}>
               <option>Offline</option>
               <option>SingleStream</option>
               <option>MultiStream</option>
