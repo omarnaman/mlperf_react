@@ -2,11 +2,13 @@ import React, { Component, useState, useContext } from 'react'
 import { ConfigContext } from '../../context/ConfigContext';
 
 import PageTitle from '../../components/Typography/PageTitle'
-import { Input, Label, Select, Button } from '@windmill/react-ui'
+import { Input, Label, Select, Button, HelperText } from '@windmill/react-ui'
 
 
 function Loadgen() {
-  const [config, setConfig] = useContext(ConfigContext)
+  const {eidContext, configContext} = useContext(ConfigContext);
+  const [eid,setEid] = eidContext;
+  const [config,setConfig] = configContext;
   // const [inputs, setInputs] = useState({});
 
   // function HandleChange(e) {
@@ -51,21 +53,23 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Scenario</span>
-            <Select id="scenario" className="mt-1" name="--scenario" onChange={updateConfig}>
+            <Select id="scenario" value={config["--scenario"]} className="mt-1" name="--scenario" onChange={updateConfig}>
+              <option>Offline</option>
               <option>SingleStream</option>
               <option>MultiStream</option>
-              <option>Offline</option>
             </Select>
           </Label>
 
           <Label className="mt-4">
             <span>Sample Count</span>
-            <Input id="sampleCount" className="mt-1" placeholder="The number of samples to be loaded from the dataset" type="number" name="--count" onChange={updateConfig} />
+            <Input id="sampleCount" className="mt-1" value={config["--count"]} type="number" name="--count" onChange={updateConfig}/>
+            <HelperText>The number of samples to be loaded from the dataset</HelperText>
           </Label>
 
           <Label className="mt-4">
             <span>Range of Clients</span>
-            <Input id="threadCountRange" className="mt-1" placeholder="The range of the number of clients to run concurrently (1-10, 3-6)" type="text" name="--threads" onChange={updateConfig} />
+            <Input id="threadCountRange" className="mt-1" value={config["--threads"]} type="text" name="--threads" onChange={updateConfig} />
+            <HelperText>The range of the number of clients to run concurrently (1-10, 3-6)</HelperText>
           </Label>
 
           <Label className="mt-4" check>
@@ -75,7 +79,8 @@ function Loadgen() {
 
           <Label className="mt-4" >
             <span>Time</span>
-            <Input id="time" className="mt-1" placeholder="Experiment duration in seconds" type="number" name="--time" onChange={updateConfig} />
+            <Input id="time" className="mt-1" value={config["--time"]} type="number" name="--time" onChange={updateConfig} />
+            <HelperText>Experiment duration in seconds</HelperText>
           </Label>
 
           <Label className="mt-4" check>
@@ -85,7 +90,8 @@ function Loadgen() {
 
           <Label className="mt-4">
             <span>Samples Per Query</span>
-            <Input id="samplesPerQuery" className="mt-1" placeholder="Samples to send per query" type="number" name="--samples-per-query" onChange={updateConfig} />
+            <Input id="samplesPerQuery" className="mt-1" value={config["--samples-per-query"]} type="number" name="--samples-per-query" onChange={updateConfig} />
+            <HelperText>Samples to send per query</HelperText>
           </Label>
 
           <Label className="mt-4">

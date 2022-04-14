@@ -5,7 +5,9 @@ import PageTitle from '../../components/Typography/PageTitle'
 import { Input, Label, Button } from '@windmill/react-ui'
 
 function Network() {
-  const [config, setConfig] = useContext(ConfigContext)
+  const {eidContext, configContext} = useContext(ConfigContext);
+  const [eid,setEid] = eidContext;
+  const [config,setConfig] = configContext;
 
   const updateConfig = e => {
     e.preventDefault();

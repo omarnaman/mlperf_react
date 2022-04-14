@@ -24,7 +24,6 @@ This operation has no extra parameters.
         "selector": "{job_selector: String}",
         "qps": "{QPS_Result: float}"
     }
-
 ]
 ```
 
@@ -49,7 +48,6 @@ This operation has no extra parameters.
         "selector": "{job_selector: String}",
         "latencies": "{Latency_Results: comma-separated floats}"
     }
-
 ]
 ```
 ## /experiments
