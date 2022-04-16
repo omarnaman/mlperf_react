@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import configData from '../server_config'
 
 import { ConfigContext } from '../context/ConfigContext';
 import { Input, Label, Select, Button } from '@windmill/react-ui'
@@ -30,7 +31,7 @@ function Results() {
   const [config,setConfig] = configContext;
 
   var eid1 = ""
-
+  const SERVER_IP = configData["SERVER_IP"];
   function HandleChange(e) {
     const value = e.target.value;
     console.log(value)
@@ -38,7 +39,7 @@ function Results() {
   }
 
   function handlePopulateQps() {
-    const storageQps = "http://3.133.91.254:8087/qps/" + eid1;
+    const storageQps = `http://${SERVER_IP}:8087/qps/${eid1}`;
     const qpsSec = ["qsel0", "qsel1", "qsel2", "qsel3"]
     const qpsids = ["qps0", "qps1", "qps2", "qps3"]
     fetch(storageQps)
@@ -54,7 +55,7 @@ function Results() {
   }
 
   function handlePopulateLatency() {
-    const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid1;
+    const storageLatencies = `http://${SERVER_IP}:8087/latencies/${eid1}`;
     const latSec = ["lsel0", "lsel1", "lsel2", "lsel3"]
     const latPerids = [["lat010", "lat050", "lat090"], ["lat110", "lat150", "lat190"], ["lat210", "lat250", "lat290"], ["lat310", "lat350", "lat390"]]
     fetch(storageLatencies)

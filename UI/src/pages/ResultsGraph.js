@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import configData from '../server_config'
 
 import { ConfigContext } from '../context/ConfigContext';
 import { Input, Label, Select, Button } from '@windmill/react-ui'
@@ -43,13 +44,13 @@ function Results() {
   var qpsData = [];
   var latencySelectors = [];
   var latencyData = [];
-
-  const storageLatencies = "http://3.133.91.254:8087/latencies/" + eid1;
+  const SERVER_IP = configData["SERVER_IP"]
+  const storageLatencies = `http://${SERVER_IP}:8087/latencies/${eid1}`;
 
   const [chartData, setChartData] = useState({})
 
   const chart = () => {
-    const storageQps = "http://3.133.91.254:8087/qps/" + eid1;
+    const storageQps = `http://${SERVER_IP}:8087/qps/${eid1}`;
     fetch(storageQps)
       .then(res => res.json())
       .then(data => {

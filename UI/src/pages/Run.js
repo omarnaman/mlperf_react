@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import configData from '../server_config'
 
 import PageTitle from '../components/Typography/PageTitle'
 import SectionTitle from '../components/Typography/SectionTitle'
@@ -14,7 +15,7 @@ function Run() {
   const {eidContext, configContext} = useContext(ConfigContext);
   const [eid,setEid] = eidContext;
   const [config,setConfig] = configContext;
-
+  const SERVER_IP = configData["SERVER_IP"]
   function HandleEidChange(e) {
     const value = e.target.value;
     setEid(value);
@@ -91,8 +92,8 @@ function Run() {
       document.getElementById("spinner").className = "";
       document.getElementById("expTxt").innerHTML = `Experiment ID: ${eid}`
       document.getElementById("jobTxt").innerHTML = `Job with: ${testSelector} clients is running`
-      const k8sServiceStartJob = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs"
-      const k8sServiceJobStatus = "http://3.133.91.254:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs/" + testSelector
+      const k8sServiceStartJob = `http://${SERVER_IP}:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs`
+      const k8sServiceJobStatus = `http://${SERVER_IP}:8001/_kdaHgMW_N-6-hC5RIdO/apis/batch/v1/namespaces/default/jobs/${testSelector}` 
       console.log(`Starting (${testSelector} clients)`)
       // const Requestbody = createJobYAML(eid, testSelector, configArgs);
       // console.log(Requestbody)
