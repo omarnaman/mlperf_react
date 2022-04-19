@@ -23,7 +23,7 @@ function Run() {
   }
 
   function reDirect(){
-    history.push("/app/results");
+    history.push("/app/resultsGraph");
   }
 
   async function handleStart(){
@@ -137,7 +137,7 @@ function Run() {
 
         <Card>
           <CardBody>
-            <Label className="mt-2 mb-4">
+            <Label className="mb-4">
               <span className='text-lg'>Experiment ID</span>
               <Input id="eid" className="mt-1" onChange={HandleEidChange} />
               <HelperText>The ID of the experiment (will be used to identify the experiment and retrieve it's results)</HelperText>

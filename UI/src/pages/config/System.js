@@ -33,7 +33,7 @@ function System() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <form onSubmit={save}>
 
-          <Label className="mt-4">
+          <Label>
             <span>Model Threads</span>
             <Input id="modelThreads" className="mt-1" type="number" name="--model-threads" onChange={updateConfig} />
             <HelperText>Number of threads dedicated to each request on the server side</HelperText>
