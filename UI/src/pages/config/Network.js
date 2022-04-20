@@ -33,7 +33,7 @@ function Network() {
       <form onSubmit={save}>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
-          <Label className="mt-4" check>
+          <Label check>
             <Input id="tcClient" type="checkbox" name="--tc" onChange={updateConfig} />
             <span className="ml-2">Enable Client-side Traffic Emulation</span>
           </Label>
@@ -61,7 +61,7 @@ function Network() {
         </div>
         <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
-          <Label className="mt-4" check>
+          <Label check>
             <Input id="tcServer" type="checkbox" name="tcServer" onChange={updateConfig} />
             <span className="ml-2">Enable Server-side Traffic Emulation</span>
           </Label>

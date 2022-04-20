@@ -52,7 +52,7 @@ function Loadgen() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <form onSubmit={save}>
 
-          <Label className="mt-4">
+          <Label>
             <span>Data Set</span>
             <Select id="dataset" className="mt-1" name="--dataset" onChange={updateConfig}>
               <option>Imagenet2012</option>

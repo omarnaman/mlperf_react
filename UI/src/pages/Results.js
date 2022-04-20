@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import configData from '../server_config'
 
 import { ConfigContext } from '../context/ConfigContext';
-import { Input, Label, Select, Button } from '@windmill/react-ui'
+import { Input, Label, Select, Button, HelperText } from '@windmill/react-ui'
 import PageTitle from '../components/Typography/PageTitle'
 import SectionTitle from '../components/Typography/SectionTitle'
 import ChartCard from '../components/Chart/ChartCard'
@@ -32,11 +32,27 @@ function Results() {
 
   var eid1 = ""
   const SERVER_IP = configData["SERVER_IP"];
-  function HandleChange(e) {
+
+  function HandleEidChange(e) {
     const value = e.target.value;
     console.log(value)
     eid1 = value;
   }
+
+  const popSelect = () => {
+  const storageEids = `http://${SERVER_IP}:8087/experiments`;
+  fetch(storageEids)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      var eidSelect = document.getElementById("eidSelect")
+      data.experiments.forEach(element => {
+        eidSelect.options.add( new Option(element,element))
+      })
+    })
+  }
+
+  popSelect()
 
   function handlePopulateQps() {
     const storageQps = `http://${SERVER_IP}:8087/qps/${eid1}`;
@@ -90,9 +106,12 @@ function Results() {
       <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
         <SectionTitle>Experiment Results</SectionTitle>
-        <Label className="mt-4">
-          <span>Experiment ID</span>
-          <Input id="eid" className="mt-1" placeholder="The experiment's ID" onChange={HandleChange} />
+        <Label className="mt-2 mb-4 flex flex-col">
+              <span className='mb-2 text-lg'>Experiment ID</span>
+              <select onChange={HandleEidChange} id="eidSelect" className='pl-3 mb-1 font-mono font-bold text-white w-full h-12 rounded-md bg-gray-600'>
+                <option>No Experiment Selected</option>
+              </select>
+              <HelperText>The ID of the experiment (will be used to identify the experiment and retrieve it's results)</HelperText>
         </Label>
         <div className="mt-4">
           <Button onClick={handlePopulateQps} size="small">Display Results of Experiment (QPS)</Button>

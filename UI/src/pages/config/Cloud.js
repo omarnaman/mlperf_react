@@ -34,7 +34,7 @@ function Cloud() {
 
         <form onSubmit={save}>
         
-          <Label className="mt-4" check>
+          <Label check>
             <Input id="cloudDeployment" type="checkbox" name="cloudDeployment" onChange={updateConfig}/>
             <span className="ml-2">Enable Cloud Deployment</span>
           </Label>
