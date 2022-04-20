@@ -5,6 +5,10 @@
  * If you're looking to actual Router routes, go to
  * `routes/index.js`
  */
+
+import configData from '../server_config'
+
+const prefix = configData["PREFIX"]
 const routes = [
   {
     icon: 'FormsIcon',
@@ -12,44 +16,44 @@ const routes = [
     routes: [
       // submenu
       {
-        path: '/app/config/loadGen',
+        path: `${prefix}/config/loadGen`,
         name: 'Load Generator',
       },
       {
-        path: '/app/config/system',
+        path: `${prefix}/config/system`,
         name: 'System Under Test',
       },
       {
-        path: '/app/config/network',
+        path: `${prefix}/config/network`,
         name: 'Network Emulation',
       },
       {
-        path: '/app/config/profiles',
+        path: `${prefix}/config/profiles`,
         name: 'Profiles',
       },
       {
-        path: '/app/config/cloud',
+        path: `${prefix}/config/cloud`,
         name: 'Cloud Deployment',
       },      
     ],
   },
   {
-    path: '/app/run',
+    path: `${prefix}/run`,
     icon: 'CardsIcon',
     name: 'Run Experiment',
   },
   {
-    path: '/app/results',
+    path: `${prefix}/results`,
     icon: 'ChartsIcon',
     name: 'Results',
   },
   {
-    path: '/app/resultsGraph',
+    path: `${prefix}/resultsGraph`,
     icon: 'ChartsIcon',
     name: 'Results Graphed',
   },
   {
-    path: '/app/settings',
+    path: `${prefix}/settings`,
     icon: 'OutlineCogIcon',
     name: 'Settings',
   },

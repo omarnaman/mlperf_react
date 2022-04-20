@@ -7,12 +7,14 @@ import Header from '../components/Header'
 import Main from '../containers/Main'
 import ThemedSuspense from '../components/ThemedSuspense'
 import { SidebarContext } from '../context/SidebarContext'
+import configData from '../server_config'
 
 const Page404 = lazy(() => import('../pages/404'))
 
 function Layout() {
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext)
   let location = useLocation()
+  const prefix = configData["PREFIX"]
 
   useEffect(() => {
     closeSidebar()
@@ -34,12 +36,12 @@ function Layout() {
                   <Route
                     key={i}
                     exact={true}
-                    path={`/app${route.path}`}
+                    path={`${prefix}${route.path}`}
                     render={(props) => <route.component {...props} />}
                   />
                 ) : null
               })}
-              <Redirect exact from="/app" to="/app/config/loadgen" />
+              <Redirect exact from={prefix} to={`${prefix}/config/loadgen`} />
               <Route component={Page404} />
             </Switch>
           </Suspense>

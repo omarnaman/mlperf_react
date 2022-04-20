@@ -16,6 +16,8 @@ function Run() {
   const [eid,setEid] = eidContext;
   const [config,setConfig] = configContext;
   const SERVER_IP = configData["SERVER_IP"]
+  const prefix = configData["PREFIX"]
+
   function HandleEidChange(e) {
     const value = e.target.value;
     setEid(value);
@@ -23,7 +25,7 @@ function Run() {
   }
 
   function reDirect(){
-    history.push("/app/results");
+    history.push(`${prefix}/results`);
   }
 
   async function handleStart(){
