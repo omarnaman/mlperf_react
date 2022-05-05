@@ -1,1 +1,0 @@
-# MLPerf Frontend Implementation

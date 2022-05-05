@@ -1,8 +1,0 @@
-.startTabContain {
-  background-color: rgb(216, 224, 224);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-}
