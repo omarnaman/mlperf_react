@@ -60,6 +60,7 @@ function Results() {
               label: "Queries Per Second",
               data: qpsData,
               fill: true,
+              lineTension: 0,
               backgroundColor: "rgba(75,192,192,0.2)",
               borderColor: "rgba(75,192,192,1)"
             }
@@ -98,18 +99,21 @@ function Results() {
               label: "10th Percentile",
               data: lat10,
               fill: false,
+              lineTension: 0,
               borderColor: "rgba(247,134,134,0.7)"
             }, 
             {
               label: "50th Percentile",
               data: lat50,
               fill: false,
+              lineTension: 0,
               borderColor: "rgba(252,78,78,0.7)"
             },
             {
               label: "90th Percentile",
               data: lat90,
               fill: false,
+              lineTension: 0,
               borderColor: "rgba(255,20,20,0.7)"
             }
           ]
