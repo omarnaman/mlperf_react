@@ -19,7 +19,7 @@ function Network() {
 
   function save(target) {
     target.preventDefault();
-    const ids = ["tcClient", "tcClientDelay", "tcClientBW", "tcClientDrop", "tcServer", "tcServerDelay", "tcServerBW", "tcServerDrop"];
+    const ids = ["tcClient", "tcClientDelay", "tcClientJitter", "tcClientBW", "tcClientDrop", "tcServer", "tcServerDelay", "tcClientJitter", "tcServerBW", "tcServerDrop"];
     ids.forEach(id => {
       setConfig(prevConfig => ({...prevConfig, [document.getElementById(id).name]:document.getElementById(id).value}))
     })
