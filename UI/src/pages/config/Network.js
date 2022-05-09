@@ -58,7 +58,7 @@ function Network() {
           </Label>
 
           <Label className="mt-4">
-            <span>tc-bandwidth</span>
+            <span>tc_random_loss</span>
             <Input id="tcClientDrop" className="mt-1" type="text" name="tcClientDrop" onChange={updateConfig} />
             <HelperText>Emulated network random drop probability on the client side</HelperText>
           </Label>
@@ -91,7 +91,7 @@ function Network() {
           </Label>
 
           <Label className="mt-4">
-            <span>tc-bandwidth</span>
+            <span>tc_random_loss</span>
             <Input id="tcServerDrop" className="mt-1" type="text" name="tcServerDrop" onChange={updateConfig} />
             <HelperText>Emulated network random drop probability on the server side</HelperText>
           </Label>
