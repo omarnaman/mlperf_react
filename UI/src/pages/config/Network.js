@@ -46,6 +46,12 @@ function Network() {
           </Label>
 
           <Label className="mt-4">
+            <span>tc-jitter</span>
+            <Input id="tcClientJitter" className="mt-1" type="text" name="--tc_jitter" onChange={updateConfig} />
+            <HelperText>Emulated network jitter from the client side (10ms, 1s, ...)  </HelperText>
+          </Label>
+
+          <Label className="mt-4">
             <span>tc-bandwidth</span>
             <Input id="tcClientBW" className="mt-1" type="text" name="--tc_bandwidth" onChange={updateConfig} />
             <HelperText>Emulated network bandwidth from the client side (10kbps, 1mbps, ...)</HelperText>
@@ -70,6 +76,12 @@ function Network() {
             <span>tc-delay</span>
             <Input id="tcServerDelay" className="mt-1" type="text" name="tcServerDelay" onChange={updateConfig} />
             <HelperText>Emulated network delay from the server side (10ms, 1s, ...)</HelperText>
+          </Label>
+
+          <Label className="mt-4">
+            <span>tc-jitter</span>
+            <Input id="tcServerJitter" className="mt-1" type="text" name="--tc_jitter" onChange={updateConfig} />
+            <HelperText>Emulated network jitter from the server side (10ms, 1s, ...)  </HelperText>
           </Label>
 
           <Label className="mt-4">
