@@ -4,6 +4,8 @@ import flask
 from flask_cors import CORS, cross_origin
 from flask import request, abort
 from flask_sqlalchemy import SQLAlchemy
+import json
+from werkzeug.exceptions import HTTPException
 
 app = flask.Flask(__name__, instance_relative_config=True)
 CORS(app)
@@ -18,19 +20,22 @@ db = SQLAlchemy(app)
 class Experiment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     experiment_id = db.Column(db.String, unique = True)
-
-    def __init__(self, eid) -> None:
+    config_id = db.Column(db.Integer)
+    
+    def __init__(self, eid, config_id=-1) -> None:
         self.experiment_id = eid
+        self.config_id = config_id
 
-    def add(eid):
+    def add(eid, config_id=-1):
         query = db.session.query(Experiment).filter_by(experiment_id=eid)
-        exists = db.session.query(query.exists()).scalar()
-        if exists:
-            return False
-        exp = Experiment(eid)
+        exp = query.first()
+        if exp:
+            query.update({Experiment.config_id: config_id})
+            return exp.id
+        exp = Experiment(eid, config_id)
         db.session.add(exp)
         db.session.commit()
-        return True
+        return exp.id
 
     def get_all():
         res = []
@@ -38,8 +43,40 @@ class Experiment(db.Model):
         for exp in exps:
             res.append(exp.experiment_id)
         return {"experiments": list(res)}
-        
+
+    def get(eid):
+        exp: Experiment = db.session.query(Experiment).filter_by(experiment_id=eid).first()
+        print(exp)
+        if exp is not None:
+            return exp.dict()
+        return None
+
+    def dict(self) -> dict:
+        return {
+            "id": self.id,
+            "experiment_id": self.experiment_id,
+            "config_id": self.config_id
+            }
+
+    def __repr__(self) -> str:
+        return json.dumps(self.dict(), indent=2)
     
+
+class Config(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    config_json = db.Column(db.UnicodeText)
+    
+    def __init__(self, config_json: str) -> None:
+        self.config_json = config_json
+
+    def add(config_json):
+        if isinstance(config_json, dict):
+            config_json = json.dumps(config_json)
+        config = Config(config_json)
+        db.session.add(config)
+        db.session.commit()
+        return config.id
+
     
 class LatencyResult(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -107,7 +144,7 @@ def add_qps():
         selector = data["selector"]
         qps = data["qps"]
         QPSResult.add_qps(eid, selector, qps)
-        return '{"Added": True}', 200
+        return {"Added": True}, 200
     except:
         abort(500)
 
@@ -119,8 +156,19 @@ def add_latencies():
         selector = data["selector"]
         latencies = data["latencies"]
         LatencyResult.add_latencies(eid, selector, latencies)
-        return '{"Added": True}', 200
+        return {"Added": True}, 200
     except:
+        abort(500)
+
+@app.route("/config/<eid>", methods=["POST"])
+def add_config(eid):
+    try:
+        config = request.get_json()
+        config_id = Config.add(config)
+        exp_id = Experiment.add(eid, config_id)
+        return {"Added": True, "config_id": config_id, "eid": exp_id}, 200
+    except Exception as e:
+        print(e)
         abort(500)
 
 
@@ -145,6 +193,18 @@ def get_latencies(eid: str):
 def get_experiments():
     try:
         return flask.jsonify(Experiment.get_all())
+    except:
+        abort(500)
+        
+@app.route("/experiments/<eid>", methods=["GET"])
+@cross_origin()
+def get_experiment(eid):
+    try:
+        exp = Experiment.get(eid)
+        if exp:
+            return flask.jsonify(exp), 200
+        else:
+            return "", 404
     except:
         abort(500)
 
