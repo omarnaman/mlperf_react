@@ -157,13 +157,14 @@ def start(eid, selector):
     if JOB_LOCK.locked():
         return {"job_running": RUNNING_SELECTOR}, 409
     JOB_LOCK.acquire()
+    dataset_id = 1
     try:
         data = request.get_json()
         configs = Config.from_dict(data, selector)
         config_id = configs[0].store_json(eid)
         for config in configs:
-            id = config.store_file()
-            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [id] + config.client_netem.to_args())
+            job_config_id = config.store_file()
+            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS, MLPERF_STORAGE_SERVER, FILE_STORAGE_SERVER, job_config_id, dataset_id] + config.client_netem.to_args())
             start_k8_job(yaml_request)
             RUNNING_SELECTOR = config.selector
             while k8_job_status(config.selector):
