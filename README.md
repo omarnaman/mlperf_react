@@ -1,5 +1,5 @@
 # MLPerf Storage Service
-This is the implementation of the storage service for MLPerf results QPS and latency results, written in both JS (Express) and Python (Flask).
+This is the implementation of the storage service for MLPerf results QPS and latency results, as well as other MLPerf related configurations, written in both JS (Express) and Python (Flask).
 
 
 # Endpoints
@@ -61,5 +61,38 @@ This operation has no extra parameters.
         "eid1",
         "eid2"
     ]
+}
+```
+### `GET` /experiments/{experiment_id}
+This operation has no extra parameters. 
+### **Returns** information about the specified experiment.
+```json
+{   
+    "id": "{primary key of experiment in DB: Number}",
+    "experiment_id": "{experiment_id: String}",
+    "config_id" : "{config_id: Number}"
+}
+```
+
+## /config
+
+### `GET` /config/{experiment_id}
+Upload a new configuration json and relate it to specified experiment
+
+### **Returns** the list of experiment IDs for all previously ran experiments.
+```json
+{
+    "experiment_id": "{experiment_id: String}",
+    "config_id" : "{config_id: Number}"
+}
+```
+### `GET` /experiments/{experiment_id}
+This operation has no extra parameters. 
+### **Returns** information about the specified experiment.
+```json
+{   
+    "id": "{primary key of experiment in DB: Number}",
+    "experiment_id": "{experiment_id: String}",
+    "config_id" : "{config_id: Number}"
 }
 ```

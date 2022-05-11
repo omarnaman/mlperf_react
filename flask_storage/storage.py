@@ -166,7 +166,7 @@ def add_config(eid):
         config = request.get_json()
         config_id = Config.add(config)
         exp_id = Experiment.add(eid, config_id)
-        return {"Added": True, "config_id": config_id, "eid": exp_id}, 200
+        return {"Added": True, "config_id": config_id, "experiment_id": exp_id}, 200
     except Exception as e:
         print(e)
         abort(500)
