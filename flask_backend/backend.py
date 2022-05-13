@@ -64,6 +64,7 @@ class Config():
         self.data = None
         self.selector = None
         self.dataset_id = 0
+        self.scenario = "SingleStream"
 
     @classmethod
     def from_dict(cls, data: dict, selector):
@@ -92,6 +93,10 @@ class Config():
                 config.server_netem = NetEmConfig.from_dict(netem["server"])
         if "dataset_id" in data:
             config.dataset_id = data["dataset_id"]
+        if "scenario" in data:
+            config.scenario = data["scenario"]
+        else:
+            config.scenario = "SingleStream"
 
         #TODO make the range generation multi-dimentional 
         if len(ranges) == 1:
@@ -167,7 +172,7 @@ def start(eid, selector):
         config_id = configs[0].store_json(eid)
         for config in configs:
             job_config_id = config.store_file()
-            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS_K8S, MLPERF_STORAGE_SERVER_K8S, FILE_STORAGE_SERVER_K8S, job_config_id, dataset_id] + config.client_netem.to_args())
+            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS_K8S, MLPERF_STORAGE_SERVER_K8S, FILE_STORAGE_SERVER_K8S, job_config_id, dataset_id, config.scenario] + config.client_netem.to_args())
             start_k8_job(yaml_request)
             RUNNING_SELECTOR = config.selector
             while k8_job_status(config.selector):
