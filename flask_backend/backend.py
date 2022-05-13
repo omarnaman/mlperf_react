@@ -16,8 +16,10 @@ PORT = 8083;
 
 KUBERNETES_SERVER = "localhost:8001"
 MLPERF_STORAGE_SERVER = "localhost:8082"
+MLPERF_STORAGE_SERVER_K8S = "localhost:8082"
 FILE_STORAGE_SERVER = "localhost:5000"
-SUT_ADDRESS = "localhost:8086"
+FILE_STORAGE_SERVER_K8S = "localhost:5000"
+SUT_ADDRESS_K8S = "localhost:8086"
 JOB_LOCK = Lock()
 RUNNING_SELECTOR = -1
 
@@ -165,7 +167,7 @@ def start(eid, selector):
         config_id = configs[0].store_json(eid)
         for config in configs:
             job_config_id = config.store_file()
-            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS, MLPERF_STORAGE_SERVER, FILE_STORAGE_SERVER, job_config_id, dataset_id] + config.client_netem.to_args())
+            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS_K8S, MLPERF_STORAGE_SERVER_K8S, FILE_STORAGE_SERVER_K8S, job_config_id, dataset_id] + config.client_netem.to_args())
             start_k8_job(yaml_request)
             RUNNING_SELECTOR = config.selector
             while k8_job_status(config.selector):
