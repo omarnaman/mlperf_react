@@ -53,14 +53,15 @@ class NetEmConfig():
             args.extend(["--tc_random_loss", str(self.loss_rate)])
         if self.reorder is not None:
             args.extend(["--tc_reorder", str(self.reorder)])
-
+        if len(args) == 1:
+            return []
         return args
 
 class Config():
     def __init__(self) -> None:
         self.lines = []
-        self.server_netem: NetEmConfig = None
-        self.client_netem: NetEmConfig = None
+        self.server_netem: NetEmConfig = NetEmConfig()
+        self.client_netem: NetEmConfig = NetEmConfig()
         self.data = None
         self.selector = None
         self.dataset_id = 0
@@ -77,11 +78,11 @@ class Config():
             for scenario in model["scenarios"]:
                 scenario_config = scenario["config"]
                 for key in scenario_config.keys():
-                    config = scenario_config[key]
-                    if key == "num_threads" and isinstance(config, str):
-                        if config.find("-") != -1: # Range
-                            s, e = config.split("-")
-                            ranges.update({f"{model}.{scenario}.{key}": {"start": s, "end": e}})
+                    config_param = scenario_config[key]
+                    if key == "num_threads" and isinstance(config_param, str):
+                        if config_param.find("-") != -1: # Range
+                            s, e = config_param.split("-")
+                            ranges.update({f"{model['model_name']}.{scenario['scenario_name']}.{key}": {"start": int(s), "end": int(e)}})
                             continue
                     else:
                         config.add_line(model["model_name"], scenario["scenario_name"], key, scenario_config[key])
@@ -102,7 +103,8 @@ class Config():
         if len(ranges) == 1:
             key = list(ranges.keys())[0]
             for i in range(ranges[key]["start"], ranges[key]["end"] + 1):
-                i_config = config.copy().lines.append(f"{key} = {i}")
+                i_config = config.copy()
+                i_config.lines.append(f"{key} = {i}")
                 i_config.selector = i
                 configs.append(i_config)
             return configs
