@@ -29,10 +29,15 @@ class Container:
         d = {
             "image": self.image,
             "name": self.name,
-            "args": self.args,
             "imagePullPolicy": self.imagePullPolicy,
-            "command": self.command,
         }
+        if self.args is not None:
+            d.update(
+            {"args": [f'{arg}' for arg in self.args]})
+        if self.command is not None:
+            d.update(
+            {"command": [f'{c}' for c in self.command]})
+
         keys = list(d.keys())
         for key in keys:
             if d[key] is None:
@@ -77,7 +82,7 @@ def createJobYAML(eid, selector, args) -> str:
             }
         }
     }
-    return yaml.dump(o)
+    return yaml.dump(o, default_style='"')
 
 
 
