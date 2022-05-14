@@ -177,7 +177,6 @@ def start(eid, selector):
             RUNNING_SELECTOR = config.selector
             while k8_job_status(config.selector):
                 time.sleep(.5)
-            time.sleep(20)
         JOB_LOCK.release()
         return "", 200
     except Exception as e:
