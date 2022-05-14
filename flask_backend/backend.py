@@ -154,10 +154,12 @@ def start_k8_job(yaml):
 
 def k8_job_status(selector):
     endpoint = f"http://{KUBERNETES_SERVER}/apis/batch/v1/namespaces/default/jobs/{selector}"
-    result = requests.post(url=endpoint)
+    result = requests.get(url=endpoint)
     data = result.json()
     if result.status_code == requests.codes.OK:
-        status = data["status"]["active"]
+        status = data["status"].get("active")
+        if status is None:
+            return True
         return status
     return None
 
