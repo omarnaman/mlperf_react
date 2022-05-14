@@ -1,5 +1,11 @@
 import yaml
 
+
+def quoted_presenter(dumper, data):
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
+
+yaml.add_representer(str, quoted_presenter)
+
 class Metadata:
     def __init__(self, id, label) :
         self.name = id;
@@ -82,7 +88,7 @@ def createJobYAML(eid, selector, args) -> str:
             }
         }
     }
-    return yaml.dump(o, default_style='"')
+    return yaml.dump(o)
 
 
 
