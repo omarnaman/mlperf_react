@@ -105,7 +105,7 @@ class Config():
             for i in range(ranges[key]["start"], ranges[key]["end"] + 1):
                 i_config = config.copy()
                 i_config.lines.append(f"{key} = {i}")
-                i_config.selector = i
+                i_config.selector = str(i)
                 configs.append(i_config)
             return configs
         return [config]
