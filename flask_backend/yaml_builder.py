@@ -62,7 +62,7 @@ class JobSpec:
     
     def to_dict(self):
         d = {
-            "conatiners": [container.to_dict() for container in self.containers],
+            "containers": [container.to_dict() for container in self.containers],
             "initContainers": [container.to_dict() for container in self.initContainers],
             "restartPolicy": self.restartPolicy
         }
