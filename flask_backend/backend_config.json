@@ -1,0 +1,11 @@
+{
+    "loadgen_image": "383978456842.dkr.ecr.us-east-2.amazonaws.com/mlperf:cpplg",
+    "sut_image": "383978456842.dkr.ecr.us-east-2.amazonaws.com/mlperf:sut",
+    "cifss_image": "383978456842.dkr.ecr.us-east-2.amazonaws.com/mlperf:cifss",
+    "storage_image": "383978456842.dkr.ecr.us-east-2.amazonaws.com/mlperf:stpy",
+    "mlperf_storage_server": "ec2-3-23-95-84.us-east-2.compute.amazonaws.com:30001",
+    "mlperf_storage_server_k8s": "storage:8082",
+    "file_storage_server": "ec2-3-23-95-84.us-east-2.compute.amazonaws.com:30002",
+    "file_storage_server_k8s": "cifss:5000",
+    "sut_address_k8s": "sut:8086"
+}
