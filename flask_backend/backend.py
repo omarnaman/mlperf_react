@@ -3,25 +3,22 @@
 import flask
 from flask_cors import CORS, cross_origin
 from flask import request, abort
-import json
 import requests
 import io
 import time
-import yaml_builder
+import kubernetes_manager
 from threading import Lock
+from config import Config as BackendConfig
 
 app = flask.Flask(__name__)
 CORS(app)
 PORT = 8083;
 
-KUBERNETES_SERVER = "localhost:8001"
-MLPERF_STORAGE_SERVER = "localhost:8082"
-MLPERF_STORAGE_SERVER_K8S = "localhost:8082"
-FILE_STORAGE_SERVER = "localhost:5000"
-FILE_STORAGE_SERVER_K8S = "localhost:5000"
-SUT_ADDRESS_K8S = "localhost:8086"
+
 JOB_LOCK = Lock()
 RUNNING_SELECTOR = -1
+CONFIG = None
+K8S_Manager = None
 
 class NetEmConfig():
     def __init__(self) -> None:
@@ -71,7 +68,7 @@ class Config():
     def from_dict(cls, data: dict, selector):
         config = cls()
         config.data = data.copy()
-        config.selector = selector
+        config.selector = str(selector)
         configs = []
         ranges = {}
         for model in data["models"]:
@@ -117,6 +114,8 @@ class Config():
         config.client_netem = self.client_netem
         config.server_netem = self.server_netem
         config.data = self.data
+        config.dataset_id = self.dataset_id
+        config.scenario = self.scenario
         return config
 
     def add_line(self, model, scenario, key, value):
@@ -131,12 +130,12 @@ class Config():
         return buffer
     
     def store_json(self, eid):
-        res = requests.post(url=f"http://{MLPERF_STORAGE_SERVER}/config/{eid}", json=self.data)
+        res = requests.post(url=f"http://{CONFIG.MLPERF_STORAGE_SERVER}/config/{eid}", json=self.data)
         res = res.json()
         return res["config_id"]
 
     def store_file(self):
-        res = requests.post(url=f"http://{FILE_STORAGE_SERVER}/", files={"": self.file_buffer()})
+        res = requests.post(url=f"http://{CONFIG.FILE_STORAGE_SERVER}/", files={"": self.file_buffer()})
         id = res.text
         return id
     
@@ -145,23 +144,6 @@ class Config():
 
     id = property(get_id)
 
-def start_k8_job(yaml):
-    endpoint = f"http://{KUBERNETES_SERVER}/apis/batch/v1/namespaces/default/jobs"
-    result = requests.post(url=endpoint, data=yaml, headers={'Content-Type': 'application/yaml'})
-    return result.status_code
-
-
-
-def k8_job_status(selector):
-    endpoint = f"http://{KUBERNETES_SERVER}/apis/batch/v1/namespaces/default/jobs/{selector}"
-    result = requests.get(url=endpoint)
-    data = result.json()
-    if result.status_code == requests.codes.OK:
-        status = data["status"].get("active")
-        if status is None:
-            return True
-        return status
-    return None
 
 @app.route("/start/<eid>/<selector>", methods=["POST"])
 def start(eid, selector):
@@ -169,17 +151,15 @@ def start(eid, selector):
     if JOB_LOCK.locked():
         return {"job_running": RUNNING_SELECTOR}, 409
     JOB_LOCK.acquire()
-    dataset_id = 1
     try:
         data = request.get_json()
         configs = Config.from_dict(data, selector)
-        config_id = configs[0].store_json(eid)
+        _ = configs[0].store_json(eid)
         for config in configs:
             job_config_id = config.store_file()
-            yaml_request = yaml_builder.createJobYAML(eid, config.selector, [SUT_ADDRESS_K8S, MLPERF_STORAGE_SERVER_K8S, FILE_STORAGE_SERVER_K8S, job_config_id, dataset_id, config.scenario] + config.client_netem.to_args())
-            start_k8_job(yaml_request)
+            _ = K8S_Manager.createLGJob(eid, config.selector, [CONFIG.SUT_ADDRESS_K8S, CONFIG.MLPERF_STORAGE_SERVER_K8S, CONFIG.FILE_STORAGE_SERVER_K8S, job_config_id, config.dataset_id, config.scenario] + config.client_netem.to_args())
             RUNNING_SELECTOR = config.selector
-            while k8_job_status(config.selector):
+            while K8S_Manager.is_job_running(config.selector):
                 time.sleep(.5)
         JOB_LOCK.release()
         return "", 200
@@ -190,14 +170,42 @@ def start(eid, selector):
         
     
 
+@app.route("/running")
+def get_running():
+    if RUNNING_SELECTOR != -1:
+        return {
+            "selector": RUNNING_SELECTOR,
+            "status": K8S_Manager.is_job_running(RUNNING_SELECTOR)
+        }
+    else:
+        return {}
+
 @app.route("/status/<selector>", methods=["GET"])
 def job_status(selector):
-    status = k8_job_status(selector)
+    status = K8S_Manager.is_job_running(selector)
     if status is not None:
-        return status
+        return str(status)
     else:
         abort(404)
 
+@app.route("/init_storage", methods=["POST"])
+def init_storage():
+    cifss_pod, cifss_svc = K8S_Manager.createCIFSS()
+    storage_pod, storage_svc = K8S_Manager.createStorage()
+    return {
+        "cifss": {
+            "pod": cifss_pod,
+            "svc": cifss_svc
+        },
+        "storage": {
+            "pod": storage_pod,
+            "svc": storage_svc
+        }
+    }
+
 
 if __name__=="__main__":
+    CONFIG = BackendConfig()
+    CONFIG.load_config()
+    K8S_Manager = kubernetes_manager.KubernetesManager("./kube.yaml", CONFIG)
     app.run(debug=True, port=PORT, host="0.0.0.0",)
