@@ -81,6 +81,11 @@ class Config():
                             s, e = config_param.split("-")
                             ranges.update({f"{model['model_name']}.{scenario['scenario_name']}.{key}": {"start": int(s), "end": int(e)}})
                             continue
+                        else:
+                            try:
+                                config.add_line(model["model_name"], scenario["scenario_name"], key, int(scenario_config[key]))
+                            except Exception as e:
+                                raise e
                     else:
                         config.add_line(model["model_name"], scenario["scenario_name"], key, scenario_config[key])
         if "netem" in data:
