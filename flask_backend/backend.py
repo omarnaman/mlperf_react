@@ -63,6 +63,7 @@ class Config():
         self.selector = None
         self.dataset_id = 0
         self.scenario = "SingleStream"
+        self.repeats = 1
 
     @classmethod
     def from_dict(cls, data: dict, selector):
@@ -77,7 +78,7 @@ class Config():
                 for key in scenario_config.keys():
                     config_param = scenario_config[key]
                     if key == "num_threads" and isinstance(config_param, str):
-                        if config_param.find("-") != -1: # Range
+                        if config_param.find("-") != -1:
                             s, e = config_param.split("-")
                             ranges.update({f"{model['model_name']}.{scenario['scenario_name']}.{key}": {"start": int(s), "end": int(e)}})
                             continue
@@ -96,10 +97,8 @@ class Config():
                 config.server_netem = NetEmConfig.from_dict(netem["server"])
         if "dataset_id" in data:
             config.dataset_id = data["dataset_id"]
-        if "scenario" in data:
-            config.scenario = data["scenario"]
-        else:
-            config.scenario = "SingleStream"
+            config.scenario = data.get("scenario", "SingleStream")
+        config.repeats = data.get("repeats", 1)
 
         #TODO make the range generation multi-dimentional 
         if len(ranges) == 1:
@@ -121,6 +120,7 @@ class Config():
         config.data = self.data
         config.dataset_id = self.dataset_id
         config.scenario = self.scenario
+        config.repeats = self.repeats
         return config
 
     def add_line(self, model, scenario, key, value):
@@ -162,10 +162,11 @@ def start(eid, selector):
         _ = configs[0].store_json(eid)
         for config in configs:
             job_config_id = config.store_file()
-            _ = K8S_Manager.createLGJob(eid, config.selector, [CONFIG.SUT_ADDRESS_K8S, CONFIG.MLPERF_STORAGE_SERVER_K8S, CONFIG.FILE_STORAGE_SERVER_K8S, job_config_id, config.dataset_id, config.scenario] + config.client_netem.to_args())
-            RUNNING_SELECTOR = config.selector
-            while K8S_Manager.is_job_running(config.selector):
-                time.sleep(.5)
+            for _ in range(config.repeats):
+                _ = K8S_Manager.createLGJob(eid, config.selector, [CONFIG.SUT_ADDRESS_K8S, CONFIG.MLPERF_STORAGE_SERVER_K8S, CONFIG.FILE_STORAGE_SERVER_K8S, job_config_id, config.dataset_id, config.scenario] + config.client_netem.to_args())
+                RUNNING_SELECTOR = config.selector
+                while K8S_Manager.is_job_running(config.selector):
+                    time.sleep(.5)
         JOB_LOCK.release()
         return "", 200
     except Exception as e:
