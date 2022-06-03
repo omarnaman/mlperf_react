@@ -62,6 +62,10 @@ class Experiment(db.Model):
         return json.dumps(self.dict(), indent=2)
     
 
+    def delete(eid):
+        db.session.query(Experiment).filter_by(experiment_id=eid).delete()
+        db.session.commit()
+
 class Config(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     config_json = db.Column(db.UnicodeText)
@@ -106,6 +110,10 @@ class LatencyResult(db.Model):
             }
             res.append(json.copy())
         return res
+    
+    def delete(eid):
+        db.session.query(LatencyResult).filter_by(experiment_id=eid).delete()
+        db.session.commit()
 
 class QPSResult(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -135,6 +143,10 @@ class QPSResult(db.Model):
             }
             res.append(json.copy())
         return res
+
+    def delete(eid):
+        db.session.query(QPSResult).filter_by(experiment_id=eid).delete()
+        db.session.commit()
 
 @app.route("/qps", methods=["POST"])
 def add_qps():
@@ -207,6 +219,32 @@ def get_experiment(eid):
             return "", 404
     except:
         abort(500)
+
+@app.route("/delete/<eid>", methods=["POST"])
+@cross_origin()
+def delete_results(eid):
+    try:
+        Experiment.delete(eid)
+        LatencyResult.delete(eid)
+        QPSResult.delete(eid)
+        return "", 200
+    except:
+        abort(500)
+
+@app.route("/delete_all/", methods=["POST"])
+@cross_origin()
+def delete_all_results():
+    try:
+        eids = Experiment.get_all()["experiments"]
+        for eid in eids:
+            Experiment.delete(eid)
+            LatencyResult.delete(eid)
+            QPSResult.delete(eid)
+        return "", 200
+    except:
+        abort(500)
+
+
 
 if __name__=="__main__":
     db.create_all()
