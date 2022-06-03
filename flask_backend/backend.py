@@ -208,6 +208,21 @@ def init_storage():
             "svc": storage_svc
         }
     }
+    
+@app.route("/sut", methods=["POST"])
+def create_sut():
+    data = request.get_json()
+    args = data.get("args", [])
+    node_selectors = data.get("node_selectors", {})
+    sut_pod, sut_service = K8S_Manager.createSUT(node_selectors, args)
+    return {
+        "sut": {
+            "pod": sut_pod,
+            "svc": sut_service
+        }
+    }
+
+
 
 
 if __name__=="__main__":
