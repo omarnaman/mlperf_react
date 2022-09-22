@@ -59,8 +59,7 @@ class NetEmConfig():
 class Config():
     def __init__(self) -> None:
         self.lines = []
-        self.server_netem: NetEmConfig = NetEmConfig()
-        self.client_netem: NetEmConfig = NetEmConfig()
+        self.netem_config: NetEmConfig = NetEmConfig()
         self.data = None
         self.selector = None
         self.dataset_id = 0
@@ -93,10 +92,11 @@ class Config():
                         config.add_line(model["model_name"], scenario["scenario_name"], key, scenario_config[key])
         if "netem" in data:
             netem = data["netem"]
-            if "client" in netem.keys():
-                config.client_netem = NetEmConfig.from_dict(netem["client"])
-            if "server" in netem.keys():
-                config.server_netem = NetEmConfig.from_dict(netem["server"])
+            config.netem_config = NetEmConfig.from_dict(netem)
+            # if "client" in netem.keys():
+            #     config.client_netem = NetEmConfig.from_dict(netem["client"])
+            # if "server" in netem.keys():
+            #     config.server_netem = NetEmConfig.from_dict(netem["server"])
         if "dataset_id" in data:
             config.dataset_id = data["dataset_id"]
             config.scenario = data.get("scenario", "SingleStream")
@@ -117,8 +117,7 @@ class Config():
         config = Config()
         config.lines = self.lines.copy()
         config.selector = self.selector
-        config.client_netem = self.client_netem
-        config.server_netem = self.server_netem
+        config.netem_config = self.netem_config
         config.data = self.data
         config.dataset_id = self.dataset_id
         config.scenario = self.scenario
@@ -165,7 +164,7 @@ def start(eid, selector):
         for config in configs:
             job_config_id = config.store_file()
             for _ in range(config.repeats):
-                _ = K8S_Manager.createLGJob(eid, config.selector, [CONFIG.SUT_ADDRESS_K8S, CONFIG.MLPERF_STORAGE_SERVER_K8S, CONFIG.FILE_STORAGE_SERVER_K8S, job_config_id, config.dataset_id, config.scenario] + config.client_netem.to_args())
+                _ = K8S_Manager.createLGJob(eid, config.selector, [CONFIG.SUT_ADDRESS_K8S, CONFIG.MLPERF_STORAGE_SERVER_K8S, CONFIG.FILE_STORAGE_SERVER_K8S, job_config_id, config.dataset_id, config.scenario] + config.netem_config.to_args())
                 RUNNING_SELECTOR = config.selector
                 while K8S_Manager.is_job_running(config.selector):
                     time.sleep(.5)
@@ -218,7 +217,7 @@ def create_sut():
     netem_data = data.get("netem", None)
     limits = data.get("limits", None)
     if netem_data is not None:
-        server_netem = NetEmConfig.from_dict(netem_data.get("server"))
+        server_netem = NetEmConfig.from_dict(netem_data)
         args.extend(server_netem.to_args())
 
     sut_pod, sut_service = K8S_Manager.createSUT(node_selectors, args, limits)
@@ -235,7 +234,7 @@ def create_lg_server():
     args = data.get("args", [])
     netem_data = data.get("netem", None)
     if netem_data is not None:
-        server_netem = NetEmConfig.from_dict(netem_data.get("client"))
+        server_netem = NetEmConfig.from_dict(netem_data)
         args.extend(server_netem.to_args())
 
     lg_server_pod, lg_server_service = K8S_Manager.createLGService(args)
