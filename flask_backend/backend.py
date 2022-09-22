@@ -34,7 +34,7 @@ class NetEmConfig():
         config = cls()
         config.data = data.copy()
         config.bandwidth = data.get("bandwidth")
-        config.daley = data.get("daley")
+        config.delay = data.get("delay")
         config.jitter = data.get("jitter")
         config.loss_rate = data.get("loss_rate")
         config.reorder = data.get("reorder")
@@ -92,7 +92,7 @@ class Config():
                     else:
                         config.add_line(model["model_name"], scenario["scenario_name"], key, scenario_config[key])
         if "netem" in data:
-            netem = config["netem"]
+            netem = data["netem"]
             if "client" in netem.keys():
                 config.client_netem = NetEmConfig.from_dict(netem["client"])
             if "server" in netem.keys():
