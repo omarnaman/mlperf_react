@@ -2,6 +2,7 @@ from kubernetes import client
 from config import Config as BackendConfig
 import kubernetes
 import time
+import requests
 
 class KubernetesManager:
     def __init__(self, kube_config_path, config: BackendConfig):
@@ -225,3 +226,42 @@ class KubernetesManager:
         v1 = client.BatchV1Api()
         res = v1.create_namespaced_job("default", job)
         return res
+
+    def createLGService(self, args):
+        kubernetes.config.load_kube_config(self.kube_config_path)
+        v1 = client.CoreV1Api()
+        svc_response = self.createService({"name": "lgserver"}, "lgservice", 8088, 30004)
+        pod_status = self.is_service_pod_deployed({"name": "lgserver"})
+        if pod_status is not None:
+            if pod_status == "Running":
+                requests.post(url=f"http://{self.config.LOADGEN_SERVER}/stop")
+            _ = v1.delete_namespaced_pod(name="lg-pod", namespace="default")
+            self.wait_service_pod(service_labels={"name": "lgserver"}, wait_for_up=False)
+        if self.is_service_pod_deployed({"name": "lgserver"}):
+            return False, svc_response
+        pod_spec = self.getPodSpec(
+            cname="lgserver",
+            image=self.config.LOADGEN_SERVER_IMAGE,
+            hostname="lgserver",
+            args=args,
+            ports=[client.V1ContainerPort(container_port=8088)],
+            node_selector={"mlperf": "lg"}
+        )
+
+        pod = client.V1Pod(
+            api_version="v1",
+            kind="Pod",
+            spec=pod_spec,
+            metadata=client.V1ObjectMeta(
+                name="lg-pod",
+                labels={"name": "lgserver"}
+            )
+        )
+        _ = v1.create_namespaced_pod("default", pod)
+        return True, svc_response
+
+    def createLGServiceJob(self, args_dict):
+        kubernetes.config.load_kube_config(self.kube_config_path)
+        res = requests.post(f"http://{self.config.LOADGEN_SERVER}/run_expriement", json=args_dict)
+        if res.status_code == 200:
+            return True, res.json()
