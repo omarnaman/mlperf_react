@@ -98,7 +98,8 @@ class KubernetesManager:
             containers=[container],
             node_selector=node_selector,
             hostname=hostname,
-            restart_policy=restart_policy)
+            restart_policy=restart_policy,
+            service_account_name=self.config.SERVICE_ACCOUNT_NAME)
 
         return pod_spec
 

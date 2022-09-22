@@ -11,6 +11,7 @@ class Config():
     FILE_STORAGE_SERVER = None
     FILE_STORAGE_SERVER_K8S = None
     SUT_ADDRESS_K8S = None
+    SERVICE_ACCOUNT_NAME = None
 
     def load_config(self, path="backend_config.json"):
         with open(path, 'r') as f:
@@ -25,6 +26,7 @@ class Config():
         self.FILE_STORAGE_SERVER = config["file_storage_server"]
         self.FILE_STORAGE_SERVER_K8S = config["file_storage_server_k8s"]
         self.SUT_ADDRESS_K8S = config["sut_address_k8s"]
+        self.SERVICE_ACCOUNT_NAME = config["service_account_name"]
 
         return self
 
