@@ -35,8 +35,16 @@ class KubernetesManager:
                 raise e
 
     def wait_service_pod(self, service_labels: dict, namespace="default", wait_for_up=True):
-        while not (wait_for_up ^ self.is_service_pod_deployed(service_labels, namespace)):
+        status = self.is_service_pod_deployed(service_labels, namespace)
+        if status is not None:
+            status = True
+        else:
+            status = False
+        while wait_for_up ^ status:
+            
             time.sleep(1)
+            status = self.is_service_pod_deployed(service_labels, namespace)
+            status = True if status else False
 
 
     def is_service_pod_deployed(self, service_labels: dict, namespace="default"):
@@ -48,8 +56,9 @@ class KubernetesManager:
                 filters.append(f"{key}={val}")
             res = api_instance.list_namespaced_pod(namespace=namespace, label_selector=",".join(filters))
             if len(res.items) > 0:
-                return True
-            return False
+                pod_status = res.items[0].status.phase
+                return pod_status
+            return None
         except client.exceptions.ApiException as e:
             raise e
 
