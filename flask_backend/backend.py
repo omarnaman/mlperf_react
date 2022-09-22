@@ -172,7 +172,6 @@ def start(eid, selector):
         JOB_LOCK.release()
         return "", 200
     except Exception as e:
-        print(e)
         JOB_LOCK.release()
         abort(500)
         
@@ -230,7 +229,46 @@ def create_sut():
         }
     }
 
+@app.route("/lg_server", methods=["POST"])
+def create_lg_server():
+    data = request.get_json()
+    args = data.get("args", [])
+    netem_data = data.get("netem", None)
+    if netem_data is not None:
+        server_netem = NetEmConfig.from_dict(netem_data.get("client"))
+        args.extend(server_netem.to_args())
 
+    lg_server_pod, lg_server_service = K8S_Manager.createLGService(args)
+    return {
+        "lg_server": {
+            "pod": lg_server_pod,
+            "svc": lg_server_service
+        }
+    }
+
+@app.route("/lg_job/<eid>/<selector>", methods=["POST"])
+def create_lg_server_job(eid, selector):
+    data = request.get_json()
+    configs = Config.from_dict(data, selector)
+    for config in configs:
+        job_config_id = config.store_file()
+        for _ in range(config.repeats):
+            server_args = {
+                "experiment_name": eid,
+                "selector": config.selector,
+                "sut_address": CONFIG.SUT_ADDRESS_K8S,
+                "file_storage_address":CONFIG.FILE_STORAGE_SERVER_K8S,
+                "storage_address": CONFIG.MLPERF_STORAGE_SERVER_K8S,
+                "config_id": job_config_id,
+                "dataset_url": config.dataset_id,
+                "scenario": config.scenario,
+            }
+            RUNNING_SELECTOR = config.selector
+            res = requests.post(url=f"http://{CONFIG.LOADGEN_SERVER}/run_experiment", json=server_args)
+            if res.status_code != 200:
+                print("Error running experiment")
+                return "LG Error:" + res.text, res.status_code
+    return "", 200
 
 
 if __name__=="__main__":
