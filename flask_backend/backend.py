@@ -203,7 +203,7 @@ def init_storage():
             "pod": storage_pod,
             "svc": storage_svc
         }
-    }
+    }, 200
     
 @app.route("/sut", methods=["POST"])
 def create_sut():
@@ -222,7 +222,7 @@ def create_sut():
             "pod": sut_pod,
             "svc": sut_service
         }
-    }
+    }, 200
 
 @app.route("/lg_server", methods=["POST"])
 def create_lg_server():
@@ -239,7 +239,7 @@ def create_lg_server():
             "pod": lg_server_pod,
             "svc": lg_server_service
         }
-    }
+    }, 200
 
 @app.route("/lg_job/<eid>/<selector>", methods=["POST"])
 def create_lg_server_job(eid, selector):
