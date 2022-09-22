@@ -93,10 +93,6 @@ class Config():
         if "netem" in data:
             netem = data["netem"]
             config.netem_config = NetEmConfig.from_dict(netem)
-            # if "client" in netem.keys():
-            #     config.client_netem = NetEmConfig.from_dict(netem["client"])
-            # if "server" in netem.keys():
-            #     config.server_netem = NetEmConfig.from_dict(netem["server"])
         if "dataset_id" in data:
             config.dataset_id = data["dataset_id"]
             config.scenario = data.get("scenario", "SingleStream")
