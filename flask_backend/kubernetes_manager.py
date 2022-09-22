@@ -78,7 +78,7 @@ class KubernetesManager:
         _ = v1.create_namespaced_service("default", service)
         return True
 
-    def getPodSpec(self, cname, image, args, hostname=None, ports=None, node_selector=None, image_pull_policy="Always", restart_policy="Never"):
+    def getPodSpec(self, cname, image, args, hostname=None, ports=None, node_selector=None, image_pull_policy="Always", restart_policy="Never", limits=None):
         kubernetes.config.load_kube_config(self.kube_config_path)
         security_context = client.V1SecurityContext(
             capabilities=client.V1Capabilities(add=["NET_ADMIN"]))
@@ -89,7 +89,10 @@ class KubernetesManager:
             image=image,
             name=cname,
             image_pull_policy=image_pull_policy,
-            ports=ports)
+            ports=ports,
+            resources=client.V1ResourceRequirements(
+                limits=limits,
+            ))
 
         pod_spec = client.V1PodSpec(
             containers=[container],
@@ -128,13 +131,13 @@ class KubernetesManager:
         return True, svc_response
 
 
-    def createSUT(self, node_selectors, args):
+    def createSUT(self, node_selectors, args, limits):
         kubernetes.config.load_kube_config(self.kube_config_path)
         v1 = client.CoreV1Api()
         svc_response = self.createService({"run": "sut"}, "sut", 8086, 30003)
         if self.is_service_pod_deployed({"name": "sut"}):
             _ = v1.delete_namespaced_pod(name="sut-pod", namespace="default")
-            self.wait_service_pod(service_labels={"name": "sut"})
+            self.wait_service_pod(service_labels={"name": "sut"}, wait_for_up=False)
         node_selectors.update({"mlperf": "sut"})
         pod_spec = self.getPodSpec(
             cname="sut",
@@ -142,7 +145,9 @@ class KubernetesManager:
             hostname="sut-pod",
             args=args,
             ports=[client.V1ContainerPort(container_port=8086)],
-            node_selector=node_selectors)
+            node_selector=node_selectors,
+            limits=limits
+         )
         pod = client.V1Pod(
             api_version="v1",
             kind="Pod",

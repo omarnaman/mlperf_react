@@ -216,7 +216,13 @@ def create_sut():
     data = request.get_json()
     args = data.get("args", [])
     node_selectors = data.get("node_selectors", {})
-    sut_pod, sut_service = K8S_Manager.createSUT(node_selectors, args)
+    netem_data = data.get("netem", None)
+    limits = data.get("limits", None)
+    if netem_data is not None:
+        server_netem = NetEmConfig.from_dict(netem_data.get("server"))
+        args.extend(server_netem.to_args())
+
+    sut_pod, sut_service = K8S_Manager.createSUT(node_selectors, args, limits)
     return {
         "sut": {
             "pod": sut_pod,
