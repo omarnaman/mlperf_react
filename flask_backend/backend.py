@@ -46,6 +46,8 @@ class NetEmConfig():
             args.extend(["--tc_bandwidth", str(self.bandwidth)])
         if self.delay is not None:
             args.extend(["--tc_delay", str(self.delay)])
+        if self.jitter is not None:
+            args.extend(["--tc_jitter", str(self.jitter)])
         if self.loss_rate is not None:
             args.extend(["--tc_random_loss", str(self.loss_rate)])
         if self.reorder is not None:
