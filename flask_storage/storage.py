@@ -46,7 +46,6 @@ class Experiment(db.Model):
 
     def get(eid):
         exp: Experiment = db.session.query(Experiment).filter_by(experiment_id=eid).first()
-        print(exp)
         if exp is not None:
             return exp.dict()
         return None
@@ -95,7 +94,6 @@ class LatencyResult(db.Model):
     
     def add_latencies(eid, selector, latencies: "list[float]"):
         Experiment.add(eid)
-        print(f"Adding {eid}, {selector}, {latencies}")
         row = LatencyResult(eid, selector, latencies)
         db.session.add(row)
         db.session.commit()
@@ -128,7 +126,6 @@ class QPSResult(db.Model):
     
     def add_qps(eid, selector, qps: float):
         Experiment.add(eid)
-        print(f"Adding {eid}, {selector}, {qps}")
         row = QPSResult(eid, selector, qps)
         db.session.add(row)
         db.session.commit()
