@@ -132,8 +132,6 @@ A LoadGen Job is a single LoadGen instance running a single experiment on an ind
 `POST` /start/{eid}/{selector}
 
 ### Path Parameters
-This endpoint has no path parameters.
-
 | Parameter | Description                                                                                                   |
 | --------- | ------------------------------------------------------------------------------------------------------------- |
 | eid       | The experiment's identifier, used to group related jobs in the storage service.                               |
@@ -167,8 +165,6 @@ A LoadGen instance is a single LoadGen process ran by the LoadGen Server. This i
 
 
 ### Path Parameters
-This endpoint has no path parameters.
-
 | Parameter | Description                                                                                                   |
 | --------- | ------------------------------------------------------------------------------------------------------------- |
 | eid       | The experiment's identifier, used to group related jobs in the storage service.                               |
