@@ -8,6 +8,7 @@ import { RegisterComponent } from './sessions/register/register.component';
 import { Error403Component } from './sessions/403.component';
 import { Error404Component } from './sessions/404.component';
 import { Error500Component } from './sessions/500.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 const COMPONENTS: any[] = [
   DashboardComponent,
@@ -20,7 +21,11 @@ const COMPONENTS: any[] = [
 const COMPONENTS_DYNAMIC: any[] = [];
 
 @NgModule({
-  imports: [SharedModule, RoutesRoutingModule],
+  imports: [
+    SharedModule,
+    RoutesRoutingModule,
+    NgApexchartsModule,
+  ],
   declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC],
 })
 export class RoutesModule {}
