@@ -4,6 +4,7 @@ import { PreloaderService } from '@core';
 @Component({
   selector: 'app-root',
   template: '<router-outlet></router-outlet>',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit {
   constructor(private preloader: PreloaderService) {}
