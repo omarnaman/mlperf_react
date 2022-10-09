@@ -9,6 +9,7 @@ import { Error403Component } from './sessions/403.component';
 import { Error404Component } from './sessions/404.component';
 import { Error500Component } from './sessions/500.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { LoadGeneratorFormComponent } from './load-generator-form/load-generator-form.component';
 
 const COMPONENTS: any[] = [
   DashboardComponent,
@@ -26,6 +27,6 @@ const COMPONENTS_DYNAMIC: any[] = [];
     RoutesRoutingModule,
     NgApexchartsModule,
   ],
-  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC],
+  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, LoadGeneratorFormComponent],
 })
 export class RoutesModule {}

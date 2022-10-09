@@ -76,7 +76,9 @@
     "permissions": "Permissions",
     "permissions.role-switching": "Role Switching",
     "permissions.route-guard": "Route Guard",
-    "permissions.test": "Permission Test"
+    "permissions.test": "Permission Test",
+    "configuration": "Configuration",
+    "configuration.load-generator": "Load Generator"
   },
   "validations": {
     "required": "This field is required",
@@ -140,5 +142,17 @@
     "confirm_delete": "Confirm delete?",
     "ok": "Ok",
     "close": "Close"
+  },
+  "configuration": {
+    "load-generator-configuration": "Load Generator Configuration",
+    "data-set": "Data Set",
+    "scenario": "Scenario",
+    "sample-count": "Sample Count",
+    "range-of-clients": "Range of Clients",
+    "record-accuracy": "Record Accuracy",
+    "time": "Time",
+    "pipeline-requests": "Pipeline Requests",
+    "samples-per-query": "Samples Per Query",
+    "maximum-outgoing-queries": "Maximum Outgoing Queries"
   }
 }

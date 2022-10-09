@@ -1,6 +1,19 @@
 {
   "menu": [
     {
+      "route": "/configuration",
+      "name": "configuration",
+      "type": "sub",
+      "icon": "settings",
+      "children": [
+        {
+          "route": "load-generator",
+          "name": "load-generator",
+          "type": "link"
+        }
+      ]
+    },
+    {
       "route": "dashboard",
       "name": "dashboard",
       "type": "link",
