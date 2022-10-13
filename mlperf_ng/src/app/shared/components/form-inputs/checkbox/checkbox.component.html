@@ -1,0 +1,8 @@
+<div [formGroup]="form">
+    <mat-checkbox
+        [formControlName]="input.key"
+        class="checkbox-margin"
+        [color]="input.config.color || 'primary'">
+        {{ input.label | translate }}
+    </mat-checkbox>
+</div>

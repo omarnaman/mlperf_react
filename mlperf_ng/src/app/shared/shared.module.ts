@@ -22,33 +22,45 @@ import { DisableControlDirective } from './directives/disable-control.directive'
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ToObservablePipe } from './pipes/to-observable.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { TextboxComponent } from './components/form-inputs/textbox/textbox.component';
+import { DropdownComponent } from './components/form-inputs/dropdown/dropdown.component';
+import { CheckboxComponent } from './components/form-inputs/checkbox/checkbox.component';
+import { FormInputComponent } from './components/form-inputs/form-input/form-input.component';
 
 const MODULES: any[] = [
-  CommonModule,
-  RouterModule,
-  ReactiveFormsModule,
-  FormsModule,
-  MaterialModule,
-  MaterialExtensionsModule,
-  FlexLayoutModule,
-  FormlyModule,
-  FormlyMaterialModule,
-  NgProgressModule,
-  NgProgressRouterModule,
-  NgProgressHttpModule,
-  NgxPermissionsModule,
-  ToastrModule,
-  TranslateModule,
-  MatSelectModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule,
+    MaterialExtensionsModule,
+    FlexLayoutModule,
+    FormlyModule,
+    FormlyMaterialModule,
+    NgProgressModule,
+    NgProgressRouterModule,
+    NgProgressHttpModule,
+    NgxPermissionsModule,
+    ToastrModule,
+    TranslateModule,
+    MatSelectModule,
 ];
-const COMPONENTS: any[] = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent];
+const COMPONENTS: any[] = [
+    BreadcrumbComponent,
+    PageHeaderComponent,
+    ErrorCodeComponent,
+    TextboxComponent,
+    DropdownComponent,
+    CheckboxComponent,
+    FormInputComponent,
+];
 const COMPONENTS_DYNAMIC: any[] = [];
 const DIRECTIVES: any[] = [DisableControlDirective];
 const PIPES: any[] = [SafeUrlPipe, ToObservablePipe];
 
 @NgModule({
-  imports: [...MODULES],
-  exports: [...MODULES, ...COMPONENTS, ...DIRECTIVES, ...PIPES],
-  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, ...DIRECTIVES, ...PIPES],
+    imports: [...MODULES],
+    exports: [...MODULES, ...COMPONENTS, ...DIRECTIVES, ...PIPES],
+    declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, ...DIRECTIVES, ...PIPES],
 })
 export class SharedModule {}

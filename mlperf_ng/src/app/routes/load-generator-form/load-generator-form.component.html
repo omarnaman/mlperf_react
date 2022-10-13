@@ -1,57 +1,17 @@
-<h2>{{ 'configuration.load-generator-configuration' | translate }}</h2>
-<div fxLayout="row wrap" class="matero-row">
-  <div class="matero-col">
+<div class="load-gen-form-wrapper">
+    <h2>{{ 'configuration.load-generator-configuration' | translate }}</h2>
     <mat-card>
-      <form class="form-field-full">
-        <mat-form-field>
-          <mat-label>{{ 'configuration.data-set' | translate }}</mat-label>
-          <mat-select required>
-            <mat-option value="1">Option 1</mat-option>
-            <mat-option value="2">Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.scenario' | translate }}</mat-label>
-          <mat-select required>
-            <mat-option value="1">Option 1</mat-option>
-            <mat-option value="2">Option 2</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.sample-count' | translate }}</mat-label>
-          <input matInput type="number" required>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.range-of-clients' | translate }}</mat-label>
-          <input matInput required>
-        </mat-form-field>
-
-        <mat-checkbox class="checkbox-margin" color="primary">{{ 'configuration.record-accuracy' | translate }}</mat-checkbox>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.time' | translate }}</mat-label>
-          <input matInput type="number" required>
-        </mat-form-field>
-
-        <mat-checkbox class="checkbox-margin" color="primary">{{ 'configuration.pipeline-requests' | translate }}</mat-checkbox>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.samples-per-query' | translate }}</mat-label>
-          <input matInput type="number" required>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>{{ 'configuration.maximum-outgoing-queries' | translate }}</mat-label>
-          <input matInput type="number" required>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" class="m-t-8">Save</button>
-      </form>
-
+        <form class="form-field-full">
+            <app-form-input [form]="form" [input]="dataset"></app-form-input>
+            <app-form-input [form]="form" [input]="scenario"></app-form-input>
+            <app-form-input [form]="form" [input]="sampleCount"></app-form-input>
+            <app-form-input [form]="form" [input]="rangeOfClients"></app-form-input>
+            <app-form-input [form]="form" [input]="recordAccuracy"></app-form-input>
+            <app-form-input [form]="form" [input]="time"></app-form-input>
+            <app-form-input [form]="form" [input]="pipelineRequests"></app-form-input>
+            <app-form-input [form]="form" [input]="samplesPerQuery"></app-form-input>
+            <app-form-input [form]="form" [input]="maxOutgoingQueries"></app-form-input>
+            <button mat-raised-button color="primary" class="m-t-8" (click)="onSave()">Save</button>
+        </form>
     </mat-card>
-  </div>
 </div>
-
