@@ -10,6 +10,16 @@
           "route": "load-generator",
           "name": "load-generator",
           "type": "link"
+        },
+        {
+            "route": "system-under-test",
+            "name": "system-under-test",
+            "type": "link"
+        },
+        {
+            "route": "network-emulation",
+            "name": "network-emulation",
+            "type": "link"
         }
       ]
     },

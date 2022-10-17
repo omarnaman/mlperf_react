@@ -12,42 +12,48 @@ import { Error404Component } from './sessions/404.component';
 import { Error500Component } from './sessions/500.component';
 import { AuthGuard } from '@core';
 import { LoadGeneratorFormComponent } from './load-generator-form/load-generator-form.component';
+import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
+import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: '403', component: Error403Component },
-      { path: '404', component: Error404Component },
-      { path: '500', component: Error500Component },
-      {
-        path: 'configuration',
-        children: [{ path: 'load-generator', component: LoadGeneratorFormComponent }],
-      },
-    ],
-  },
-  {
-    path: 'auth',
-    component: AuthLayoutComponent,
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-    ],
-  },
-  { path: '**', redirectTo: 'dashboard' },
+    {
+        path: '',
+        component: AdminLayoutComponent,
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        children: [
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: DashboardComponent },
+            { path: '403', component: Error403Component },
+            { path: '404', component: Error404Component },
+            { path: '500', component: Error500Component },
+            {
+                path: 'configuration',
+                children: [
+                    { path: 'load-generator', component: LoadGeneratorFormComponent },
+                    { path: 'system-under-test', component: SystemUnderTestFormComponent },
+                    { path: 'network-emulation', component: NetworkEmulationFormComponent },
+                ],
+            },
+        ],
+    },
+    {
+        path: 'auth',
+        component: AuthLayoutComponent,
+        children: [
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+        ],
+    },
+    { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      useHash: environment.useHash,
-    }),
-  ],
-  exports: [RouterModule],
+    imports: [
+        RouterModule.forRoot(routes, {
+            useHash: environment.useHash,
+        }),
+    ],
+    exports: [RouterModule],
 })
 export class RoutesRoutingModule {}

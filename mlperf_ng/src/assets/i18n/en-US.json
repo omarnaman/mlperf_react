@@ -78,7 +78,9 @@
     "permissions.route-guard": "Route Guard",
     "permissions.test": "Permission Test",
     "configuration": "Configuration",
-    "configuration.load-generator": "Load Generator"
+    "configuration.load-generator": "Load Generator",
+    "configuration.system-under-test": "System Under Test",
+    "configuration.network-emulation": "Network Emulation"
   },
   "validations": {
     "required": "This field is required",
@@ -153,6 +155,11 @@
     "time": "Time",
     "pipeline-requests": "Pipeline Requests",
     "samples-per-query": "Samples Per Query",
-    "maximum-outgoing-queries": "Maximum Outgoing Queries"
+    "maximum-outgoing-queries": "Maximum Outgoing Queries",
+    "system-under-test-configuration": "System Under Test Configuration",
+    "model-threads": "Model Threads",
+    "model": "Model",
+    "runtime": "Runtime",
+    "consumer-threads": "Consumer Threads"
   }
 }

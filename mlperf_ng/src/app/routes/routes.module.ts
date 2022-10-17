@@ -10,6 +10,8 @@ import { Error404Component } from './sessions/404.component';
 import { Error500Component } from './sessions/500.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { LoadGeneratorFormComponent } from './load-generator-form/load-generator-form.component';
+import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
+import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
 
 const COMPONENTS: any[] = [
   DashboardComponent,
@@ -27,6 +29,6 @@ const COMPONENTS_DYNAMIC: any[] = [];
     RoutesRoutingModule,
     NgApexchartsModule,
   ],
-  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, LoadGeneratorFormComponent],
+  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, LoadGeneratorFormComponent, SystemUnderTestFormComponent, NetworkEmulationFormComponent],
 })
 export class RoutesModule {}
