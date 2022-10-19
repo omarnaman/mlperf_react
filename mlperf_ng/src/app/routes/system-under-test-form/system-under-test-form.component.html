@@ -5,6 +5,8 @@
         <app-form-input [form]="form" [input]="model"></app-form-input>
         <app-form-input [form]="form" [input]="runtime"></app-form-input>
         <app-form-input [form]="form" [input]="consumerThreads"></app-form-input>
-        <button mat-raised-button color="primary" class="m-t-8" (click)="onSave()">Save</button>
+        <button mat-raised-button color="primary" class="m-t-8" (click)="onSave()">
+            {{ 'others.save' | translate }}
+        </button>
     </form>
 </mat-card>

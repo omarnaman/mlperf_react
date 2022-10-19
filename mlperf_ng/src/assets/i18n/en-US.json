@@ -80,7 +80,8 @@
     "configuration": "Configuration",
     "configuration.load-generator": "Load Generator",
     "configuration.system-under-test": "System Under Test",
-    "configuration.network-emulation": "Network Emulation"
+    "configuration.network-emulation": "Network Emulation",
+    "configuration.cloud-deployment": "Cloud Deployment"
   },
   "validations": {
     "required": "This field is required",
@@ -160,6 +161,19 @@
     "model-threads": "Model Threads",
     "model": "Model",
     "runtime": "Runtime",
-    "consumer-threads": "Consumer Threads"
+    "consumer-threads": "Consumer Threads",
+    "network-emulation-configuration": "Network Emulation Configuration",
+    "enable-client-side-traffic-emulation": "Enable Client-side Traffic Emulation",
+    "tc-delay": "tc-delay",
+    "tc-jitter": "tc-jitter",
+    "tc-bandwidth": "tc-bandwidth",
+    "tc-random-loss": "tc-random-loss",
+    "enable-server-side-traffic-emulation": "Enable Server-side Traffic Emulation",
+    "cloud-deployment-configuration": "Cloud Deployment Configuration",
+    "enable-cloud-deployment": "Enable Cloud Deployment",
+    "cloud-provider": "Cloud Provider"
+  },
+  "others": {
+    "save": "Save"
   }
 }

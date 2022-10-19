@@ -12,6 +12,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { LoadGeneratorFormComponent } from './load-generator-form/load-generator-form.component';
 import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
 import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
+import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
 
 const COMPONENTS: any[] = [
   DashboardComponent,
@@ -29,6 +30,6 @@ const COMPONENTS_DYNAMIC: any[] = [];
     RoutesRoutingModule,
     NgApexchartsModule,
   ],
-  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, LoadGeneratorFormComponent, SystemUnderTestFormComponent, NetworkEmulationFormComponent],
+  declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, LoadGeneratorFormComponent, SystemUnderTestFormComponent, NetworkEmulationFormComponent, CloudDeploymentFormComponent],
 })
 export class RoutesModule {}

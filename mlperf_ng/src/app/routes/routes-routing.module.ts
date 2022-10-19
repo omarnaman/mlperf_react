@@ -14,6 +14,7 @@ import { AuthGuard } from '@core';
 import { LoadGeneratorFormComponent } from './load-generator-form/load-generator-form.component';
 import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
 import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
+import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,7 @@ const routes: Routes = [
                     { path: 'load-generator', component: LoadGeneratorFormComponent },
                     { path: 'system-under-test', component: SystemUnderTestFormComponent },
                     { path: 'network-emulation', component: NetworkEmulationFormComponent },
+                    { path: 'cloud-deployment', component: CloudDeploymentFormComponent },
                 ],
             },
         ],

@@ -20,6 +20,11 @@
             "route": "network-emulation",
             "name": "network-emulation",
             "type": "link"
+        },
+        {
+            "route": "cloud-deployment",
+            "name": "cloud-deployment",
+            "type": "link"
         }
       ]
     },
