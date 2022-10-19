@@ -1,65 +1,38 @@
 {
-  "menu": [
-    {
-      "route": "/configuration",
-      "name": "configuration",
-      "type": "sub",
-      "icon": "settings",
-      "children": [
+    "menu": [
         {
-          "route": "load-generator",
-          "name": "load-generator",
-          "type": "link"
+            "route": "/configuration",
+            "name": "configuration",
+            "type": "sub",
+            "icon": "settings",
+            "children": [
+                {
+                    "route": "load-generator",
+                    "name": "load-generator",
+                    "type": "link"
+                },
+                {
+                    "route": "system-under-test",
+                    "name": "system-under-test",
+                    "type": "link"
+                },
+                {
+                    "route": "network-emulation",
+                    "name": "network-emulation",
+                    "type": "link"
+                },
+                {
+                    "route": "cloud-deployment",
+                    "name": "cloud-deployment",
+                    "type": "link"
+                }
+            ]
         },
         {
-            "route": "system-under-test",
-            "name": "system-under-test",
-            "type": "link"
-        },
-        {
-            "route": "network-emulation",
-            "name": "network-emulation",
-            "type": "link"
-        },
-        {
-            "route": "cloud-deployment",
-            "name": "cloud-deployment",
-            "type": "link"
+            "route": "dashboard",
+            "name": "dashboard",
+            "type": "link",
+            "icon": "dashboard"
         }
-      ]
-    },
-    {
-      "route": "dashboard",
-      "name": "dashboard",
-      "type": "link",
-      "icon": "dashboard",
-      "badge": {
-        "color": "red-500",
-        "value": "5"
-      }
-    },
-    {
-      "route": "/",
-      "name": "sessions",
-      "type": "sub",
-      "icon": "question_answer",
-      "children": [
-        {
-          "route": "403",
-          "name": "403",
-          "type": "link"
-        },
-        {
-          "route": "404",
-          "name": "404",
-          "type": "link"
-        },
-        {
-          "route": "500",
-          "name": "500",
-          "type": "link"
-        }
-      ]
-    }
-  ]
+    ]
 }
