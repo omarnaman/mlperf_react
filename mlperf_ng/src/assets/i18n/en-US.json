@@ -148,7 +148,7 @@
   },
   "configuration": {
     "load-generator-configuration": "Load Generator Configuration",
-    "data-set": "Data Set",
+    "dataset": "Dataset",
     "scenario": "Scenario",
     "sample-count": "Sample Count",
     "range-of-clients": "Range of Clients",
@@ -171,7 +171,22 @@
     "enable-server-side-traffic-emulation": "Enable Server-side Traffic Emulation",
     "cloud-deployment-configuration": "Cloud Deployment Configuration",
     "enable-cloud-deployment": "Enable Cloud Deployment",
-    "cloud-provider": "Cloud Provider"
+    "cloud-provider": "Cloud Provider",
+    "dataset-hint": "The dataset used in the evaluation",
+    "scenario-hint": "The scenario that defines the query generation pattern/frequency",
+    "sample-count-hint": "The number of samples to be loaded from the dataset",
+    "range-of-clients-hint": "The range of number of clients to run concurrently (1-10, 3-6)",
+    "time-hint": "Experiment duration in seconds",
+    "samples-per-query-hint": "Samples to send per query",
+    "max-outgoing-queries-hint": "The maximum number of pipelined requests",
+    "model-threads-hint": "Number of threads dedicated to each request on the server side",
+    "model-hint": "The model to load onto the runtime",
+    "runtime-hint": "The runtime to load the model",
+    "consumer-threads-hint": "The number of requests processed concurrently",
+    "tc-delay-hint": "Emulated network delay (10ms. 1s, ...)",
+    "tc-jitter-hint": "Emulated network jitter (10ms. 1s, ...)",
+    "tc-bandwidth-hint": "Emulated network bandwidth (10kbps, 1mbps, ...)",
+    "tc-random-loss-hint": "Emulated network random drop probability"
   },
   "others": {
     "save": "Save"

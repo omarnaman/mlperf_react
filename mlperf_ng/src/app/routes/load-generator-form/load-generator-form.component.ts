@@ -14,9 +14,12 @@ export class LoadGeneratorFormComponent implements OnInit {
     form !: FormGroup;
     dataset = new Dropdown({
         key: 'dataset',
-        label: 'configuration.data-set',
+        label: 'configuration.dataset',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.dataset-hint',
         },
         options: [
             { label: 'Option 1', value: 'option1' },
@@ -28,6 +31,9 @@ export class LoadGeneratorFormComponent implements OnInit {
         label: 'configuration.scenario',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.scenario-hint',
         },
         options: [
             { label: 'Option 1', value: 'option1' },
@@ -42,6 +48,9 @@ export class LoadGeneratorFormComponent implements OnInit {
             required: true,
             min: 0,
         },
+        config: {
+            hint: 'configuration.sample-count-hint',
+        },
     });
     rangeOfClients = new Textbox({
         key: 'rangeOfClients',
@@ -49,6 +58,9 @@ export class LoadGeneratorFormComponent implements OnInit {
         type: 'number',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.range-of-clients-hint',
         },
     });
     recordAccuracy = new Checkbox({
@@ -62,6 +74,9 @@ export class LoadGeneratorFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.time-hint',
+        },
     });
     pipelineRequests = new Checkbox({
         key: 'pipelineRequests',
@@ -74,6 +89,9 @@ export class LoadGeneratorFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.samples-per-query-hint',
+        },
     });
     maxOutgoingQueries = new Textbox({
         key: 'maxOutgoingQueries',
@@ -81,6 +99,9 @@ export class LoadGeneratorFormComponent implements OnInit {
         type: 'number',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.max-outgoing-queries-hint',
         },
     });
 

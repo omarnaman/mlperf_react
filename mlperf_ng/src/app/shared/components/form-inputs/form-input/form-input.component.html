@@ -1,4 +1,4 @@
-<div [formGroup]="form">
+<div [formGroup]="form" class="input-margin">
     <div [ngSwitch]="input.controlType">
         <app-textbox *ngSwitchCase="'textbox'" [input]="input" [form]="form"></app-textbox>
         <app-dropdown *ngSwitchCase="'dropdown'" [input]="input" [form]="form"></app-dropdown>

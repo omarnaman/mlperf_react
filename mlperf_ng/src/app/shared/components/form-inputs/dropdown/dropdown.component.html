@@ -6,6 +6,7 @@
                 {{ option.label | translate }}
             </mat-option>
         </mat-select>
+        <mat-hint *ngIf="input.config.hint">{{ input.config.hint | translate }}</mat-hint>
         <mat-error *ngIf="form.controls[input.key]?.errors?.required">
             {{ 'validations.required' | translate }}
         </mat-error>

@@ -19,6 +19,9 @@ export class SystemUnderTestFormComponent implements OnInit {
             required: true,
             min: 0,
         },
+        config: {
+            hint: 'configuration.model-threads-hint',
+        },
     });
     model = new Dropdown({
         key: 'model',
@@ -30,12 +33,18 @@ export class SystemUnderTestFormComponent implements OnInit {
             { label: 'Option 1', value: 'option1' },
             { label: 'Option 2', value: 'option2' },
         ],
+        config: {
+            hint: 'configuration.model-hint',
+        },
     });
     runtime = new Textbox({
         key: 'runtime',
         label: 'configuration.runtime',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.runtime-hint',
         },
         options: [
             { label: 'Option 1', value: 'option1' },
@@ -50,6 +59,9 @@ export class SystemUnderTestFormComponent implements OnInit {
         validation: {
             required: true,
             min: 0,
+        },
+        config: {
+            hint: 'configuration.consumer-threads-hint',
         },
     });
 

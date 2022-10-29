@@ -21,12 +21,18 @@ export class NetworkEmulationFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.tc-delay-hint',
+        },
     });
     clientTcJitter = new Textbox({
         key: 'clientTcJitter',
         label: 'configuration.tc-jitter',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.tc-jitter-hint',
         },
     });
     clientTcBandwidth = new Textbox({
@@ -35,12 +41,18 @@ export class NetworkEmulationFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.tc-bandwidth-hint',
+        },
     });
     clientRandomLoss = new Textbox({
         key: 'clientRandomLoss',
         label: 'configuration.tc-random-loss',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.tc-random-loss-hint',
         },
     });
     enableServerSideEmulation = new Checkbox({
@@ -53,12 +65,18 @@ export class NetworkEmulationFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.tc-delay-hint',
+        },
     });
     serverTcJitter = new Textbox({
         key: 'serverTcJitter',
         label: 'configuration.tc-jitter',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.tc-jitter-hint',
         },
     });
     serverTcBandwidth = new Textbox({
@@ -67,12 +85,18 @@ export class NetworkEmulationFormComponent implements OnInit {
         validation: {
             required: true,
         },
+        config: {
+            hint: 'configuration.tc-bandwidth-hint',
+        },
     });
     serverRandomLoss = new Textbox({
         key: 'serverRandomLoss',
         label: 'configuration.tc-random-loss',
         validation: {
             required: true,
+        },
+        config: {
+            hint: 'configuration.tc-random-loss-hint',
         },
     });
 
