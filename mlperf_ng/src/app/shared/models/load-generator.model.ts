@@ -21,7 +21,7 @@ export interface LoadGenJobRequest {
 export interface LoadGenInstanceRequest {
     models: LoadGenConfig[];
     dataset_id: string;
-    scenario: string;
+    scenario: 'SingleStream' | 'MultiStream' | 'Offline' | 'Server';
     repeats?: number;
 }
 
@@ -36,7 +36,7 @@ export interface Config {
 }
 
 export interface Scenario {
-    scenario_name: 'SingleStream' | 'MultiStream' | 'Offline' | 'Server';
+    scenario_name: string;
     config: Config;
 }
 
