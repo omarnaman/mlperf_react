@@ -104,6 +104,17 @@ export class LoadGeneratorFormComponent implements OnInit {
             hint: 'configuration.max-outgoing-queries-hint',
         },
     });
+    eid = new Textbox({
+        key: 'eid',
+        label: 'configuration.experiment-id',
+        type: 'number',
+        validation: {
+            required: true,
+        },
+        config: {
+            hint: 'configuration.eid-hint',
+        },
+    });
 
     constructor(private inputGeneratorService: InputGeneratorService) {}
 
@@ -118,6 +129,7 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.pipelineRequests,
             this.samplesPerQuery,
             this.maxOutgoingQueries,
+            this.eid,
         ]);
     }
 

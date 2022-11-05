@@ -1,8 +1,8 @@
 import { environment } from 'environments/environment';
 
 export const apiPaths = {
-    initStorage: `${environment.baseUrl}/init_storage`,
-    systemUnderTest: `${environment.baseUrl}/sut`,
-    loadGenJob: `${environment.baseUrl}/start/{eid}/{selector}`,
-    loadGenInstance: `${environment.baseUrl}/lg_job/{eid}/{selector}`,
+    initStorage: `${environment.baseUrl2}/init_storage`,
+    systemUnderTest: `${environment.baseUrl2}/sut`,
+    loadGenJob: `${environment.baseUrl2}/start/{eid}/{selector}`,
+    loadGenInstance: `${environment.baseUrl2}/lg_job/{eid}/{selector}`,
 };

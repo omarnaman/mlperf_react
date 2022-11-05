@@ -91,7 +91,7 @@
     "max": "This value should be less than {{number}}",
     "exist": "The {{value}} has exists",
     "inconsistent": "Inconsistent with {{value}}",
-    "invalid_email": "Invalid email"
+    "invalid-email": "Invalid email"
   },
   "user": {
     "profile": "profile",
@@ -186,7 +186,9 @@
     "tc-delay-hint": "Emulated network delay (10ms. 1s, ...)",
     "tc-jitter-hint": "Emulated network jitter (10ms. 1s, ...)",
     "tc-bandwidth-hint": "Emulated network bandwidth (10kbps, 1mbps, ...)",
-    "tc-random-loss-hint": "Emulated network random drop probability"
+    "tc-random-loss-hint": "Emulated network random drop probability",
+    "experiment-id": "Experiment ID",
+    "eid-hint": "The ID of the experiment (will be used to identify the experiment and retrieve its results)"
   },
   "others": {
     "save": "Save"

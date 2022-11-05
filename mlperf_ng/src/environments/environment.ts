@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: '',
+  baseUrl2: 'http://3.144.241.15:8083/ALSUKHDASNILUDG',
   useHash: false,
 };
 

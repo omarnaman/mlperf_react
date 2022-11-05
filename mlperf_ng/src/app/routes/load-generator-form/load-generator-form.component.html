@@ -1,6 +1,7 @@
 <h2>{{ 'configuration.load-generator-configuration' | translate }}</h2>
 <mat-card>
     <form class="form-field-full">
+        <app-form-input [form]="form" [input]="eid"></app-form-input>
         <app-form-input [form]="form" [input]="dataset"></app-form-input>
         <app-form-input [form]="form" [input]="scenario"></app-form-input>
         <app-form-input [form]="form" [input]="sampleCount"></app-form-input>
