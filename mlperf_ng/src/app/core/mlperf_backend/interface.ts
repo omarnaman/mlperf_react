@@ -2,11 +2,11 @@ import { LoadGenConfiguration, SUTConfiguration, NetworkEmulationConfiguration }
 
 export interface Profile {
     [prop: string]: any;
+    id: number;
     loadgen?: LoadGenConfiguration;
     sut?: SUTConfiguration;
     networkClient?: NetworkEmulationConfiguration;
     networkServer?: NetworkEmulationConfiguration;
-    id: number;
     name: string;
     description: string;
     

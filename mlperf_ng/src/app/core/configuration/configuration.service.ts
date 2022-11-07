@@ -6,9 +6,11 @@ import { defaultMLPerfConfiguration } from './mlperfConfiguration';
 export class ConfigurationStoreService {
     private readonly _configuration = new BehaviorSubject<MLPerfConfiguration>(defaultMLPerfConfiguration);
 
-    readonly configuration$ = this._configuration.asObservable();
-
-    constructor() { }
+    configuration$ = this._configuration.asObservable();
+    constructor() { 
+        
+        this._configuration.next(defaultMLPerfConfiguration);
+    }
 
     getCurrentConfiguration(): MLPerfConfiguration {
         return this._configuration.getValue();
@@ -16,18 +18,22 @@ export class ConfigurationStoreService {
 
     setNetworkEmulation(emulationConfig: NetworkEmulationConfiguration, server: boolean = false): void {
         if (server) {
-            this._configuration.getValue().networkServer = emulationConfig;
+            this._configuration.next({ ...this._configuration.getValue(), networkServer: emulationConfig });
         } else {
-            this._configuration.getValue().networkClient = emulationConfig;
+            this._configuration.next({ ...this._configuration.getValue(), networkClient: emulationConfig });
         }
     }
 
     setLoadGen(loadGenConfig: LoadGenConfiguration): void {
-        this._configuration.getValue().loadgen = loadGenConfig;
+        this._configuration.next({ ...this._configuration.getValue(), loadgen: loadGenConfig });
     }
 
     setSUT(sutConfig: SUTConfiguration): void {
-        this._configuration.getValue().sut = sutConfig;
+        this._configuration.next({ ...this._configuration.getValue(), sut: sutConfig });
+    }
+
+    setConfiguration(config: MLPerfConfiguration): void {
+        this._configuration.next(config);
     }
 
     getLoadGen(): LoadGenConfiguration | undefined {

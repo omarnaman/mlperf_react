@@ -3,13 +3,15 @@ import { FormGroup } from '@angular/forms';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
-
+import { ConfigurationStoreService } from '@core/configuration/configuration.service';
+import { MLPerfConfiguration, SUTConfiguration } from '@core/configuration/interface';
 @Component({
     selector: 'app-system-under-test-form',
     templateUrl: './system-under-test-form.component.html',
     styleUrls: ['./system-under-test-form.component.scss'],
 })
 export class SystemUnderTestFormComponent implements OnInit {
+    sut?: SUTConfiguration;
     form!: FormGroup;
     modelThreads = new Textbox({
         key: 'modelThreads',
@@ -30,8 +32,8 @@ export class SystemUnderTestFormComponent implements OnInit {
             required: true,
         },
         options: [
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2' },
+            { label: 'SSD-Mobilenet', value: 'ssd-mobilenet' },
+            { label: 'SpaCy', value: 'spacy' },
         ],
         config: {
             hint: 'configuration.model-hint',
@@ -65,7 +67,7 @@ export class SystemUnderTestFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService) {}
+    constructor(private inputGeneratorService: InputGeneratorService, private configurationStoreService: ConfigurationStoreService) { }
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
@@ -74,12 +76,25 @@ export class SystemUnderTestFormComponent implements OnInit {
             this.runtime,
             this.consumerThreads,
         ]);
+
+        this.configurationStoreService.configuration$.subscribe((config: MLPerfConfiguration) => {
+            this.sut = config.sut;
+            this.form.patchValue(this.sut!!);
+        });
     }
 
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            // logic here
+            this.sut = {
+                modelThreads: parseInt(this.form.value.modelThreads),
+                model: this.form.value.model,
+                runtime: this.form.value.runtime,
+                consumerThreads: parseInt(this.form.value.consumerThreads),
+            };
+            this.configurationStoreService.setSUT(this.sut!!);
+
         }
     }
 }
+

@@ -1,23 +1,24 @@
 
 export interface LoadGenConfiguration {
     [prop: string]: any;
-    dataset: number;
-    scenario: number;
+    dataset: string;
+    scenario: string;
     sampleCount: number;
     rangeOfClients: number;
     recordAccuracy?: boolean;
     time: number;
-    pipelineRequests?: number;
+    pipelineRequests?: boolean;
     samplesPerQuery?: number;
     maxOutgoingQueries?: number;
+    eid?: string;
 }
 
 
 export interface SUTConfiguration {
     [prop: string]: any;
     modelThreads: number;
-    model: number;
-    runtime: number;
+    model: string;
+    runtime: string;
     consumerThreads: number;
 }
 
@@ -25,8 +26,9 @@ export interface SUTConfiguration {
 export interface NetworkEmulationConfiguration {
     [prop: string]: any;
     enabled: boolean;
-    delay: string;
-    bandwidth: string;
+    tcDelay: string;
+    tcBandwidth: string;
+    tcJitter: string;
     randomLoss: string;
 }
 
