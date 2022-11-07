@@ -107,7 +107,7 @@ export class LoadGeneratorFormComponent implements OnInit {
     eid = new Textbox({
         key: 'eid',
         label: 'configuration.experiment-id',
-        type: 'number',
+        type: 'text',
         validation: {
             required: true,
         },
