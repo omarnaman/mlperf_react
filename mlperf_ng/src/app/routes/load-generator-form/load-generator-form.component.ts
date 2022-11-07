@@ -64,7 +64,7 @@ export class LoadGeneratorFormComponent implements OnInit {
         },
     });
     recordAccuracy = new Checkbox({
-        key: 'maxOutgoingQueries',
+        key: 'recordAccuracy',
         label: 'configuration.record-accuracy',
     });
     time = new Textbox({
