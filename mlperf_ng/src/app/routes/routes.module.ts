@@ -10,7 +10,7 @@ import { LoadGeneratorFormComponent } from './load-generator-form/load-generator
 import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
 import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
 import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
-
+import { ProfileSelectionFormComponent } from './profile-selection-form/profile-selection-form.component';
 const COMPONENTS: any[] = [
     DashboardComponent,
     LoginComponent,
@@ -19,6 +19,7 @@ const COMPONENTS: any[] = [
     SystemUnderTestFormComponent,
     NetworkEmulationFormComponent,
     CloudDeploymentFormComponent,
+    ProfileSelectionFormComponent,
 ];
 const COMPONENTS_DYNAMIC: any[] = [];
 

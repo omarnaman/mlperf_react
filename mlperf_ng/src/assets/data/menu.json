@@ -25,6 +25,11 @@
                     "route": "cloud-deployment",
                     "name": "cloud-deployment",
                     "type": "link"
+                },
+                {
+                    "route": "profile-selection",
+                    "name": "profile-selection",
+                    "type": "link"
                 }
             ]
         },
