@@ -6,6 +6,8 @@ import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { EXPERIMENT_MODES } from '@shared/constants';
 import { LoadGenInstanceRequest } from '@shared/models/load-generator.model';
 import { LoadGeneratorService } from '../services/load-generator.service';
+import { ConfigurationStoreService } from '@core/configuration/configuration.service';
+import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
 
 @Component({
     selector: 'app-load-generator-form',
@@ -13,7 +15,8 @@ import { LoadGeneratorService } from '../services/load-generator.service';
     styleUrls: ['./load-generator-form.component.scss'],
 })
 export class LoadGeneratorFormComponent implements OnInit {
-    form!: FormGroup;
+    loadgen?: LoadGenConfiguration;
+    form !: FormGroup;
     eid = new Textbox({
         key: 'eid',
         label: 'configuration.experiment-id',
@@ -34,8 +37,8 @@ export class LoadGeneratorFormComponent implements OnInit {
             hint: 'configuration.dataset-hint',
         },
         options: [
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2' },
+            { label: 'Coco', value: 'Coco' },
+            { label: 'Squad', value: 'squad' },
         ],
     });
     scenario = new Dropdown({
@@ -158,7 +161,11 @@ export class LoadGeneratorFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService, private loadGeneratorService: LoadGeneratorService) {}
+    constructor(
+        private inputGeneratorService: InputGeneratorService,
+        private loadGeneratorService: LoadGeneratorService,
+        private configurationStoreService: ConfigurationStoreService
+    ) {}
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
@@ -174,13 +181,31 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.samplesPerQuery,
             this.maxOutgoingQueries,
         ]);
+        this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
+            this.loadgen = mlperfConfiguration.loadgen;
+            this.form.patchValue(this.loadgen!!);
+        });
     }
 
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
+            this.loadgen = {
+                dataset: this.form.get('dataset')?.value,
+                scenario: this.form.get('scenario')?.value,
+                sampleCount: parseInt(this.form.get('sampleCount')?.value),
+                rangeOfClients: this.form.get('rangeOfClients')?.value,
+                recordAccuracy: this.form.get('recordAccuracy')?.value,
+                time: parseInt(this.form.get('time')?.value),
+                pipelineRequests: this.form.get('pipelineRequests')?.value,
+                samplesPerQuery: parseInt(this.form.get('samplesPerQuery')?.value),
+                maxOutgoingQueries: parseInt(this.form.get('maxOutgoingQueries')?.value),
+                eid: this.form.get('eid')?.value,
+            }
             this.runLoadGeneratorService();
         }
+        console.log(this.loadgen);
+        this.configurationStoreService.setLoadGen(this.loadgen!!);
     }
 
     runLoadGeneratorService(): void {
@@ -213,3 +238,4 @@ export class LoadGeneratorFormComponent implements OnInit {
         this.loadGeneratorService.runLoadGeneratorInstance(eid, selector, payload).subscribe(res => console.log(res));
     }
 }
+

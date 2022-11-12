@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Checkbox } from '@shared/components/form-inputs/checkbox/checkbox';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
+import { ConfigurationStoreService } from '@core/configuration/configuration.service';
+import { NetworkEmulationConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
 
 @Component({
     selector: 'app-network-emulation-form',
@@ -10,6 +12,8 @@ import { InputGeneratorService } from '@shared/services/input-generator.service'
     styleUrls: ['./network-emulation-form.component.scss'],
 })
 export class NetworkEmulationFormComponent implements OnInit {
+    serverNetEm?: NetworkEmulationConfiguration;
+    clientNetEm?: NetworkEmulationConfiguration;
     form!: FormGroup;
     enableClientSideEmulation = new Checkbox({
         key: 'enableClientSideTrafficEmulation',
@@ -100,7 +104,7 @@ export class NetworkEmulationFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService) {}
+    constructor(private inputGeneratorService: InputGeneratorService, private configurationStoreService: ConfigurationStoreService) { }
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
@@ -115,12 +119,44 @@ export class NetworkEmulationFormComponent implements OnInit {
             this.serverTcBandwidth,
             this.serverRandomLoss,
         ]);
+        this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
+            this.clientNetEm = mlperfConfiguration.networkClient;
+            this.serverNetEm = mlperfConfiguration.networkServer;
+            console.log(this.clientNetEm);
+            this.form.patchValue({
+                enableClientSideTrafficEmulation: this.clientNetEm?.enabled,
+                clientTcDelay: this.clientNetEm?.tcDelay,
+                clientTcJitter: this.clientNetEm?.tcJitter,
+                clientTcBandwidth: this.clientNetEm?.tcBandwidth,
+                clientRandomLoss: this.clientNetEm?.randomLoss,
+                enableServerSideEmulation: this.serverNetEm?.enabled,
+                serverTcDelay: this.serverNetEm?.tcDelay,
+                serverTcJitter: this.serverNetEm?.tcJitter,
+                serverTcBandwidth: this.serverNetEm?.tcBandwidth,
+                serverRandomLoss: this.serverNetEm?.randomLoss,
+            });  
+        });
     }
 
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            // logic here
+            this.clientNetEm = {
+                enabled: this.form.value.enableClientSideTrafficEmulation,
+                tcDelay: this.form.value.clientTcDelay,
+                tcJitter: this.form.value.clientTcJitter,
+                tcBandwidth: this.form.value.clientTcBandwidth,
+                randomLoss: this.form.value.clientRandomLoss,
+            };
+            this.serverNetEm = {
+                enabled: this.form.value.enableServerSideEmulation,
+                tcDelay: this.form.value.serverTcDelay,
+                tcJitter: this.form.value.serverTcJitter,
+                tcBandwidth: this.form.value.serverTcBandwidth,
+                randomLoss: this.form.value.serverRandomLoss,
+            };
+            this.configurationStoreService.setNetworkEmulation(this.clientNetEm);
+            this.configurationStoreService.setNetworkEmulation(this.serverNetEm, true);
         }
     }
 }

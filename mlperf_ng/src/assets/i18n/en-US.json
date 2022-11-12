@@ -81,7 +81,8 @@
         "configuration.load-generator": "Load Generator",
         "configuration.system-under-test": "System Under Test",
         "configuration.network-emulation": "Network Emulation",
-        "configuration.cloud-deployment": "Cloud Deployment"
+        "configuration.cloud-deployment": "Cloud Deployment",
+        "configuration.profile-selection": "Profile Selection"
     },
     "validations": {
         "required": "This field is required",
@@ -189,6 +190,8 @@
         "tc-random-loss-hint": "Emulated network random drop probability",
         "experiment-id": "Experiment ID",
         "eid-hint": "The ID of the experiment (will be used to identify the experiment and retrieve its results)",
+        "profile-selection-configuration": "Profile Selection Configuration",
+        "profile": "Profile Name",
         "single-stream": "Single Stream",
         "multi-stream": "Multi Stream",
         "offline": "Offline",
@@ -211,6 +214,7 @@
         "peak-performance": "Peak Performance"
     },
     "others": {
-        "save": "Save"
+        "save": "Save",
+        "select": "Select"
     }
 }
