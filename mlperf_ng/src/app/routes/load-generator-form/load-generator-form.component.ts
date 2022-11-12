@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
-import { ConfigurationStoreService } from '@core/configuration/configuration.service';
-import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
 import { EXPERIMENT_MODES } from '@shared/constants';
 import { LoadGenInstanceRequest } from '@shared/models/load-generator.model';
 import { LoadGeneratorService } from '../services/load-generator.service';
+import { ConfigurationStoreService } from '@core/configuration/configuration.service';
+import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
 
 @Component({
     selector: 'app-load-generator-form',
