@@ -208,7 +208,7 @@ export class LoadGeneratorFormComponent implements OnInit {
             ],
             dataset_id: "s3://mlperf-cocodatasets/300.tar.gz",
             scenario: this.form.value[this.scenario.key],
-            repeats: this.form.value[this.repeat.key],
+            repeats: parseInt(this.form.value[this.repeat.key]),
         };
         this.loadGeneratorService.runLoadGeneratorInstance(eid, selector, payload).subscribe(res => console.log(res));
     }
