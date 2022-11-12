@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
-import { Checkbox } from '@shared/components/form-inputs/checkbox/checkbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { EXPERIMENT_MODES } from '@shared/constants';
