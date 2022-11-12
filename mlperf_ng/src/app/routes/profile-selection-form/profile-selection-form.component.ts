@@ -6,7 +6,6 @@ import { ProfileService } from '@core/mlperf_backend/profile.service';
 import { Profile } from '@core/mlperf_backend/interface';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 
-
 @Component({
     selector: 'profile-selection-form',
     templateUrl: './profile-selection-form.component.html',
@@ -24,7 +23,11 @@ export class ProfileSelectionFormComponent implements OnInit {
 
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService, private profileService: ProfileService, private configurationStoreService: ConfigurationStoreService) {}
+    constructor(
+        private inputGeneratorService: InputGeneratorService,
+        private profileService: ProfileService,
+        private configurationStoreService: ConfigurationStoreService,
+    ) {}
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
@@ -49,6 +52,5 @@ export class ProfileSelectionFormComponent implements OnInit {
                 this.configurationStoreService.setConfiguration(selectedProfile);
             }
         }
-
     }
 }

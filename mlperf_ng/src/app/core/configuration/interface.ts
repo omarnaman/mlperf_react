@@ -13,7 +13,6 @@ export interface LoadGenConfiguration {
     eid?: string;
 }
 
-
 export interface SUTConfiguration {
     [prop: string]: any;
     modelThreads: number;
@@ -21,7 +20,6 @@ export interface SUTConfiguration {
     runtime: string;
     consumerThreads: number;
 }
-
 
 export interface NetworkEmulationConfiguration {
     [prop: string]: any;

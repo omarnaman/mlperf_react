@@ -8,7 +8,6 @@ export const defaultNetEmConfig: NetworkEmulationConfiguration = {
     randomLoss: "0%",
 };
 
-
 export const NetEmConfig_4G: NetworkEmulationConfiguration = {
     enabled: true,
     tcDelay: "10ms",

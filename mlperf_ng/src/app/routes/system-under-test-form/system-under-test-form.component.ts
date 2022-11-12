@@ -5,6 +5,7 @@ import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { MLPerfConfiguration, SUTConfiguration } from '@core/configuration/interface';
+
 @Component({
     selector: 'app-system-under-test-form',
     templateUrl: './system-under-test-form.component.html',
@@ -67,7 +68,10 @@ export class SystemUnderTestFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService, private configurationStoreService: ConfigurationStoreService) { }
+    constructor(
+        private inputGeneratorService: InputGeneratorService,
+        private configurationStoreService: ConfigurationStoreService,
+    ) { }
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([

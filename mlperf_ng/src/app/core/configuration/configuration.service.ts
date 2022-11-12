@@ -7,8 +7,8 @@ export class ConfigurationStoreService {
     private readonly _configuration = new BehaviorSubject<MLPerfConfiguration>(defaultMLPerfConfiguration);
 
     configuration$ = this._configuration.asObservable();
-    constructor() { 
-        
+
+    constructor() {
         this._configuration.next(defaultMLPerfConfiguration);
     }
 
@@ -51,6 +51,4 @@ export class ConfigurationStoreService {
             return this._configuration.getValue().networkClient;
         }
     }
-
-
 }
