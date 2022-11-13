@@ -82,7 +82,8 @@
         "configuration.system-under-test": "System Under Test",
         "configuration.network-emulation": "Network Emulation",
         "configuration.cloud-deployment": "Cloud Deployment",
-        "configuration.profile-selection": "Profile Selection"
+        "configuration.profile-selection": "Profile Selection",
+        "run-experiment": "Run Experiment"
     },
     "validations": {
         "required": "This field is required",
@@ -212,6 +213,10 @@
         "accuracy-only": "Accuracy Only",
         "performance-only": "Performance Only",
         "peak-performance": "Peak Performance"
+    },
+    "experiments": {
+        "run-experiment": "Run Experiment",
+        "run": "Run"
     },
     "others": {
         "save": "Save",

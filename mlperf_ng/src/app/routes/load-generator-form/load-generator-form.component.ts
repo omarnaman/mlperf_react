@@ -15,7 +15,7 @@ import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/i
     styleUrls: ['./load-generator-form.component.scss'],
 })
 export class LoadGeneratorFormComponent implements OnInit {
-    loadgen?: LoadGenConfiguration;
+    loadGen?: LoadGenConfiguration;
     form!: FormGroup;
     eid = new Textbox({
         key: 'eid',
@@ -188,8 +188,8 @@ export class LoadGeneratorFormComponent implements OnInit {
     getLoadGenConfiguration() {
         this.configurationStoreService.configuration$.subscribe(
             (mlperfConfiguration: MLPerfConfiguration) => {
-                this.loadgen = mlperfConfiguration.loadgen;
-                this.form.patchValue({ ...this.loadgen });
+                this.loadGen = mlperfConfiguration.loadgen;
+                this.form.patchValue({ ...this.loadGen });
             }
         );
     }
@@ -197,41 +197,11 @@ export class LoadGeneratorFormComponent implements OnInit {
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            this.runLoadGeneratorService();
+            this.loadGen = {
+                ...this.form.value,
+                [this.repeat.key]: parseInt(this.form.value[this.repeat.key]),
+            };
+            this.configurationStoreService.setLoadGen(this.loadGen!!);
         }
-        this.loadgen = this.form.value;
-        this.configurationStoreService.setLoadGen(this.loadgen!!);
-    }
-
-    runLoadGeneratorService(): void {
-        const eid = this.form.value[this.eid.key];
-        const selector = 'some_scenario';
-        const payload: LoadGenInstanceRequest = {
-            models: [
-                {
-                    model_name: '*',
-                    scenarios: [
-                        {
-                            scenario_name: '*',
-                            config: {
-                                num_threads: this.form.value[this.numberOfThreads.key],
-                                min_duration: this.form.value[this.minDuration.key],
-                                max_duration: this.form.value[this.maxDuration.key],
-                                target_qps: this.form.value[this.targetQps.key],
-                                mode: this.form.value[this.mode.key],
-                                samples_per_query: this.form.value[this.samplesPerQuery.key],
-                                max_async_queries: this.form.value[this.maxOutgoingQueries.key],
-                            },
-                        },
-                    ],
-                },
-            ],
-            dataset_id: this.form.value[this.dataset.key],
-            scenario: this.form.value[this.scenario.key],
-            repeats: parseInt(this.form.value[this.repeat.key]),
-        };
-        this.loadGeneratorService
-            .runLoadGeneratorInstance(eid, selector, payload)
-            .subscribe();
     }
 }

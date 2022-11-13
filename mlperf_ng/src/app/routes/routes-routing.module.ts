@@ -13,6 +13,7 @@ import { SystemUnderTestFormComponent } from './system-under-test-form/system-un
 import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
 import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
 import { ProfileSelectionFormComponent } from './profile-selection-form/profile-selection-form.component';
+import { RunExperimentComponent } from './run-experiment/run-experiment.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,7 @@ const routes: Routes = [
                     { path: 'profile-selection', component: ProfileSelectionFormComponent}
                 ],
             },
+            { path: 'run-experiment', component: RunExperimentComponent },
         ],
     },
     {
