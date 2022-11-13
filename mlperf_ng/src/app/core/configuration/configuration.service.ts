@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LoadGenConfiguration, MLPerfConfiguration, NetworkEmulationConfiguration, SUTConfiguration } from './interface';
 import { defaultMLPerfConfiguration } from './mlperfConfiguration';
 @Injectable({ providedIn: 'root' })

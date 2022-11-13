@@ -1,16 +1,15 @@
-
 export interface LoadGenConfiguration {
-    [prop: string]: any;
-    dataset: string;
-    scenario: string;
-    sampleCount: number;
-    rangeOfClients: number;
-    recordAccuracy?: boolean;
-    time: number;
-    pipelineRequests?: boolean;
-    samplesPerQuery?: number;
-    maxOutgoingQueries?: number;
     eid?: string;
+    num_threads: string;
+    max_duration: string;
+    min_duration: string;
+    target_qps: string;
+    mode: string;
+    samples_per_query: string;
+    max_async_queries: string;
+    dataset_id: string;
+    scenario: string;
+    repeats?: number;
 }
 
 export interface SUTConfiguration {

@@ -74,13 +74,20 @@ export class SystemUnderTestFormComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.addFormControls();
+        this.getSutConfiguration();
+    }
+
+    addFormControls(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
             this.modelThreads,
             this.model,
             this.runtime,
             this.consumerThreads,
         ]);
+    }
 
+    getSutConfiguration() :void {
         this.configurationStoreService.configuration$.subscribe((config: MLPerfConfiguration) => {
             this.sut = config.sut;
             this.form.patchValue(this.sut!!);

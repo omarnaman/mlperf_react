@@ -1,4 +1,4 @@
-import { LoadGenConfiguration, SUTConfiguration, NetworkEmulationConfiguration } from "@core/configuration/interface";
+import { SUTConfiguration, NetworkEmulationConfiguration, LoadGenConfiguration } from "@core/configuration/interface";
 
 export interface Profile {
     [prop: string]: any;
@@ -9,6 +9,5 @@ export interface Profile {
     networkServer?: NetworkEmulationConfiguration;
     name: string;
     description: string;
-    
 }
 

@@ -2,13 +2,10 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const authenticationKey = 'ALSUKHDASNILUDG';
-
 export const environment = {
   production: false,
   baseUrl: '',
-  mecBenchUrl: `http://3.144.241.15:8083/${authenticationKey}`,
-  authenticationKey: authenticationKey,
+  mecBenchUrl: 'http://3.144.241.15:8083/ALSUKHDASNILUDG',
   useHash: false,
 };
 

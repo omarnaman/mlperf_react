@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
-import { EXPERIMENT_MODES } from '@shared/constants';
+import { EXPERIMENT_MODES, SCENARIOS } from '@shared/constants';
 import { LoadGenInstanceRequest } from '@shared/models/load-generator.model';
 import { LoadGeneratorService } from '../services/load-generator.service';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
@@ -16,7 +16,7 @@ import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/i
 })
 export class LoadGeneratorFormComponent implements OnInit {
     loadgen?: LoadGenConfiguration;
-    form !: FormGroup;
+    form!: FormGroup;
     eid = new Textbox({
         key: 'eid',
         label: 'configuration.experiment-id',
@@ -36,10 +36,7 @@ export class LoadGeneratorFormComponent implements OnInit {
         config: {
             hint: 'configuration.dataset-hint',
         },
-        options: [
-            { label: 'Coco', value: 'Coco' },
-            { label: 'Squad', value: 'squad' },
-        ],
+        options: [{ label: 'Coco', value: 's3://mlperf-cocodatasets/300.tar.gz' }],
     });
     scenario = new Dropdown({
         key: 'scenario',
@@ -51,10 +48,10 @@ export class LoadGeneratorFormComponent implements OnInit {
             hint: 'configuration.scenario-hint',
         },
         options: [
-            { label: 'configuration.single-stream', value: 'SingleStream' },
-            { label: 'configuration.multi-stream', value: 'MultiStream' },
-            { label: 'configuration.offline', value: 'Offline' },
-            { label: 'configuration.server', value: 'Server' },
+            { label: 'configuration.single-stream', value: SCENARIOS.SINGLE_STREAM },
+            { label: 'configuration.multi-stream', value: SCENARIOS.MULTI_STREAM },
+            { label: 'configuration.offline', value: SCENARIOS.OFFLINE },
+            { label: 'configuration.server', value: SCENARIOS.SERVER },
         ],
     });
     repeat = new Textbox({
@@ -168,6 +165,11 @@ export class LoadGeneratorFormComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.addFormControls();
+        this.getLoadGenConfiguration();
+    }
+
+    addFormControls(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
             this.eid,
             this.dataset,
@@ -181,30 +183,23 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.samplesPerQuery,
             this.maxOutgoingQueries,
         ]);
-        this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
-            this.loadgen = mlperfConfiguration.loadgen;
-            this.form.patchValue(this.loadgen!!);
-        });
+    }
+
+    getLoadGenConfiguration() {
+        this.configurationStoreService.configuration$.subscribe(
+            (mlperfConfiguration: MLPerfConfiguration) => {
+                this.loadgen = mlperfConfiguration.loadgen;
+                this.form.patchValue({ ...this.loadgen });
+            }
+        );
     }
 
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            this.loadgen = {
-                dataset: this.form.get('dataset')?.value,
-                scenario: this.form.get('scenario')?.value,
-                sampleCount: parseInt(this.form.get('sampleCount')?.value),
-                rangeOfClients: this.form.get('rangeOfClients')?.value,
-                recordAccuracy: this.form.get('recordAccuracy')?.value,
-                time: parseInt(this.form.get('time')?.value),
-                pipelineRequests: this.form.get('pipelineRequests')?.value,
-                samplesPerQuery: parseInt(this.form.get('samplesPerQuery')?.value),
-                maxOutgoingQueries: parseInt(this.form.get('maxOutgoingQueries')?.value),
-                eid: this.form.get('eid')?.value,
-            }
             this.runLoadGeneratorService();
         }
-        console.log(this.loadgen);
+        this.loadgen = this.form.value;
         this.configurationStoreService.setLoadGen(this.loadgen!!);
     }
 
@@ -231,11 +226,12 @@ export class LoadGeneratorFormComponent implements OnInit {
                     ],
                 },
             ],
-            dataset_id: "s3://mlperf-cocodatasets/300.tar.gz",
+            dataset_id: this.form.value[this.dataset.key],
             scenario: this.form.value[this.scenario.key],
             repeats: parseInt(this.form.value[this.repeat.key]),
         };
-        this.loadGeneratorService.runLoadGeneratorInstance(eid, selector, payload).subscribe(res => console.log(res));
+        this.loadGeneratorService
+            .runLoadGeneratorInstance(eid, selector, payload)
+            .subscribe();
     }
 }
-

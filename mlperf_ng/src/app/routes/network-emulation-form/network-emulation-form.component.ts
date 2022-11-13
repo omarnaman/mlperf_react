@@ -104,9 +104,17 @@ export class NetworkEmulationFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService, private configurationStoreService: ConfigurationStoreService) { }
+    constructor(
+        private inputGeneratorService: InputGeneratorService,
+        private configurationStoreService: ConfigurationStoreService,
+    ) { }
 
     ngOnInit(): void {
+        this.addFormControls();
+        this.getNetworkEmulationValues();
+    }
+
+    addFormControls(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
             this.enableClientSideEmulation,
             this.clientTcDelay,
@@ -119,10 +127,12 @@ export class NetworkEmulationFormComponent implements OnInit {
             this.serverTcBandwidth,
             this.serverRandomLoss,
         ]);
+    }
+
+    getNetworkEmulationValues(): void {
         this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
             this.clientNetEm = mlperfConfiguration.networkClient;
             this.serverNetEm = mlperfConfiguration.networkServer;
-            console.log(this.clientNetEm);
             this.form.patchValue({
                 enableClientSideTrafficEmulation: this.clientNetEm?.enabled,
                 clientTcDelay: this.clientNetEm?.tcDelay,
@@ -134,7 +144,7 @@ export class NetworkEmulationFormComponent implements OnInit {
                 serverTcJitter: this.serverNetEm?.tcJitter,
                 serverTcBandwidth: this.serverNetEm?.tcBandwidth,
                 serverRandomLoss: this.serverNetEm?.randomLoss,
-            });  
+            });
         });
     }
 

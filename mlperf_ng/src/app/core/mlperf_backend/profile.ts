@@ -6,15 +6,7 @@ export const Profile1: Profile = {
     id: 1,
     name: 'Coco SSD MobileNet Closed-loop 4G',
     description: 'Profile 1 description',
-    loadgen: {
-        ...defaultMLPerfConfiguration.loadgen,
-        scenario: 'SingleStream',
-        dataset: 'Coco',
-        sampleCount: 512,
-        rangeOfClients: 30,
-        pipelineRequests: false,
-        time: 30
-    },
+    loadgen: defaultMLPerfConfiguration.loadgen,
     sut: {
         ...defaultMLPerfConfiguration.sut,
         model: 'ssd-mobilenet',
@@ -30,15 +22,7 @@ export const Profile2: Profile = {
     id: 2,
     name: 'SSD MobileNet Closed-loop 5G',
     description: 'Profile 2 description',
-    loadgen: {
-        ...defaultMLPerfConfiguration.loadgen,
-        scenario: 'SingleStream',
-        dataset: 'Coco',
-        sampleCount: 512,
-        rangeOfClients: 30,
-        pipelineRequests: false,
-        time: 30
-    },
+    loadgen: defaultMLPerfConfiguration.loadgen,
     sut: {
         ...defaultMLPerfConfiguration.sut,
         model: 'ssd-mobilenet',
@@ -55,18 +39,7 @@ export const Profile3: Profile = {
     id: 3,
     name: 'SSD MobileNet Open-loop 5G',
     description: 'Profile 3 description',
-    loadgen: {
-        ...defaultMLPerfConfiguration.loadgen,
-        scenario: 'MultiStream',
-        dataset: 'Coco',
-        sampleCount: 512,
-        rangeOfClients: 30,
-        recordAccuracy: false,
-        pipelineRequests: true,
-        samplesPerQuery: 1,
-        maxOutgoingQueries: 5,
-        time: 30
-    },
+    loadgen: defaultMLPerfConfiguration.loadgen,
     sut: {
         ...defaultMLPerfConfiguration.sut,
         model: 'ssd-mobilenet',
