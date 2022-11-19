@@ -11,7 +11,7 @@ app = flask.Flask(__name__, instance_relative_config=True)
 CORS(app)
 PORT = 8082
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///all_data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
