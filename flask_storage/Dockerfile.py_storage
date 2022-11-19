@@ -11,6 +11,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 COPY storage.py storage.py
 COPY requirements.txt requirements.txt
+COPY default_profiles.json default_profiles.json
 
 RUN pip3 install -r requirements.txt
 
