@@ -131,8 +131,8 @@ export class NetworkEmulationFormComponent implements OnInit {
 
     getNetworkEmulationValues(): void {
         this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
-            this.clientNetEm = mlperfConfiguration.networkClient;
-            this.serverNetEm = mlperfConfiguration.networkServer;
+            this.clientNetEm = mlperfConfiguration.network_client;
+            this.serverNetEm = mlperfConfiguration.network_server;
             this.form.patchValue({
                 enableClientSideTrafficEmulation: this.clientNetEm?.enabled,
                 clientTcDelay: this.clientNetEm?.tcDelay,

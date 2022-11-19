@@ -18,9 +18,9 @@ export class ConfigurationStoreService {
 
     setNetworkEmulation(emulationConfig: NetworkEmulationConfiguration, server: boolean = false): void {
         if (server) {
-            this._configuration.next({ ...this._configuration.getValue(), networkServer: emulationConfig });
+            this._configuration.next({ ...this._configuration.getValue(), network_server: emulationConfig });
         } else {
-            this._configuration.next({ ...this._configuration.getValue(), networkClient: emulationConfig });
+            this._configuration.next({ ...this._configuration.getValue(), network_client: emulationConfig });
         }
     }
 
@@ -46,9 +46,9 @@ export class ConfigurationStoreService {
 
     getNetworkEmulation(server: boolean = false): NetworkEmulationConfiguration | undefined {
         if (server) {
-            return this._configuration.getValue().networkServer;
+            return this._configuration.getValue().network_server;
         } else {
-            return this._configuration.getValue().networkClient;
+            return this._configuration.getValue().network_client;
         }
     }
 }
