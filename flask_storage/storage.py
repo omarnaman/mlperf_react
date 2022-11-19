@@ -9,19 +9,18 @@ from werkzeug.exceptions import HTTPException
 
 app = flask.Flask(__name__, instance_relative_config=True)
 CORS(app)
-PORT = 8082;
+PORT = 8082
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///all_data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-        
 
 class Experiment(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    experiment_id = db.Column(db.String, unique = True)
+    id = db.Column(db.Integer, primary_key=True)
+    experiment_id = db.Column(db.String, unique=True)
     config_id = db.Column(db.Integer)
-    
+
     def __init__(self, eid, config_id=-1) -> None:
         self.experiment_id = eid
         self.config_id = config_id
@@ -39,13 +38,15 @@ class Experiment(db.Model):
 
     def get_all():
         res = []
-        exps: "list[Experiment]" = db.session.query(Experiment.experiment_id).all()
+        exps: "list[Experiment]" = db.session.query(
+            Experiment.experiment_id).all()
         for exp in exps:
             res.append(exp.experiment_id)
         return {"experiments": list(res)}
 
     def get(eid):
-        exp: Experiment = db.session.query(Experiment).filter_by(experiment_id=eid).first()
+        exp: Experiment = db.session.query(
+            Experiment).filter_by(experiment_id=eid).first()
         if exp is not None:
             return exp.dict()
         return None
@@ -55,20 +56,20 @@ class Experiment(db.Model):
             "id": self.id,
             "experiment_id": self.experiment_id,
             "config_id": self.config_id
-            }
+        }
 
     def __repr__(self) -> str:
         return json.dumps(self.dict(), indent=2)
-    
 
     def delete(eid):
         db.session.query(Experiment).filter_by(experiment_id=eid).delete()
         db.session.commit()
 
+
 class Config(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     config_json = db.Column(db.UnicodeText)
-    
+
     def __init__(self, config_json: str) -> None:
         self.config_json = config_json
 
@@ -80,9 +81,9 @@ class Config(db.Model):
         db.session.commit()
         return config.id
 
-    
+
 class LatencyResult(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.String)
     selector = db.Column(db.String)
     latencies = db.Column(db.String)
@@ -91,7 +92,7 @@ class LatencyResult(db.Model):
         self.experiment_id = experiment_id
         self.selector = selector
         self.latencies = ",".join(map(str, latencies))
-    
+
     def add_latencies(eid, selector, latencies: "list[float]"):
         Experiment.add(eid)
         row = LatencyResult(eid, selector, latencies)
@@ -108,13 +109,14 @@ class LatencyResult(db.Model):
             }
             res.append(json.copy())
         return res
-    
+
     def delete(eid):
         db.session.query(LatencyResult).filter_by(experiment_id=eid).delete()
         db.session.commit()
 
+
 class QPSResult(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.String)
     selector = db.Column(db.String)
     qps = db.Column(db.Float)
@@ -123,7 +125,7 @@ class QPSResult(db.Model):
         self.experiment_id = experiment_id
         self.selector = selector
         self.qps = qps
-    
+
     def add_qps(eid, selector, qps: float):
         Experiment.add(eid)
         row = QPSResult(eid, selector, qps)
@@ -145,6 +147,71 @@ class QPSResult(db.Model):
         db.session.query(QPSResult).filter_by(experiment_id=eid).delete()
         db.session.commit()
 
+
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    profile_name = db.Column(db.String, unique=True)
+    sut = db.Column(db.String)
+    loadgen = db.Column(db.String)
+    network_client = db.Column(db.String)
+    network_server = db.Column(db.String)
+    description = db.Column(db.UnicodeText)
+
+    def __init__(self, name, sut, loadgen, network_client, network_server, description="", id=None) -> None:
+        self.profile_name = name
+        self.sut = json.dumps(sut)
+        self.loadgen = json.dumps(loadgen)
+        self.network_client = json.dumps(network_client)
+        self.network_server = json.dumps(network_server)
+        self.description = description
+        if id is not None:
+            self.id = id
+
+    def add_profile(name, sut, loadgen, network_client, network_server, description="", id=None):
+        profile = Profile(name, sut, loadgen,
+                          network_client, network_server, description, id)
+        db.session.add(profile)
+        db.session.commit()
+        return profile.id
+
+    def get_profile(name):
+        profile = db.session.query(Profile).filter_by(
+            profile_name=name).first()
+        if profile is not None:
+            return profile.to_dict()
+        return None
+
+    def get_all_profiles():
+        res = []
+        profiles: "list[Profile]" = db.session.query(Profile).all()
+        for profile in profiles:
+            res.append(profile.to_dict())
+        return {"profiles": list(res)}
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "description": self.description,
+            "name": self.profile_name,
+            "sut": json.loads(self.sut),
+            "network_client": json.loads(self.network_client),
+            "network_server": json.loads(self.network_server),
+            "loadgen": json.loads(self.loadgen),
+        }
+
+    def load_defaults():
+        with open("default_profiles.json", "r") as f:
+            defaults = json.load(f)
+
+        for profile in defaults:
+            if Profile.get_profile(profile["name"]) is None:
+                Profile.add_profile(**profile)
+        return {"profiles": defaults}
+
+    def delete(name):
+        db.session.query(Profile).filter_by(profile_name=name).delete()
+        db.session.commit()
+
 @app.route("/qps", methods=["POST"])
 def add_qps():
     try:
@@ -157,6 +224,7 @@ def add_qps():
     except:
         abort(500)
 
+
 @app.route("/latencies", methods=["POST"])
 def add_latencies():
     try:
@@ -168,6 +236,7 @@ def add_latencies():
         return {"Added": True}, 200
     except:
         abort(500)
+
 
 @app.route("/config/<eid>", methods=["POST"])
 def add_config(eid):
@@ -189,6 +258,7 @@ def get_qps(eid: str):
     except:
         abort(500)
 
+
 @app.route("/latencies/<eid>", methods=["GET"])
 @cross_origin()
 def get_latencies(eid: str):
@@ -197,6 +267,7 @@ def get_latencies(eid: str):
     except:
         abort(500)
 
+
 @app.route("/experiments", methods=["GET"])
 @cross_origin()
 def get_experiments():
@@ -204,7 +275,8 @@ def get_experiments():
         return flask.jsonify(Experiment.get_all())
     except:
         abort(500)
-        
+
+
 @app.route("/experiments/<eid>", methods=["GET"])
 @cross_origin()
 def get_experiment(eid):
@@ -217,6 +289,7 @@ def get_experiment(eid):
     except:
         abort(500)
 
+
 @app.route("/delete/<eid>", methods=["POST"])
 @cross_origin()
 def delete_results(eid):
@@ -227,6 +300,7 @@ def delete_results(eid):
         return "", 200
     except:
         abort(500)
+
 
 @app.route("/delete_all/", methods=["POST"])
 @cross_origin()
@@ -241,8 +315,45 @@ def delete_all_results():
     except:
         abort(500)
 
+@app.route("/profiles", methods=["GET"])
+@cross_origin()
+def get_profiles():
+    try:
+        return Profile.get_all_profiles()
+    except Exception as e:
+        abort(500)
+
+@app.route("/profiles/<name>", methods=["GET"])
+@cross_origin()
+def get_profile(name):
+    try:
+        return Profile.get_profile(name)
+    except:
+        abort(500)
+
+@app.route("/profiles", methods=["POST"])
+@cross_origin()
+def add_profile():
+    try:
+        data = request.get_json()
+        Profile.add_profile(**data)
+        return {"Added": True}, 201
+    except:
+        abort(500)
+
+@app.route("/profiles/<name>", methods=["DELETE"])
+@cross_origin()
+def delete_profile(name):
+    try:
+        Profile.delete_profile(name)
+        return {"Deleted": True}, 204
+    except:
+        abort(500)
 
 
-if __name__=="__main__":
+
+
+if __name__ == "__main__":
     db.create_all()
+    Profile.load_defaults()
     app.run(debug=True, port=PORT, host="0.0.0.0",)
