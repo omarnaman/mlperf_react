@@ -5,8 +5,8 @@ export interface Profile {
     id: number;
     loadgen?: LoadGenConfiguration;
     sut?: SUTConfiguration;
-    networkClient?: NetworkEmulationConfiguration;
-    networkServer?: NetworkEmulationConfiguration;
+    network_client?: NetworkEmulationConfiguration;
+    network_server?: NetworkEmulationConfiguration;
     name: string;
     description: string;
 }

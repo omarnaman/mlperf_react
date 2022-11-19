@@ -33,7 +33,7 @@ export interface MLPerfConfiguration {
     [prop: string]: any;
     loadgen?: LoadGenConfiguration;
     sut?: SUTConfiguration;
-    networkClient?: NetworkEmulationConfiguration;
-    networkServer?: NetworkEmulationConfiguration;
+    network_client?: NetworkEmulationConfiguration;
+    network_server?: NetworkEmulationConfiguration;
 }
 
