@@ -271,6 +271,7 @@ This endpoint has no body parameters.
 
 </details
 
+---
 
 ## Appendix
 This section includes additional information about the objects passed to and returned by the endpoints.
