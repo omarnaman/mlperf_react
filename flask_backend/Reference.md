@@ -269,7 +269,7 @@ This endpoint has no body parameters.
 | --------- | --------------------------- | -------------------------------------------------- |
 | models  | List[[`Model`](#model)] | A list of available models, empty on `500 ERROR` |
 
-</details
+</details>
 
 ---
 
