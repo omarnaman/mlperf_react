@@ -26,6 +26,7 @@ import { TextboxComponent } from './components/form-inputs/textbox/textbox.compo
 import { DropdownComponent } from './components/form-inputs/dropdown/dropdown.component';
 import { CheckboxComponent } from './components/form-inputs/checkbox/checkbox.component';
 import { FormInputComponent } from './components/form-inputs/form-input/form-input.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 const MODULES: any[] = [
     CommonModule,
@@ -53,6 +54,7 @@ const COMPONENTS: any[] = [
     DropdownComponent,
     CheckboxComponent,
     FormInputComponent,
+    PageHeaderComponent,
 ];
 const COMPONENTS_DYNAMIC: any[] = [];
 const DIRECTIVES: any[] = [DisableControlDirective];
