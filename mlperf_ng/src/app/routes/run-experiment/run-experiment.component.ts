@@ -39,9 +39,8 @@ export class RunExperimentComponent implements OnInit {
 
     getLoadGenConfiguration() {
         this.configurationStoreService.configuration$.subscribe(
-            (mlperfConfiguration: MLPerfConfiguration) => {
-                this.loadGen = mlperfConfiguration.loadgen;
-                this.form.patchValue({ [this.eid.key]: this.loadGen?.eid });
+            (mlperfConfiguration: MLPerfConfiguration | undefined) => {
+                this.loadGen = mlperfConfiguration?.loadgen;
             }
         );
     }

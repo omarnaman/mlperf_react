@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputBase } from '../input-base';
 
@@ -10,8 +10,13 @@ import { InputBase } from '../input-base';
 export class FormInputComponent implements OnInit {
     @Input() form!: FormGroup;
     @Input() input!: InputBase<any>;
+    @Output() dropdownValueUpdated = new EventEmitter<any>();
 
     constructor() {}
 
     ngOnInit(): void {}
+
+    onDropdownValueUpdate(): void {
+        this.dropdownValueUpdated.emit({ input: this.input, control: this.form.controls[this.input.key] });
+    }
 }

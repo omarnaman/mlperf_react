@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { ProfileService } from '@core/mlperf_backend/profile.service';
@@ -12,7 +12,7 @@ import { ConfigurationStoreService } from '@core/configuration/configuration.ser
     styleUrls: ['./profile-selection-form.component.scss'],
 })
 export class ProfileSelectionFormComponent implements OnInit {
-    profileList: Profile[] = [];
+    profiles: Profile[] = [];
     form!: FormGroup;
     profile = new Dropdown({
         key: 'profile',
@@ -20,8 +20,8 @@ export class ProfileSelectionFormComponent implements OnInit {
         validation: {
             required: true,
         },
-
     });
+    description = '';
 
     constructor(
         private inputGeneratorService: InputGeneratorService,
@@ -33,10 +33,13 @@ export class ProfileSelectionFormComponent implements OnInit {
         this.form = this.inputGeneratorService.generateFromGroup([
             this.profile,
         ]);
+        this.getAllProfiles();
+    }
 
-        this.profileService.profiles$.subscribe((profileList: Profile[]) => {
-            this.profileList = profileList;
-            this.profile.options = profileList.map((profile: Profile) => {
+    getAllProfiles(): void {
+        this.profileService.getProfiles().subscribe((res) => {
+            this.profiles = res.profiles
+            this.profile.options = this.profiles.map((profile: Profile) => {
                 return { label: profile.name, value: profile.id.toString() };
             });
         });
@@ -45,12 +48,21 @@ export class ProfileSelectionFormComponent implements OnInit {
     onSave(): void {
         this.form.markAllAsTouched();
         if (this.form.valid) {
-            let selectedProfile = this.profileList.find((profile: Profile) => {
+            let selectedProfile = this.profiles.find((profile: Profile) => {
                 return profile.id.toString() === this.form.value.profile;
             });
             if (selectedProfile) {
                 this.configurationStoreService.setConfiguration(selectedProfile);
             }
+        }
+    }
+
+    onProfileUpdate(event: { input: Dropdown, control: FormControl }): void {
+        if(event.control.value) {
+            let selectedProfile = this.profiles.find((profile: Profile) => {
+                return profile.id.toString() === this.form.value.profile;
+            });
+            this.description = selectedProfile?.description || '';
         }
     }
 }

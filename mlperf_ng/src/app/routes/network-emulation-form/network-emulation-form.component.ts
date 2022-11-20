@@ -130,20 +130,20 @@ export class NetworkEmulationFormComponent implements OnInit {
     }
 
     getNetworkEmulationValues(): void {
-        this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration) => {
-            this.clientNetEm = mlperfConfiguration.networkClient;
-            this.serverNetEm = mlperfConfiguration.networkServer;
+        this.configurationStoreService.configuration$.subscribe((mlperfConfiguration: MLPerfConfiguration | undefined) => {
+            this.clientNetEm = mlperfConfiguration?.network_client;
+            this.serverNetEm = mlperfConfiguration?.network_server;
             this.form.patchValue({
                 enableClientSideTrafficEmulation: this.clientNetEm?.enabled,
-                clientTcDelay: this.clientNetEm?.tcDelay,
-                clientTcJitter: this.clientNetEm?.tcJitter,
-                clientTcBandwidth: this.clientNetEm?.tcBandwidth,
-                clientRandomLoss: this.clientNetEm?.randomLoss,
+                clientTcDelay: this.clientNetEm?.delay,
+                clientTcJitter: this.clientNetEm?.jitter,
+                clientTcBandwidth: this.clientNetEm?.bandwidth,
+                clientRandomLoss: this.clientNetEm?.loss_rate,
                 enableServerSideEmulation: this.serverNetEm?.enabled,
-                serverTcDelay: this.serverNetEm?.tcDelay,
-                serverTcJitter: this.serverNetEm?.tcJitter,
-                serverTcBandwidth: this.serverNetEm?.tcBandwidth,
-                serverRandomLoss: this.serverNetEm?.randomLoss,
+                serverTcDelay: this.serverNetEm?.delay,
+                serverTcJitter: this.serverNetEm?.jitter,
+                serverTcBandwidth: this.serverNetEm?.bandwidth,
+                serverRandomLoss: this.serverNetEm?.loss_rate,
             });
         });
     }
@@ -153,17 +153,17 @@ export class NetworkEmulationFormComponent implements OnInit {
         if (this.form.valid) {
             this.clientNetEm = {
                 enabled: this.form.value.enableClientSideTrafficEmulation,
-                tcDelay: this.form.value.clientTcDelay,
-                tcJitter: this.form.value.clientTcJitter,
-                tcBandwidth: this.form.value.clientTcBandwidth,
-                randomLoss: this.form.value.clientRandomLoss,
+                delay: this.form.value.clientTcDelay,
+                jitter: this.form.value.clientTcJitter,
+                bandwidth: this.form.value.clientTcBandwidth,
+                loss_rate: this.form.value.clientRandomLoss,
             };
             this.serverNetEm = {
                 enabled: this.form.value.enableServerSideEmulation,
-                tcDelay: this.form.value.serverTcDelay,
-                tcJitter: this.form.value.serverTcJitter,
-                tcBandwidth: this.form.value.serverTcBandwidth,
-                randomLoss: this.form.value.serverRandomLoss,
+                delay: this.form.value.serverTcDelay,
+                jitter: this.form.value.serverTcJitter,
+                bandwidth: this.form.value.serverTcBandwidth,
+                loss_rate: this.form.value.serverRandomLoss,
             };
             this.configurationStoreService.setNetworkEmulation(this.clientNetEm);
             this.configurationStoreService.setNetworkEmulation(this.serverNetEm, true);

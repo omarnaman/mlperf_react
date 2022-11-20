@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   baseUrl: '',
   mecBenchUrl: 'http://3.144.241.15:8083/ALSUKHDASNILUDG',
+  storageUrl: 'http://3.21.75.205:30001',
   useHash: false,
 };
 

@@ -14,8 +14,8 @@ export const Profile1: Profile = {
         modelThreads: 0,
         consumerThreads: 1,
     },
-    networkClient: NetEmConfig_4G,
-    networkServer: NetEmConfig_4G,
+    network_client: NetEmConfig_4G,
+    network_server: NetEmConfig_4G,
 };
 
 export const Profile2: Profile = {
@@ -30,8 +30,8 @@ export const Profile2: Profile = {
         modelThreads: 0,
         consumerThreads: 1,
     },
-    networkClient: NetEmConfig_5G,
-    networkServer: defaultNetEmConfig,
+    network_client: NetEmConfig_5G,
+    network_server: defaultNetEmConfig,
 
 };
 
@@ -46,10 +46,9 @@ export const Profile3: Profile = {
         runtime: 'onnxruntime',
         modelThreads: 0,
         consumerThreads: 1,
-
     },
-    networkClient: NetEmConfig_5G,
-    networkServer: defaultNetEmConfig,
+    network_client: NetEmConfig_5G,
+    network_server: defaultNetEmConfig,
 };
 
 export const defaultProfiles: Profile[] = [

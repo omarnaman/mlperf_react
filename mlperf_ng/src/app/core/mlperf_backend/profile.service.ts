@@ -1,23 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Profile } from './interface';
-import { defaultProfiles } from './profile';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { apiPaths } from 'api-paths';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ProfileService {
-    private readonly _profiles = new BehaviorSubject<Profile[]>(defaultProfiles);
-    profiles$ = this._profiles.asObservable();
-    profileList: Profile[] = defaultProfiles;
+    constructor(private http: HttpClient) {}
 
-    constructor() {}
-
-    get(index: number): Profile {
-        return defaultProfiles[index];
-    }
-
-    public list() {
-        return defaultProfiles;
+    getProfiles(): Observable<{ profiles: Profile[]}> {
+        return this.http.get<{ profiles: Profile[]}>(apiPaths.profiles.getAll);
     }
 }

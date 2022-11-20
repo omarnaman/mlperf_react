@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LoadGenConfiguration, MLPerfConfiguration, NetworkEmulationConfiguration, SUTConfiguration } from './interface';
-import { defaultMLPerfConfiguration } from './mlperfConfiguration';
+
 @Injectable({ providedIn: 'root' })
 export class ConfigurationStoreService {
-    private readonly _configuration = new BehaviorSubject<MLPerfConfiguration>(defaultMLPerfConfiguration);
+    private readonly _configuration = new BehaviorSubject<MLPerfConfiguration | undefined>(undefined);
 
     configuration$ = this._configuration.asObservable();
 
-    constructor() {
-        this._configuration.next(defaultMLPerfConfiguration);
-    }
+    constructor() {}
 
-    getCurrentConfiguration(): MLPerfConfiguration {
+    getCurrentConfiguration(): MLPerfConfiguration | undefined {
         return this._configuration.getValue();
     }
 
     setNetworkEmulation(emulationConfig: NetworkEmulationConfiguration, server: boolean = false): void {
         if (server) {
-            this._configuration.next({ ...this._configuration.getValue(), networkServer: emulationConfig });
+            this._configuration.next({ ...this._configuration.getValue(), network_server: emulationConfig });
         } else {
-            this._configuration.next({ ...this._configuration.getValue(), networkClient: emulationConfig });
+            this._configuration.next({ ...this._configuration.getValue(), network_client: emulationConfig });
         }
     }
 
@@ -37,18 +35,18 @@ export class ConfigurationStoreService {
     }
 
     getLoadGen(): LoadGenConfiguration | undefined {
-        return this._configuration.getValue().loadgen;
+        return this._configuration.getValue()?.loadgen;
     }
 
     getSUT(): SUTConfiguration | undefined {
-        return this._configuration.getValue().sut;
+        return this._configuration.getValue()?.sut;
     }
 
     getNetworkEmulation(server: boolean = false): NetworkEmulationConfiguration | undefined {
         if (server) {
-            return this._configuration.getValue().networkServer;
+            return this._configuration.getValue()?.network_server;
         } else {
-            return this._configuration.getValue().networkClient;
+            return this._configuration.getValue()?.network_client;
         }
     }
 }

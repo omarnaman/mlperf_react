@@ -67,6 +67,20 @@ export class SystemUnderTestFormComponent implements OnInit {
             hint: 'configuration.consumer-threads-hint',
         },
     });
+    cpu = new Textbox({
+        key: 'cpu',
+        label: 'configuration.cpu',
+        config: {
+            hint: 'configuration.cpu-hint',
+        },
+    });
+    memory = new Textbox({
+        key: 'memory',
+        label: 'configuration.memory',
+        config: {
+            hint: 'configuration.memory-hint',
+        },
+    });
 
     constructor(
         private inputGeneratorService: InputGeneratorService,
@@ -84,12 +98,14 @@ export class SystemUnderTestFormComponent implements OnInit {
             this.model,
             this.runtime,
             this.consumerThreads,
+            this.cpu,
+            this.memory,
         ]);
     }
 
     getSutConfiguration() :void {
-        this.configurationStoreService.configuration$.subscribe((config: MLPerfConfiguration) => {
-            this.sut = config.sut;
+        this.configurationStoreService.configuration$.subscribe((config: MLPerfConfiguration | undefined) => {
+            this.sut = config?.sut;
             this.form.patchValue(this.sut!!);
         });
     }
@@ -104,7 +120,6 @@ export class SystemUnderTestFormComponent implements OnInit {
                 consumerThreads: parseInt(this.form.value.consumerThreads),
             };
             this.configurationStoreService.setSUT(this.sut!!);
-
         }
     }
 }

@@ -82,7 +82,7 @@
         "configuration.system-under-test": "System Under Test",
         "configuration.network-emulation": "Network Emulation",
         "configuration.cloud-deployment": "Cloud Deployment",
-        "configuration.profile-selection": "Profile Selection",
+        "configuration.profile-selection": "Profiles",
         "run-experiment": "Run Experiment"
     },
     "validations": {
@@ -191,7 +191,7 @@
         "tc-random-loss-hint": "Emulated network random drop probability",
         "experiment-id": "Experiment ID",
         "eid-hint": "The ID of the experiment (will be used to identify the experiment and retrieve its results)",
-        "profile-selection-configuration": "Profile Selection Configuration",
+        "profile-selection-configuration": "Profiles Configuration",
         "profile": "Profile Name",
         "single-stream": "Single Stream",
         "multi-stream": "Multi Stream",
@@ -212,7 +212,11 @@
         "submission-run": "Submission Run",
         "accuracy-only": "Accuracy Only",
         "performance-only": "Performance Only",
-        "peak-performance": "Peak Performance"
+        "peak-performance": "Peak Performance",
+        "cpu": "CPU",
+        "memory": "Memory",
+        "cpu-hint": "e.g, 2 allows using up to 2 CPUs per pod",
+        "memory-hint": "e.g, 128Mi allows using up to 128 MegaBytes per pod"
     },
     "experiments": {
         "run-experiment": "Run Experiment",

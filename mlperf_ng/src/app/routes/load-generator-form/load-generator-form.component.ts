@@ -17,16 +17,6 @@ import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/i
 export class LoadGeneratorFormComponent implements OnInit {
     loadGen?: LoadGenConfiguration;
     form!: FormGroup;
-    eid = new Textbox({
-        key: 'eid',
-        label: 'configuration.experiment-id',
-        validation: {
-            required: true,
-        },
-        config: {
-            hint: 'configuration.eid-hint',
-        },
-    });
     dataset = new Dropdown({
         key: 'dataset_id',
         label: 'configuration.dataset',
@@ -171,7 +161,6 @@ export class LoadGeneratorFormComponent implements OnInit {
 
     addFormControls(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
-            this.eid,
             this.dataset,
             this.scenario,
             this.repeat,
@@ -187,8 +176,8 @@ export class LoadGeneratorFormComponent implements OnInit {
 
     getLoadGenConfiguration() {
         this.configurationStoreService.configuration$.subscribe(
-            (mlperfConfiguration: MLPerfConfiguration) => {
-                this.loadGen = mlperfConfiguration.loadgen;
+            (mlperfConfiguration: MLPerfConfiguration | undefined) => {
+                this.loadGen = mlperfConfiguration?.loadgen;
                 this.form.patchValue({ ...this.loadGen });
             }
         );

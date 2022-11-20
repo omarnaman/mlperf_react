@@ -2,24 +2,24 @@ import { NetworkEmulationConfiguration } from "./interface";
 
 export const defaultNetEmConfig: NetworkEmulationConfiguration = {
     enabled: false,
-    tcDelay: "0ms",
-    tcBandwidth: "0mbit",
-    tcJitter: "0ms",
-    randomLoss: "0%",
+    delay: "0ms",
+    bandwidth: "0mbit",
+    jitter: "0ms",
+    loss_rate: "0%",
 };
 
 export const NetEmConfig_4G: NetworkEmulationConfiguration = {
     enabled: true,
-    tcDelay: "10ms",
-    tcBandwidth: "12.5Mbit",
-    tcJitter: "0ms",
-    randomLoss: "0%",
+    delay: "10ms",
+    bandwidth: "12.5Mbit",
+    jitter: "0ms",
+    loss_rate: "0%",
 };
 
 export const NetEmConfig_5G: NetworkEmulationConfiguration = {
     enabled: true,
-    tcDelay: "1ms",
-    tcBandwidth: "10Gbit",
-    tcJitter: "0ms",
-    randomLoss: "0%",
+    delay: "1ms",
+    bandwidth: "10Gbit",
+    jitter: "0ms",
+    loss_rate: "0%",
 };

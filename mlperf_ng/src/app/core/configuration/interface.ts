@@ -1,5 +1,4 @@
 export interface LoadGenConfiguration {
-    eid?: string;
     num_threads: string;
     max_duration: string;
     min_duration: string;
@@ -21,19 +20,17 @@ export interface SUTConfiguration {
 }
 
 export interface NetworkEmulationConfiguration {
-    [prop: string]: any;
     enabled: boolean;
-    tcDelay: string;
-    tcBandwidth: string;
-    tcJitter: string;
-    randomLoss: string;
+    delay: string;
+    bandwidth: string;
+    jitter: string;
+    loss_rate: string;
 }
 
 export interface MLPerfConfiguration {
-    [prop: string]: any;
     loadgen?: LoadGenConfiguration;
     sut?: SUTConfiguration;
-    networkClient?: NetworkEmulationConfiguration;
-    networkServer?: NetworkEmulationConfiguration;
+    network_client?: NetworkEmulationConfiguration;
+    network_server?: NetworkEmulationConfiguration;
 }
 

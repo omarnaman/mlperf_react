@@ -1,7 +1,12 @@
 <div [formGroup]="form" class="input-margin">
     <div [ngSwitch]="input.controlType">
         <app-textbox *ngSwitchCase="'textbox'" [input]="input" [form]="form"></app-textbox>
-        <app-dropdown *ngSwitchCase="'dropdown'" [input]="input" [form]="form"></app-dropdown>
+        <app-dropdown
+            *ngSwitchCase="'dropdown'"
+            [input]="input"
+            [form]="form"
+            (valueUpdated)="onDropdownValueUpdate()"
+        ></app-dropdown>
         <app-checkbox *ngSwitchCase="'checkbox'" [input]="input" [form]="form"></app-checkbox>
     </div>
 </div>
