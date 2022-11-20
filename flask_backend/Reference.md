@@ -3,6 +3,9 @@
 ## **MECBench Services**
 ---
 
+<details>
+<summary>Storage Services</summary>
+
 ## Storage Services
 
 MECBench uses two storage services: MECStore to store the results of the experiments and any configuration, CIFSS to store small blobs (LoadGen configuration files) to be used by the experiments.
@@ -26,18 +29,19 @@ This endpoint has no body parameters.
 
 ### Response Body
 
-| Parameter | Type           | Description                       |
-| --------- | -------------- | --------------------------------- |
-| cifss     | `ServiceState` | The state of the CIFSS service    |
-| storage   | `ServiceState` | The state of the MECStore service |
+| Parameter | Type                            | Description                       |
+| --------- | ------------------------------- | --------------------------------- |
+| cifss     | [`ServiceState`](#servicestate) | The state of the CIFSS service    |
+| storage   | [`ServiceState`](#servicestate) | The state of the MECStore service |
 
-#### **ServiceState**
-| Parameter | Type      | Description                                                                                         |
-| --------- | --------- | --------------------------------------------------------------------------------------------------- |
-| pod       | `boolean` | Set to `false` if a service pod was already deployed and running, `true` if a new one was deployed. |
-| svc       | `boolean` | Set to `false` if the service was already defined, `true` if a new one was defined.                 |
+
+
+</details>
 
 ---
+
+<details>
+<summary>System Under Test Service (SUT) </summary>
 
 ## System Under Test Service (SUT)
 MECBench's SUT is deployed as a service and a pod, with plans to deploy multiple pods behind a load balancer. 
@@ -51,12 +55,12 @@ This endpoint has no path parameters.
 
 
 ### Body Parameters
-| Parameter      | Type             | Required | Description                                                                                      |
-| -------------- | ---------------- | -------- | ------------------------------------------------------------------------------------------------ |
-| node_selectors | `dict`           | No       | A dictionary of node selectors used for selecting which node to deploy the SUT pods on.          |
-| netem          | `NetEmConfig`    | No       | The network emulation parameters sent to the network emulation module (TC). for the server-side. |
-| limits         | `ResourceLimits` | No       | The resource limits applied on the SUT pods.                                                     |
-| args           | `list`           | No       | A list of arguments to be passed to the SUT image.                                               |
+| Parameter      | Type                                                                  | Required | Description                                                                                      |
+| -------------- | --------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| node_selectors | `dict`                                                                | No       | A dictionary of node selectors used for selecting which node to deploy the SUT pods on.          |
+| netem          | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information)        | No       | The network emulation parameters sent to the network emulation module (TC). for the server-side. |
+| limits         | [`ResourceLimits`](#resourcelimits-refer-to-kubernetes-documentation) | No       | The resource limits applied on the SUT pods.                                                     |
+| args           | `list`                                                                | No       | A list of arguments to be passed to the SUT image.                                               |
 
 ### Response
 
@@ -66,28 +70,16 @@ This endpoint has no path parameters.
 
 ### Response Body
 
-| Parameter | Type           | Description                                                                        |
-| --------- | -------------- | ---------------------------------------------------------------------------------- |
-| sut       | `ServiceState` | The state of the SUT service. The {pod} parameters is expected to be set to `true` |
+| Parameter | Type                            | Description                                                                        |
+| --------- | ------------------------------- | ---------------------------------------------------------------------------------- |
+| sut       | [`ServiceState`](#servicestate) | The state of the SUT service. The {pod} parameters is expected to be set to `true` |
 
+</details>
 
-#### **NetEmConfig** (Refer to [tc](https://wiki.linuxfoundation.org/networking/netem) for more information)
-| Parameter | Type   | Description                                                                                           |
-| --------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| bandwidth | String | The bandwidth to be emulated. Download rate when applied to SUT, upload rate when applied to LoadGen. |
-| delay     | String | The single trip latency to be emulated.                                                               |
-| jitter    | String | The latency jitter to be emulated.                                                                    |
-| loss_rate | String | The percentage packet loss to be emulated, i.e, "50" is 50% if packets are dropped.                   |
-| reorder   | String | The percentage of packets to be reordered on transmission.                                            |
+---
 
-#### **ResourceLimits** (Refer to [Kubernetes' documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/))
-| Parameter | Type   | Description                                                                                                                                                        |
-| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| cpu       | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "2" allows using up to `2` CPUs per pod.            |
-| memory    | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "128Mi" allows using up to `128` MegaBytes per pod. |
-
---- 
-
+<details>
+<summary>Load Generator Service (LoadGen Server) </summary>
 
 ## Load Generator Service (LoadGen Server)
 MECBench's LoadGen **Server/Service** is deployed as a service and a pod, launching a service that can be contacted to start a LoadGen instance on the same pod.
@@ -103,7 +95,7 @@ This endpoint has no path parameters.
 ### Body Parameters
 | Parameter | Type          | Required | Description                                                                                      |
 | --------- | ------------- | -------- | ------------------------------------------------------------------------------------------------ |
-| netem     | `NetEmConfig` | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side. |
+| netem     | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information) | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side. |
 | args      | `list`        | No       | A list of arguments to be passed to the LoadGen Server image.                                    |
 
 
@@ -115,15 +107,19 @@ This endpoint has no path parameters.
 
 ### Response Body
 
-| Parameter | Type           | Description                                                                             |
-| --------- | -------------- | --------------------------------------------------------------------------------------- |
-| lg_server | `ServiceState` | The state of the LoadGen service. The {pod} parameters is expected to be set to `true`. |
+| Parameter | Type                            | Description                                                                             |
+| --------- | ------------------------------- | --------------------------------------------------------------------------------------- |
+| lg_server | [`ServiceState`](#servicestate) | The state of the LoadGen service. The {pod} parameters is expected to be set to `true`. |
 
 ---
+</details>
 
+---
 ## Launching Experiments
 MECBench provides multiple ways to launch experiments, launching an independent LoadGen instance for each experiment, or launching a single LoadGen Server instance and using it to launch multiple LoadGen experiments. 
 
+<details>
+<summary>LoadGen Job </summary>
 
 ## LoadGen Job
 A LoadGen Job is a single LoadGen instance running a single experiment on an independent pod. This takes longer to finish due to the time it takes to deplay a new pod and fetch the dataset on each run.
@@ -141,11 +137,11 @@ A LoadGen Job is a single LoadGen instance running a single experiment on an ind
 ### Body Parameters
 | Parameter  | Type                | Required | Description                                                                                                            |
 | ---------- | ------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-| models     | List[LoadGenConfig] | Yes      | The configurations for different models in the experiment.                                                             |
+| models     | List[[LoadGenConfig](#loadgenconfig)] | Yes      | The configurations for different models in the experiment.                                                             |
 | dataset_id | String              | Yes      | The dataset's identifier in the blob storage, currently the S3 storage link, e.g., `s3://mlperf-cocodatasets/300.tar`. |
 | scenario   | String              | Yes      | The scenario to run the experiment on. Refer to LoadGen's scenarios for more details.                                  |
-| repeats    | Integer             | No      | The number of times to repeat the experiment.                                                                          |
-| netem      | `NetEmConfig`       | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side.                       |
+| repeats    | Integer             | No       | The number of times to repeat the experiment.                                                                          |
+| netem      | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information)       | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side.                       |
 
 ### Response
 
@@ -156,6 +152,14 @@ A LoadGen Job is a single LoadGen instance running a single experiment on an ind
 
 ### Response Body
 This endpoint returns an empty body.
+
+
+</details>
+
+---
+
+<details>
+<summary>LoadGen instance</summary>
 
 ## LoadGen instance
 A LoadGen instance is a single LoadGen process ran by the LoadGen Server. This is faster than the LoadGen Job, as it doesn't require deploying a new pod for each experiment, but it requires the LoadGen Server to be running. The network emulation parameters are applied on the LoadGen Server, and the LoadGen instance will **inherit** the network emulation parameters from the LoadGen Server.
@@ -177,7 +181,7 @@ A LoadGen instance is a single LoadGen process ran by the LoadGen Server. This i
 | models     | List[LoadGenConfig] | Yes      | The configurations for different models in the experiment.                                                             |
 | dataset_id | String              | Yes      | The dataset's identifier in the blob storage, currently the S3 storage link, e.g., `s3://mlperf-cocodatasets/300.tar`. |
 | scenario   | String              | Yes      | The scenario to run the experiment on. Refer to LoadGen's scenarios for more details.                                  |
-| repeats    | Integer             | No      | The number of times to repeat the experiment.                                                                          |
+| repeats    | Integer             | No       | The number of times to repeat the experiment.                                                                          |
 
 ### Response
 
@@ -190,7 +194,44 @@ A LoadGen instance is a single LoadGen process ran by the LoadGen Server. This i
 This endpoint returns an empty body.
 
 
-#### **LoadGenConfig**
+</details>
+
+---
+
+## Appendix
+This section includes additional information about the objects passed to and returned by the endpoints.
+
+<details>
+<summary>Objects</summary>
+
+## **ServiceState**
+| Parameter | Type      | Description                                                                                         |
+| --------- | --------- | --------------------------------------------------------------------------------------------------- |
+| pod       | `boolean` | Set to `false` if a service pod was already deployed and running, `true` if a new one was deployed. |
+| svc       | `boolean` | Set to `false` if the service was already defined, `true` if a new one was defined.                 |
+
+---
+
+## **NetEmConfig** (Refer to [tc](https://wiki.linuxfoundation.org/networking/netem) for more information)
+| Parameter | Type   | Description                                                                                           |
+| --------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| bandwidth | String | The bandwidth to be emulated. Download rate when applied to SUT, upload rate when applied to LoadGen. |
+| delay     | String | The single trip latency to be emulated.                                                               |
+| jitter    | String | The latency jitter to be emulated.                                                                    |
+| loss_rate | String | The percentage packet loss to be emulated, i.e, "50" is 50% if packets are dropped.                   |
+| reorder   | String | The percentage of packets to be reordered on transmission.                                            |
+
+---
+## **ResourceLimits** (Refer to [Kubernetes' documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/))
+| Parameter | Type   | Description                                                                                                                                                        |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| cpu       | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "2" allows using up to `2` CPUs per pod.            |
+| memory    | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "128Mi" allows using up to `128` MegaBytes per pod. |
+
+--- 
+
+
+## **LoadGenConfig**
 The LoadGenConfig is a JSON representation of the LoadGen's configuration, the most used parameters are listed in the following example:
 
 ```json
@@ -214,3 +255,4 @@ The LoadGenConfig is a JSON representation of the LoadGen's configuration, the m
         }
     ],
 ```
+</details>
