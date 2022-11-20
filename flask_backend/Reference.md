@@ -93,10 +93,10 @@ This endpoint has no path parameters.
 
 
 ### Body Parameters
-| Parameter | Type          | Required | Description                                                                                      |
-| --------- | ------------- | -------- | ------------------------------------------------------------------------------------------------ |
+| Parameter | Type                                                           | Required | Description                                                                                      |
+| --------- | -------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------ |
 | netem     | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information) | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side. |
-| args      | `list`        | No       | A list of arguments to be passed to the LoadGen Server image.                                    |
+| args      | `list`                                                         | No       | A list of arguments to be passed to the LoadGen Server image.                                    |
 
 
 ### Response
@@ -135,13 +135,13 @@ A LoadGen Job is a single LoadGen instance running a single experiment on an ind
 
 
 ### Body Parameters
-| Parameter  | Type                | Required | Description                                                                                                            |
-| ---------- | ------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-| models     | List[[LoadGenConfig](#loadgenconfig)] | Yes      | The configurations for different models in the experiment.                                                             |
-| dataset_id | String              | Yes      | The dataset's identifier in the blob storage, currently the S3 storage link, e.g., `s3://mlperf-cocodatasets/300.tar`. |
-| scenario   | String              | Yes      | The scenario to run the experiment on. Refer to LoadGen's scenarios for more details.                                  |
-| repeats    | Integer             | No       | The number of times to repeat the experiment.                                                                          |
-| netem      | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information)       | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side.                       |
+| Parameter  | Type                                                           | Required | Description                                                                                                            |
+| ---------- | -------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+| models     | List[[LoadGenConfig](#loadgenconfig)]                          | Yes      | The configurations for different models in the experiment.                                                             |
+| dataset_id | String                                                         | Yes      | The dataset's identifier in the blob storage, currently the S3 storage link, e.g., `s3://mlperf-cocodatasets/300.tar`. |
+| scenario   | String                                                         | Yes      | The scenario to run the experiment on. Refer to LoadGen's scenarios for more details.                                  |
+| repeats    | Integer                                                        | No       | The number of times to repeat the experiment.                                                                          |
+| netem      | [`NetEmConfig`](#netemconfig-refer-to-tc-for-more-information) | No       | The network emulation parameters sent to the network emulation module (TC), for the client-side.                       |
 
 ### Response
 
@@ -198,6 +198,80 @@ This endpoint returns an empty body.
 
 ---
 
+<details>
+<summary>Backend Options</summary>
+
+## Backends
+
+### HTTP Request
+`GET` /backends
+This endpoint returns a list of the available backends for the SUT, their parameters can be passed as arguments to the [SUT](#system-under-test-service-sut).
+
+### Path Parameters
+This endpoint has no path parameters.
+
+### Body Parameters
+This endpoint has no body parameters.
+### Response
+
+| Code | Description |
+| ---- | ----------- |
+| 200  | Success.    |
+| 500  | Error.      |
+
+### Response Body
+| Parameter | Type                        | Description                                        |
+| --------- | --------------------------- | -------------------------------------------------- |
+| backends  | List[[`Backend`](#backend)] | A list of available backends, empty on `500 ERROR` |
+
+## Datasets
+
+
+### HTTP Request
+`GET` /datasets
+This endpoint returns a list of the available datasets for the LoadGen, their links and parameters can be passed as arguments to the [SUT](#system-under-test-service-sut) and the [LoadGen](#loadgen-job).
+
+### Path Parameters
+This endpoint has no path parameters.
+
+### Body Parameters
+This endpoint has no body parameters.
+### Response
+
+| Code | Description |
+| ---- | ----------- |
+| 200  | Success.    |
+| 500  | Error.      |
+
+### Response Body
+| Parameter | Type                        | Description                                        |
+| --------- | --------------------------- | -------------------------------------------------- |
+| datasets  | List[[`Dataset`](#dataset)] | A list of available datasets, empty on `500 ERROR` |
+
+## Models
+`GET` /models
+This endpoint returns a list of the available models for the SUT, their links and parameters can be passed as arguments to the [SUT](#system-under-test-service-sut).
+
+### Path Parameters
+This endpoint has no path parameters.
+
+### Body Parameters
+This endpoint has no body parameters.
+### Response
+
+| Code | Description |
+| ---- | ----------- |
+| 200  | Success.    |
+| 500  | Error.      |
+
+### Response Body
+| Parameter | Type                        | Description                                        |
+| --------- | --------------------------- | -------------------------------------------------- |
+| models  | List[[`Model`](#model)] | A list of available models, empty on `500 ERROR` |
+
+</details
+
+
 ## Appendix
 This section includes additional information about the objects passed to and returned by the endpoints.
 
@@ -225,10 +299,39 @@ This section includes additional information about the objects passed to and ret
 ## **ResourceLimits** (Refer to [Kubernetes' documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/))
 | Parameter | Type   | Description                                                                                                                                                        |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| cpu       | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "2" allows using up to `2` CPUs per pod.            |
-| memory    | string | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "128Mi" allows using up to `128` MegaBytes per pod. |
+| cpu       | String | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "2" allows using up to `2` CPUs per pod.            |
+| memory    | String | See [K8's documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). e.g, "128Mi" allows using up to `128` MegaBytes per pod. |
 
 --- 
+
+## **Backend** 
+| Parameter        | Type         | Description                                                   |
+| ---------------- | ------------ | ------------------------------------------------------------- |
+| id               | String       | The identifier of the backend, passed as `runtime` to the SUT |
+| name             | String       | A human friendly name for the backend                         |
+| supported_models | List[String] | A list of the IDs of the models that can run on this backend  |
+
+--- 
+## **Model** 
+| Parameter          | Type         | Description                                                                           |
+| ------------------ | ------------ | ------------------------------------------------------------------------------------- |
+| id                 | String       | The identifier of the model                                                           |
+| name               | String       | A human friendly name for the model                                                   |
+| supported_datasets | List[String] | A list of the IDs of the datasets that this model can receive                         |
+| link               | String       | The link used for downloading the model tar                                           |
+| model-path         | String       | The path to the model after being extracted from the tar, passed as an arg to the SUT |
+
+## **Dataset** 
+| Parameter  | Type                 | Description                                                         |
+| ---------- | -------------------- | ------------------------------------------------------------------- |
+| id         | String               | The identifier of the dataset                                       |
+| name       | String               | A human friendly name for the dataset                               |
+| link       | String               | The link used for downloading the dataset tar                       |
+| properties | dict[String, String] | A dictionary of properties describing the dataset, e.g. model-shape |
+
+--- 
+
+
 
 
 ## **LoadGenConfig**
