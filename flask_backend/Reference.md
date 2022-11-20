@@ -201,7 +201,7 @@ This endpoint returns an empty body.
 ## Appendix
 This section includes additional information about the objects passed to and returned by the endpoints.
 
-<details>
+<details open="open">
 <summary>Objects</summary>
 
 ## **ServiceState**
