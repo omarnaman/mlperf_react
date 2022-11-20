@@ -1,6 +1,7 @@
 import { Profile } from './interface';
 import { defaultMLPerfConfiguration } from '@core/configuration/mlperfConfiguration';
 import { defaultNetEmConfig, NetEmConfig_4G, NetEmConfig_5G } from '@core/configuration/netem';
+import { SCENARIOS } from '@shared/constants';
 
 export const Profile1: Profile = {
     id: 1,
@@ -39,7 +40,18 @@ export const Profile3: Profile = {
     id: 3,
     name: 'SSD MobileNet Open-loop 5G',
     description: 'Profile 3 description',
-    loadgen: defaultMLPerfConfiguration.loadgen,
+    loadgen:  {
+        num_threads: "30",
+        min_duration: "10000",
+        max_duration: "10000",
+        target_qps: '20',
+        mode: '2',
+        samples_per_query: "1",
+        max_async_queries: "5",
+        scenario: SCENARIOS.MULTI_STREAM,
+        dataset_id: 's3://mlperf-cocodatasets/300.tar.gz',
+        repeats: 1
+    },
     sut: {
         ...defaultMLPerfConfiguration.sut,
         model: 'ssd-mobilenet',

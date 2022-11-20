@@ -36,7 +36,7 @@ This operation has no extra parameters.
 | -------------- | ------------------------------------------------------------------------------------------------------------- | ----------- |
 | experiment_id  | The ID of the experiment that the list of latencies is associated with. Used to select multiple related jobs. | String      |
 | selector       | The ID of a specific job that the list of latencies is associated with.                                       | String      |
-| latencies      | The list of latency results of the job, one for each sample in the job.                                                    | List[Float] |
+| latencies      | The list of latency results of the job, one for each sample in the job.                                       | List[Float] |
 ---
 ### `GET` /latencies/{experiment_id}
 This operation has no extra parameters. 
@@ -86,3 +86,56 @@ Upload a new configuration json and relate it to specified experiment
     "config_id" : "{config_id: Number}"
 }
 ```
+
+
+## /profiles
+A profile is a description of previously ran experiments.
+
+
+### `POST` /profiles/
+| Parameter Name | Required | Description                                                                                               | Type         |
+| -------------- | -------- | --------------------------------------------------------------------------------------------------------- | ------------ |
+| name           | `True`   | The name of the profile                                                                                   | String       |
+| description    | `False`  | The text description of the profile, default to an empty string.                                          | String       |
+| loadgen        | `True`   | The loadgen configuration associated with the profile. The storage stores the dictionary as-is.           | `Dictionary` |
+| sut            | `True`   | The sut configuration associated with the profile. The storage stores the dictionary as-is.               | `Dictionary` |
+| network_client | `True`   | The client-side netem configuration associated with the profile. The storage stores the dictionary as-is. | `Dictionary` |
+| network_server | `True`   | The server-side netem configuration associated with the profile. The storage stores the dictionary as-is. | `Dictionary` |
+
+
+### ***Returns*** 201 on success, 500 on failure.
+
+---
+### `GET` /profiles
+This operation has no extra parameters. 
+### **Returns** a list of all the stored profiles.
+```json
+[
+    {
+        "name": "{name: String}",
+        "description": "{description: String}",
+        "loadgen": "{LoadGen_Config: Dictionary}",
+        "sut": "{SUT_Config: Dictionary}",
+        "network_client": "{Network_Client_Config: Dictionary}",
+        "network_server": "{Network_Server_Config: Dictionary}"
+    }
+]
+```
+
+### `GET` /profiles/{profile_name}
+This operation has no extra parameters. 
+### **Returns** the profile with the specified name.
+```json
+{
+    "name": "{name: String}",
+    "description": "{description: String}",
+    "loadgen": "{LoadGen_Config: Dictionary}",
+    "sut": "{SUT_Config: Dictionary}",
+    "network_client": "{Network_Client_Config: Dictionary}",
+    "network_server": "{Network_Server_Config: Dictionary}"
+}
+```
+
+### `DELETE` /profiles/{profile_name}
+This operation has no extra parameters.
+

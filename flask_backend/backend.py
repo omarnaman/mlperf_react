@@ -9,6 +9,7 @@ import time
 import kubernetes_manager
 from threading import Lock
 from config import Config as BackendConfig
+import json
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -264,6 +265,34 @@ def create_lg_server_job(eid, selector):
                 print("Error running experiment")
                 return "LG Error:" + res.text, res.status_code
     return "", 200
+
+
+@app.route("/backends", methods=["GET"])
+def get_backends():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"backends": data.get("backends", [])}
+    except Exception as e:
+        return {"backends": []}, 500
+
+@app.route("/models", methods=["GET"])
+def get_models():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"models": data.get("models", [])}
+    except Exception as e:
+        return {"models": []}, 500
+
+@app.route("/datasets", methods=["GET"])
+def get_datasets():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"datasets": data.get("datasets", [])}
+    except Exception as e: 
+        return {"datasets": []}, 500
 
 
 if __name__=="__main__":
