@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Profile } from './interface';
+import { CreateProfileRequest, Profile } from './interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { apiPaths } from 'api-paths';
@@ -12,5 +12,9 @@ export class ProfileService {
 
     getProfiles(): Observable<{ profiles: Profile[]}> {
         return this.http.get<{ profiles: Profile[]}>(apiPaths.profiles.getAll);
+    }
+
+    createProfile(payload: CreateProfileRequest): Observable<any> {
+        return this.http.post(apiPaths.profiles.create, payload);
     }
 }

@@ -12,6 +12,7 @@ import { NetworkEmulationFormComponent } from './network-emulation-form/network-
 import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
 import { ProfileSelectionFormComponent } from './profile-selection-form/profile-selection-form.component';
 import { RunExperimentComponent } from './run-experiment/run-experiment.component';
+import { AddProfileFormComponent } from './profile-selection-form/add-profile-form/add-profile-form.component';
 const COMPONENTS: any[] = [
     DashboardComponent,
     LoginComponent,
@@ -26,6 +27,6 @@ const COMPONENTS_DYNAMIC: any[] = [];
 
 @NgModule({
     imports: [SharedModule, RoutesRoutingModule, NgApexchartsModule],
-    declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, RunExperimentComponent],
+    declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, RunExperimentComponent, AddProfileFormComponent],
 })
 export class RoutesModule {}

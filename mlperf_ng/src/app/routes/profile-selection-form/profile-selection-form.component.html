@@ -1,4 +1,8 @@
-<app-page-header title="configuration.profile-selection-configuration" icon="add"></app-page-header>
+<app-page-header
+    title="configuration.profile-selection-configuration"
+    icon="add"
+    (iconClicked)="openAddProfileForm()"
+></app-page-header>
 <mat-card>
     <form class="form-field-full">
         <app-form-input
