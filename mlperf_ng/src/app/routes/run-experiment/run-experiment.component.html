@@ -7,3 +7,19 @@
         </button>
     </form>
 </mat-card>
+<div style="text-align:center" *ngIf="latencyChartOptions">
+    <apx-chart
+      [series]="$any(latencyChartOptions.series)"
+      [chart]="$any(latencyChartOptions.chart)"
+      [xaxis]="$any(latencyChartOptions.xaxis)"
+      [title]="$any(latencyChartOptions.title)"
+    ></apx-chart>
+</div>
+<div style="text-align:center" *ngIf="qpsChartOptions">
+    <apx-chart
+      [series]="$any(qpsChartOptions.series)"
+      [chart]="$any(qpsChartOptions.chart)"
+      [xaxis]="$any(qpsChartOptions.xaxis)"
+      [title]="$any(qpsChartOptions.title)"
+    ></apx-chart>
+</div>

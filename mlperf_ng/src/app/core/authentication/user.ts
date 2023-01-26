@@ -2,8 +2,8 @@ import { User } from './interface';
 
 export const admin: User = {
   id: 1,
-  name: 'Hala Qadi',
-  email: 'hqadi@uwaterloo.ca',
+  name: 'John Doe',
+  email: 'jdoe@uwaterloo.ca',
   avatar: './assets/images/avatar.jpg',
 };
 

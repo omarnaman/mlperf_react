@@ -2,30 +2,11 @@ import {
     Component,
     OnInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     ViewChild,
 } from '@angular/core';
+import { ChartOptions } from '@shared/constants';
 
-import {
-    ChartComponent,
-    ApexAxisChartSeries,
-    ApexChart,
-    ApexXAxis,
-    ApexDataLabels,
-    ApexTitleSubtitle,
-    ApexStroke,
-    ApexGrid,
-} from 'ng-apexcharts';
-
-export type ChartOptions = {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    xaxis: ApexXAxis;
-    dataLabels: ApexDataLabels;
-    grid: ApexGrid;
-    stroke: ApexStroke;
-    title: ApexTitleSubtitle;
-};
+import { ChartComponent } from 'ng-apexcharts';
 
 @Component({
     selector: 'app-dashboard',
@@ -36,7 +17,7 @@ export class DashboardComponent implements OnInit {
     @ViewChild('chart') chart!: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
 
-    constructor(private cdr: ChangeDetectorRef) {
+    constructor() {
         this.chartOptions = {
             series: [
                 {

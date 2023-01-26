@@ -11,4 +11,8 @@ export const apiPaths = {
         create: `${environment.storageUrl}/profiles`,
         delete: `${environment.storageUrl}/profiles/{profile_name}`,
     },
+    storage: {
+        latencies: `${environment.storageUrl}/latencies/{eid}`,
+        qps: `${environment.storageUrl}/qps/{eid}`,
+    },
 };
