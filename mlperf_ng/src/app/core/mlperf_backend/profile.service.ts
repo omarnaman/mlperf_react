@@ -17,4 +17,8 @@ export class ProfileService {
     createProfile(payload: CreateProfileRequest): Observable<any> {
         return this.http.post(apiPaths.profiles.create, payload);
     }
+
+    deleteProfile(id: number): Observable<any> {
+        return this.http.delete(apiPaths.profiles.delete.replace('{id}', id.toString()));
+    }
 }

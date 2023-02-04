@@ -13,6 +13,8 @@ import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-depl
 import { ProfileSelectionFormComponent } from './profile-selection-form/profile-selection-form.component';
 import { RunExperimentComponent } from './run-experiment/run-experiment.component';
 import { AddProfileFormComponent } from './profile-selection-form/add-profile-form/add-profile-form.component';
+import { ProfileListComponent } from './profile-list/profile-list.component';
+import { ProfileCardComponent } from './profile-list/profile-card/profile-card.component';
 const COMPONENTS: any[] = [
     DashboardComponent,
     LoginComponent,
@@ -27,6 +29,6 @@ const COMPONENTS_DYNAMIC: any[] = [];
 
 @NgModule({
     imports: [SharedModule, RoutesRoutingModule, NgApexchartsModule],
-    declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, RunExperimentComponent, AddProfileFormComponent],
+    declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, RunExperimentComponent, AddProfileFormComponent, ProfileListComponent, ProfileCardComponent],
 })
 export class RoutesModule {}

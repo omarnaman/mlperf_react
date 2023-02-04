@@ -28,6 +28,7 @@ import { CheckboxComponent } from './components/form-inputs/checkbox/checkbox.co
 import { FormInputComponent } from './components/form-inputs/form-input/form-input.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { TextareaComponent } from './components/form-inputs/textarea/textarea.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 const MODULES: any[] = [
     CommonModule,
@@ -57,6 +58,7 @@ const COMPONENTS: any[] = [
     FormInputComponent,
     PageHeaderComponent,
     TextareaComponent,
+    ConfirmationDialogComponent,
 ];
 const COMPONENTS_DYNAMIC: any[] = [];
 const DIRECTIVES: any[] = [DisableControlDirective];

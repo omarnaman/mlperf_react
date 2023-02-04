@@ -199,8 +199,10 @@
         "server": "Server",
         "repeat": "Repeat",
         "repeat-hint": "The number of times to repeat the experiment",
-        "number-of-threads": "Number of Threads",
-        "number-of-threads-hint": "The number of concurrent clients",
+        "min-number-of-threads": "Minimum Number of Threads",
+        "max-number-of-threads": "Maximum Number of Threads",
+        "min-number-of-threads-hint": "The minimum number of concurrent clients",
+        "max-number-of-threads-hint": "The maximum number of concurrent clients",
         "max-duration": "Maximum Duration",
         "max-duration-hint": "The maximum duration of the experiment in milliseconds",
         "min-duration": "Minimum Duration",
@@ -219,15 +221,27 @@
         "memory-hint": "e.g, 128Mi allows using up to 128 MegaBytes per pod",
         "name": "Name",
         "description": "Description",
-        "add-a-profile": "Add a Profile"
+        "add-a-profile": "Add a Profile",
+        "delete-profile-confirmation": "Are you sure you want to delete this profile?"
 
     },
     "experiments": {
         "run-experiment": "Run Experiment",
-        "run": "Run"
+        "run": "Run",
+        "10th-percentile": "10th Percentile",
+        "50th-percentile": "50th Percentile",
+        "90th-percentile": "90th Percentile",
+        "95th-percentile": "95th Percentile",
+        "queries-per-second": "Queries per Second",
+        "latency-vs-number-of-threads": "Latency vs Number of Threads",
+        "throughput-vs-number-of-threads": "Throughput vs Number of Threads",
+        "latency-vs-throughput": "Latency vs Throughput"
     },
     "others": {
         "save": "Save",
-        "select": "Select"
+        "select": "Select",
+        "yes": "Yes",
+        "no": "No",
+        "confirm-action": "Confirm Action"
     }
 }

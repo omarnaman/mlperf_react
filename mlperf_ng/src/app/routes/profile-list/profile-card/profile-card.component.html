@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-title>
+        {{ profile.name }}
+    </mat-card-title>
+    <mat-card-content>
+        <p>{{ profile.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-icon-button color="primary">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

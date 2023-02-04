@@ -1,4 +1,12 @@
-import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexGrid, ApexStroke, ApexTitleSubtitle } from "ng-apexcharts";
+import {
+    ApexAxisChartSeries,
+    ApexChart,
+    ApexXAxis,
+    ApexDataLabels,
+    ApexGrid,
+    ApexStroke,
+    ApexTitleSubtitle,
+} from 'ng-apexcharts';
 
 export const EXPERIMENT_MODES = {
     SUBMISSION_RUN: 0,

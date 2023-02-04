@@ -9,7 +9,7 @@ export const apiPaths = {
         getAll: `${environment.storageUrl}/profiles`,
         get: `${environment.storageUrl}/profiles/{profile_name}`,
         create: `${environment.storageUrl}/profiles`,
-        delete: `${environment.storageUrl}/profiles/{profile_name}`,
+        delete: `${environment.storageUrl}/profiles/{id}`,
     },
     storage: {
         latencies: `${environment.storageUrl}/latencies/{eid}`,

@@ -4,8 +4,6 @@ import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { EXPERIMENT_MODES, SCENARIOS } from '@shared/constants';
-import { LoadGenInstanceRequest } from '@shared/models/load-generator.model';
-import { LoadGeneratorService } from '../services/load-generator.service';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
 
@@ -55,16 +53,28 @@ export class LoadGeneratorFormComponent implements OnInit {
             hint: 'configuration.repeat-hint',
         },
     });
-    numberOfThreads = new Textbox({
-        key: 'num_threads',
-        label: 'configuration.number-of-threads',
+    minNumberOfThreads = new Textbox({
+        key: 'min_num_threads',
+        label: 'configuration.min-number-of-threads',
         type: 'number',
         validation: {
             required: true,
             min: 0,
         },
         config: {
-            hint: 'configuration.number-of-threads-hint',
+            hint: 'configuration.min-number-of-threads-hint',
+        },
+    });
+    maxNumberOfThreads = new Textbox({
+        key: 'max_num_threads',
+        label: 'configuration.max-number-of-threads',
+        type: 'number',
+        validation: {
+            required: true,
+            min: 0,
+        },
+        config: {
+            hint: 'configuration.max-number-of-threads-hint',
         },
     });
     minDuration = new Textbox({
@@ -150,7 +160,6 @@ export class LoadGeneratorFormComponent implements OnInit {
 
     constructor(
         private inputGeneratorService: InputGeneratorService,
-        private loadGeneratorService: LoadGeneratorService,
         private configurationStoreService: ConfigurationStoreService
     ) {}
 
@@ -164,7 +173,8 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.dataset,
             this.scenario,
             this.repeat,
-            this.numberOfThreads,
+            this.minNumberOfThreads,
+            this.maxNumberOfThreads,
             this.minDuration,
             this.maxDuration,
             this.targetQps,
@@ -178,7 +188,22 @@ export class LoadGeneratorFormComponent implements OnInit {
         this.configurationStoreService.configuration$.subscribe(
             (mlperfConfiguration: MLPerfConfiguration | undefined) => {
                 this.loadGen = mlperfConfiguration?.loadgen;
-                this.form.patchValue({ ...this.loadGen });
+                const numberOfThreads = this.loadGen?.num_threads;
+                let minNumberOfThreads = 0;
+                let maxNumberOfThreads = 0;
+                if (numberOfThreads?.includes('-')) {
+                    const arr = numberOfThreads.split('-');
+                    minNumberOfThreads = parseInt(arr[0]);
+                    maxNumberOfThreads = parseInt(arr[1]);
+                } else {
+                    minNumberOfThreads = parseInt(numberOfThreads + '');
+                    maxNumberOfThreads = minNumberOfThreads + 1;
+                }
+                this.form.patchValue({
+                    ...this.loadGen,
+                    [this.minNumberOfThreads.key]: minNumberOfThreads,
+                    [this.maxNumberOfThreads.key]: maxNumberOfThreads,
+                });
             }
         );
     }
@@ -189,7 +214,13 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.loadGen = {
                 ...this.form.value,
                 [this.repeat.key]: parseInt(this.form.value[this.repeat.key]),
+                num_threads: `${this.form.value[this.minNumberOfThreads.key]}-${
+                    this.form.value[this.maxNumberOfThreads.key]
+                }`,
             };
+            delete (this.loadGen as any)[this.minNumberOfThreads.key];
+            delete (this.loadGen as any)[this.maxNumberOfThreads.key];
+            console.log(this.loadGen);
             this.configurationStoreService.setLoadGen(this.loadGen!!);
         }
     }

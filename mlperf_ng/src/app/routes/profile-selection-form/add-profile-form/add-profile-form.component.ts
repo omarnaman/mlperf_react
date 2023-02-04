@@ -27,7 +27,10 @@ export class AddProfileFormComponent implements OnInit {
         },
     });
 
-    constructor(private dialogRef: MatDialogRef<AddProfileFormComponent>, private inputGeneratorService: InputGeneratorService) {}
+    constructor(
+        private dialogRef: MatDialogRef<AddProfileFormComponent>,
+        private inputGeneratorService: InputGeneratorService,
+    ) {}
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([this.name, this.description]);
