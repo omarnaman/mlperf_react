@@ -6,6 +6,7 @@ import {
     ApexGrid,
     ApexStroke,
     ApexTitleSubtitle,
+    ApexLegend,
 } from 'ng-apexcharts';
 
 export const EXPERIMENT_MODES = {
@@ -30,4 +31,5 @@ export type ChartOptions = {
     grid: ApexGrid;
     stroke: ApexStroke;
     title: ApexTitleSubtitle;
+    legend: ApexLegend;
 };

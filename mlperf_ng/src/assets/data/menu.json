@@ -44,6 +44,12 @@
             "name": "run-experiment",
             "type": "link",
             "icon": "science"
+        },
+        {
+            "route": "experiment-results",
+            "name": "experiment-results",
+            "type": "link",
+            "icon": "query_stats"
         }
     ]
 }

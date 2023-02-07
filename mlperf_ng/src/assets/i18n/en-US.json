@@ -83,7 +83,8 @@
         "configuration.network-emulation": "Network Emulation",
         "configuration.cloud-deployment": "Cloud Deployment",
         "configuration.profile-selection": "Profiles",
-        "run-experiment": "Run Experiment"
+        "run-experiment": "Run Experiment",
+        "experiment-results": "Experiment Results"
     },
     "validations": {
         "required": "This field is required",
@@ -235,7 +236,11 @@
         "queries-per-second": "Queries per Second",
         "latency-vs-number-of-threads": "Latency vs Number of Threads",
         "throughput-vs-number-of-threads": "Throughput vs Number of Threads",
-        "latency-vs-throughput": "Latency vs Throughput"
+        "latency-vs-throughput": "Latency vs Throughput",
+        "experiment-results": "Experiment Results",
+        "experiment-id": "Experiment ID",
+        "eid-hint": "The ID of the experiment whose results will be retrieved",
+        "get-results": "Get Results"
     },
     "others": {
         "save": "Save",
