@@ -14,5 +14,6 @@ export const apiPaths = {
     storage: {
         latencies: `${environment.storageUrl}/latencies/{eid}`,
         qps: `${environment.storageUrl}/qps/{eid}`,
+        experiments: `${environment.storageUrl}/experiments`,
     },
 };
