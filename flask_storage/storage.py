@@ -181,6 +181,12 @@ class Profile(db.Model):
             return profile.to_dict()
         return None
 
+    def get_profile_by_id(id):
+        profile = db.session.query(Profile).filter_by(id=id).first()
+        if profile is not None:
+            return profile.to_dict()
+        return None
+
     def get_all_profiles():
         res = []
         profiles: "list[Profile]" = db.session.query(Profile).all()
@@ -211,6 +217,13 @@ class Profile(db.Model):
     def delete(name):
         db.session.query(Profile).filter_by(profile_name=name).delete()
         db.session.commit()
+
+    def update_profile(id, name, sut, loadgen, network_client, network_server, description=""):
+        profile = Profile(name, sut, loadgen,
+                          network_client, network_server, description, id)
+        db.session.merge(profile)
+        db.session.commit()
+
 
 @app.route("/qps", methods=["POST"])
 def add_qps():
@@ -340,6 +353,19 @@ def add_profile():
         return {"Added": True}, 201
     except:
         abort(500)
+
+@app.route("/profiles/<id>", methods=["PUT"])
+@cross_origin()
+def update_profile(id):
+    try:
+        data = request.get_json()
+        if "id" in data:
+            del data["id"]
+        Profile.update_profile(id, **data)
+        return {"Updated": True}, 200
+    except Exception as e:
+        abort(500)
+
 
 @app.route("/profiles/<name>", methods=["DELETE"])
 @cross_origin()
