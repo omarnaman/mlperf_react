@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'run-experiment', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent },
             {
                 path: 'configuration',

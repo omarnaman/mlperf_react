@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Profile } from '@core/mlperf_backend/interface';
+import { ConfigurationStoreService } from '@core/configuration/configuration.service';
+import { CreateProfileRequest, Profile } from '@core/mlperf_backend/interface';
 import { ProfileService } from '@core/mlperf_backend/profile.service';
 import { ConfirmationDialogComponent } from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Checkbox } from '@shared/components/form-inputs/checkbox/checkbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
+import { AddProfileFormComponent } from 'app/routes/profile-selection-form/add-profile-form/add-profile-form.component';
 
 @Component({
     selector: 'app-profile-card',
@@ -27,6 +29,7 @@ export class ProfileCardComponent implements OnInit, OnChanges {
         private profileService: ProfileService,
         private dialog: MatDialog,
         private inputGeneratorService: InputGeneratorService,
+        private configurationStoreService: ConfigurationStoreService,
     ) {}
 
     ngOnInit(): void {
@@ -60,5 +63,27 @@ export class ProfileCardComponent implements OnInit, OnChanges {
         if (event.control.value) {
             this.profileSelected.emit();
         }
+    }
+
+    openProfileForm(): void {
+        const dialogRef = this.dialog.open(AddProfileFormComponent, { width: '400px' });
+        dialogRef.componentInstance.profile = this.profile;
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.updateProfile(result.name, result.description);
+            }
+        });
+    }
+
+    updateProfile(name: string, description?: string): void {
+        const currentConfiguration = this.configurationStoreService.getCurrentConfiguration();
+        const updatedProfile: CreateProfileRequest = {
+            ...(currentConfiguration || this.profile),
+            name,
+            description,
+        };
+        this.profileService.updateProfile(this.profile.id, updatedProfile).subscribe(() => {
+            this.profileUpdated.emit();
+        });
     }
 }

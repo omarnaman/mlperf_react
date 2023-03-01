@@ -21,4 +21,8 @@ export class ProfileService {
     deleteProfile(id: number): Observable<any> {
         return this.http.delete(apiPaths.profiles.delete.replace('{id}', id.toString()));
     }
+
+    updateProfile(id: number, payload: CreateProfileRequest): Observable<any> {
+        return this.http.put(apiPaths.profiles.update.replace('{id}', id + ''), payload);
+    }
 }
