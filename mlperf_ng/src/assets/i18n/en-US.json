@@ -223,8 +223,8 @@
         "name": "Name",
         "description": "Description",
         "add-a-profile": "Add a Profile",
-        "delete-profile-confirmation": "Are you sure you want to delete this profile?"
-
+        "delete-profile-confirmation": "Are you sure you want to delete this profile?",
+        "select-this-profile": "Select this profile"
     },
     "experiments": {
         "run-experiment": "Run Experiment",

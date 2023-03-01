@@ -7,7 +7,12 @@
             [form]="form"
             (valueUpdated)="onDropdownValueUpdate()"
         ></app-dropdown>
-        <app-checkbox *ngSwitchCase="'checkbox'" [input]="input" [form]="form"></app-checkbox>
+        <app-checkbox
+            *ngSwitchCase="'checkbox'"
+            [input]="input"
+            [form]="form"
+            (valueUpdated)="onCheckboxValueUpdate()"
+        ></app-checkbox>
         <app-textarea *ngSwitchCase="'textarea'" [input]="input" [form]="form"></app-textarea>
     </div>
 </div>

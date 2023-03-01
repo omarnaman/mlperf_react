@@ -34,12 +34,6 @@
             ]
         },
         {
-            "route": "dashboard",
-            "name": "dashboard",
-            "type": "link",
-            "icon": "dashboard"
-        },
-        {
             "route": "run-experiment",
             "name": "run-experiment",
             "type": "link",

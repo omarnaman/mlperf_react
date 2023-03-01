@@ -11,6 +11,7 @@ export class FormInputComponent implements OnInit {
     @Input() form!: FormGroup;
     @Input() input!: InputBase<any>;
     @Output() dropdownValueUpdated = new EventEmitter<any>();
+    @Output() checkboxValueUpdated = new EventEmitter<any>();
 
     constructor() {}
 
@@ -18,5 +19,9 @@ export class FormInputComponent implements OnInit {
 
     onDropdownValueUpdate(): void {
         this.dropdownValueUpdated.emit({ input: this.input, control: this.form.controls[this.input.key] });
+    }
+
+    onCheckboxValueUpdate(): void {
+        this.checkboxValueUpdated.emit({ input: this.input, control: this.form.controls[this.input.key] });
     }
 }
