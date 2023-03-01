@@ -139,3 +139,14 @@ This operation has no extra parameters.
 ### `DELETE` /profiles/{profile_name}
 This operation has no extra parameters.
 
+### `PUT` /profiles/{profile_id}
+| Parameter Name | Required | Description                                                                                               | Type         |
+| -------------- | -------- | --------------------------------------------------------------------------------------------------------- | ------------ |
+| name           | `True`   | The name of the profile                                                                                   | String       |
+| description    | `True`   | The text description of the profile, default to an empty string.                                          | String       |
+| loadgen        | `True`   | The loadgen configuration associated with the profile. The storage stores the dictionary as-is.           | `Dictionary` |
+| sut            | `True`   | The sut configuration associated with the profile. The storage stores the dictionary as-is.               | `Dictionary` |
+| network_client | `True`   | The client-side netem configuration associated with the profile. The storage stores the dictionary as-is. | `Dictionary` |
+| network_server | `True`   | The server-side netem configuration associated with the profile. The storage stores the dictionary as-is. | `Dictionary` |
+
+### ***Returns*** 200 on success, 500 on failure.
