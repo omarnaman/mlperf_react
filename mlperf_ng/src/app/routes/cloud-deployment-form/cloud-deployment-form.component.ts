@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Checkbox } from '@shared/components/form-inputs/checkbox/checkbox';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { InputBase } from '@shared/components/form-inputs/input-base';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-cloud-deployment-form',
@@ -36,7 +38,11 @@ export class CloudDeploymentFormComponent implements OnInit {
         },
     });
 
-    constructor(private inputGeneratorService: InputGeneratorService) {}
+    constructor(
+        private inputGeneratorService: InputGeneratorService,
+        private toastService: ToastrService,
+        private translateService: TranslateService,
+    ) {}
 
     ngOnInit(): void {
         this.form = this.inputGeneratorService.generateFromGroup([
@@ -50,6 +56,7 @@ export class CloudDeploymentFormComponent implements OnInit {
         this.form.markAllAsTouched();
         if (this.form.valid) {
             // logic here
+            this.toastService.success(this.translateService.instant('others.saved'));
         }
     }
 

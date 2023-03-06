@@ -37,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     FormlyConfigModule.forRoot(),
     NgxPermissionsModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+        positionClass: 'toast-bottom-right',
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

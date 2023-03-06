@@ -4,6 +4,8 @@ import { ConfigurationStoreService } from '@core/configuration/configuration.ser
 import { MLPerfConfiguration } from '@core/configuration/interface';
 import { CreateProfileRequest, Profile } from '@core/mlperf_backend/interface';
 import { ProfileService } from '@core/mlperf_backend/profile.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { AddProfileFormComponent } from '../profile-selection-form/add-profile-form/add-profile-form.component';
 
 @Component({
@@ -20,6 +22,8 @@ export class ProfileListComponent implements OnInit {
         private profileService: ProfileService,
         private configurationStoreService: ConfigurationStoreService,
         private dialog: MatDialog,
+        private toastService: ToastrService,
+        private translateService: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -67,6 +71,9 @@ export class ProfileListComponent implements OnInit {
         };
         delete (profile as any).id;
         this.profileService.createProfile(profile).subscribe(() => {
+            this.toastService.success(
+                this.translateService.instant('configuration.profile-created-successfully')
+            );
             this.getAllProfiles();
         });
     }

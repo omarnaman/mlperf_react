@@ -6,6 +6,8 @@ import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { EXPERIMENT_MODES, SCENARIOS } from '@shared/constants';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-load-generator-form',
@@ -160,7 +162,9 @@ export class LoadGeneratorFormComponent implements OnInit {
 
     constructor(
         private inputGeneratorService: InputGeneratorService,
-        private configurationStoreService: ConfigurationStoreService
+        private configurationStoreService: ConfigurationStoreService,
+        private toastService: ToastrService,
+        private translateService: TranslateService,
     ) {}
 
     ngOnInit(): void {
@@ -220,8 +224,8 @@ export class LoadGeneratorFormComponent implements OnInit {
             };
             delete (this.loadGen as any)[this.minNumberOfThreads.key];
             delete (this.loadGen as any)[this.maxNumberOfThreads.key];
-            console.log(this.loadGen);
             this.configurationStoreService.setLoadGen(this.loadGen!!);
+            this.toastService.success(this.translateService.instant('others.saved'));
         }
     }
 }

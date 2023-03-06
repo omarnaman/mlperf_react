@@ -229,7 +229,10 @@
         "aws": "Amazon Web Services",
         "google-cloud": "Google Cloud",
         "microsoft-azure": "Microsoft Azure",
-        "instance": "Instance"
+        "instance": "Instance",
+        "profile-created-successfully": "Profile created successfully",
+        "profile-updated-successfully": "Profile updated successfully",
+        "profile-deleted-successfully": "Profile deleted successfully"
     },
     "experiments": {
         "run-experiment": "Run Experiment",
@@ -258,6 +261,7 @@
         "select": "Select",
         "yes": "Yes",
         "no": "No",
-        "confirm-action": "Confirm Action"
+        "confirm-action": "Confirm Action",
+        "saved": "Saved"
     }
 }

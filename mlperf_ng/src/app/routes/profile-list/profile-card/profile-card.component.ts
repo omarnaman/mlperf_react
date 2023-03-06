@@ -1,13 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { CreateProfileRequest, Profile } from '@core/mlperf_backend/interface';
 import { ProfileService } from '@core/mlperf_backend/profile.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationDialogComponent } from '@shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Checkbox } from '@shared/components/form-inputs/checkbox/checkbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { AddProfileFormComponent } from 'app/routes/profile-selection-form/add-profile-form/add-profile-form.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-profile-card',
@@ -21,7 +31,7 @@ export class ProfileCardComponent implements OnInit, OnChanges {
     @Output() profileSelected = new EventEmitter<any>();
     selectProfile = new Checkbox({
         key: 'selectProfile',
-        label: 'configuration.select-this-profile'
+        label: 'configuration.select-this-profile',
     });
     form!: FormGroup;
 
@@ -30,6 +40,8 @@ export class ProfileCardComponent implements OnInit, OnChanges {
         private dialog: MatDialog,
         private inputGeneratorService: InputGeneratorService,
         private configurationStoreService: ConfigurationStoreService,
+        private toastService: ToastrService,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit(): void {
@@ -38,7 +50,7 @@ export class ProfileCardComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(changes.selected && this.form) {
+        if (changes.selected && this.form) {
             this.form.get(this.selectProfile.key)?.patchValue(this.selected);
         }
     }
@@ -46,7 +58,7 @@ export class ProfileCardComponent implements OnInit, OnChanges {
     openConfirmationDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, { width: '400px' });
         dialogRef.componentInstance.message = 'configuration.delete-profile-confirmation';
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.deleteProfile();
             }
@@ -54,12 +66,15 @@ export class ProfileCardComponent implements OnInit, OnChanges {
     }
 
     deleteProfile(): void {
-        this.profileService
-            .deleteProfile(this.profile.id)
-            .subscribe(() => this.profileUpdated.emit());
+        this.profileService.deleteProfile(this.profile.id).subscribe(() => {
+            this.toastService.success(
+                this.translateService.instant('configuration.profile-deleted-successfully')
+            );
+            this.profileUpdated.emit();
+        });
     }
 
-    onProfileSelectUpdate(event: { input: Checkbox, control: FormControl}): void {
+    onProfileSelectUpdate(event: { input: Checkbox; control: FormControl }): void {
         if (event.control.value) {
             this.profileSelected.emit();
         }
@@ -83,6 +98,9 @@ export class ProfileCardComponent implements OnInit, OnChanges {
             description,
         };
         this.profileService.updateProfile(this.profile.id, updatedProfile).subscribe(() => {
+            this.toastService.success(
+                this.translateService.instant('configuration.profile-updated-successfully')
+            );
             this.profileUpdated.emit();
         });
     }
