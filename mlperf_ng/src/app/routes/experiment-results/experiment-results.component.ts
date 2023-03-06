@@ -2,10 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
-import { ChartOptions } from '@shared/constants';
 import { ExperimentLatency, ExperimentQps } from '@shared/models/experiment.model';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
-import { ChartComponent } from 'ng-apexcharts';
+import { ApexOptions, ChartComponent } from 'ng-apexcharts';
 import { combineLatest, Observable } from 'rxjs';
 import { ExperimentService } from '../services/experiment.service';
 
@@ -15,10 +14,10 @@ import { ExperimentService } from '../services/experiment.service';
     styleUrls: ['./experiment-results.component.scss'],
 })
 export class ExperimentResultsComponent implements OnInit {
-    @ViewChild('chart') chart!: ChartComponent;
-    public latencyChartOptions!: Partial<ChartOptions>;
-    public qpsChartOptions!: Partial<ChartOptions>;
-    public latencyQpsChartOptions!: Partial<ChartOptions>;
+    // @ViewChild('chart') chart!: ChartComponent;
+    public latencyChartOptions!: Partial<ApexOptions>;
+    public qpsChartOptions!: Partial<ApexOptions>;
+    public latencyQpsChartOptions!: Partial<ApexOptions>;
     latencies: ExperimentLatency[] = [];
     experimentQps: ExperimentQps[] = [];
     form!: FormGroup;
@@ -37,7 +36,7 @@ export class ExperimentResultsComponent implements OnInit {
     constructor(
         private inputGeneratorService: InputGeneratorService,
         private experimentService: ExperimentService,
-        private translateService: TranslateService,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit(): void {
@@ -92,10 +91,13 @@ export class ExperimentResultsComponent implements OnInit {
             latencyData.sort((latency1, latency2) => {
                 return parseFloat(latency1) - parseFloat(latency2);
             });
-            latency10.push(parseFloat(latencyData[Math.round(length * 0.1)]));
-            latency50.push(parseFloat(latencyData[Math.round(length * 0.5)]));
-            latency90.push(parseFloat(latencyData[Math.round(length * 0.9)]));
+            latency10.push(Math.round(parseFloat(latencyData[Math.round(length * 0.1)]) * 1000));
+            latency50.push(Math.round(parseFloat(latencyData[Math.round(length * 0.5)]) * 1000));
+            latency90.push(Math.round(parseFloat(latencyData[Math.round(length * 0.9)]) * 1000));
         });
+        const plotName = `${this.form.value[this.eid.key]}_${this.translateService.instant(
+            'experiments.latency-vs-number-of-threads'
+        )}`;
         this.latencyChartOptions = {
             series: [
                 {
@@ -117,6 +119,13 @@ export class ExperimentResultsComponent implements OnInit {
                 zoom: {
                     enabled: false,
                 },
+                toolbar: {
+                    export: {
+                        csv: { filename: plotName },
+                        svg: { filename: plotName },
+                        png: { filename: plotName },
+                    },
+                },
             },
             dataLabels: {
                 enabled: false,
@@ -135,7 +144,18 @@ export class ExperimentResultsComponent implements OnInit {
                 },
             },
             xaxis: {
+                type: 'numeric',
+                min: 0,
                 categories: latencySelectors,
+                title: {
+                    text: this.translateService.instant('experiments.latency-x-label'),
+                },
+            },
+            yaxis: {
+                min: 0,
+                title: {
+                    text: this.translateService.instant('experiments.latency-y-label'),
+                },
             },
         };
     }
@@ -145,8 +165,11 @@ export class ExperimentResultsComponent implements OnInit {
         const qpsData: number[] = [];
         experimentQps.forEach(qps => {
             qpsSelectors.push(parseInt(qps.selector));
-            qpsData.push(parseFloat(qps.qps));
+            qpsData.push(Math.round(parseFloat(qps.qps)));
         });
+        const plotName = `${this.form.value[this.eid.key]}_${this.translateService.instant(
+            'experiments.queries-per-second'
+        )}`;
         this.qpsChartOptions = {
             series: [
                 {
@@ -159,6 +182,13 @@ export class ExperimentResultsComponent implements OnInit {
                 type: 'line',
                 zoom: {
                     enabled: false,
+                },
+                toolbar: {
+                    export: {
+                        csv: { filename: plotName },
+                        svg: { filename: plotName },
+                        png: { filename: plotName },
+                    },
                 },
             },
             dataLabels: {
@@ -178,7 +208,18 @@ export class ExperimentResultsComponent implements OnInit {
                 },
             },
             xaxis: {
+                type: 'numeric',
+                min: 0,
                 categories: qpsSelectors,
+                title: {
+                    text: this.translateService.instant('experiments.throughput-x-label'),
+                },
+            },
+            yaxis: {
+                min: 0,
+                title: {
+                    text: this.translateService.instant('experiments.throughput-y-label'),
+                },
             },
         };
     }
@@ -192,28 +233,55 @@ export class ExperimentResultsComponent implements OnInit {
             latencyData.sort((latency1, latency2) => {
                 return parseFloat(latency1) - parseFloat(latency2);
             });
-            const latency95 = parseFloat(latencyData[Math.round(length * 0.95)]);
+            const latency95 = Math.round(parseFloat(latencyData[Math.round(length * 0.95)]) * 1000);
             dataToPlot.push([qpsData[index], latency95]);
         });
-
+        // sort by latency
+        dataToPlot.sort((a, b) => {
+            return a[1] - b[1];
+        });
+        const plotName = `${this.form.value[this.eid.key]}_${this.translateService.instant(
+            'experiments.95th-percentile'
+        )}`;
         this.latencyQpsChartOptions = {
             series: [
                 {
                     name: this.translateService.instant('experiments.95th-percentile'),
-                    data: dataToPlot,
+                    data: dataToPlot.map(x => x[1]),
                 },
             ],
             chart: {
                 height: 350,
-                type: 'scatter',
+                type: 'line',
                 zoom: {
                     enabled: true,
                     type: 'xy',
+                },
+                toolbar: {
+                    export: {
+                        csv: { filename: plotName },
+                        svg: { filename: plotName },
+                        png: { filename: plotName },
+                    },
                 },
             },
             title: {
                 text: this.translateService.instant('experiments.latency-vs-throughput'),
                 align: 'left',
+            },
+            xaxis: {
+                type: 'numeric',
+                min: 0,
+                categories: dataToPlot.map(x => x[0]),
+                title: {
+                    text: this.translateService.instant('experiments.latency-throughput-x-label'),
+                },
+            },
+            yaxis: {
+                min: 0,
+                title: {
+                    text: this.translateService.instant('experiments.latency-throughput-y-label'),
+                },
             },
         };
     }

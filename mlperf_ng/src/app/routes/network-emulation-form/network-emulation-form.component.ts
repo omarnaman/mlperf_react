@@ -165,8 +165,7 @@ export class NetworkEmulationFormComponent implements OnInit {
                 bandwidth: this.form.value.serverTcBandwidth,
                 loss_rate: this.form.value.serverRandomLoss,
             };
-            this.configurationStoreService.setNetworkEmulation(this.clientNetEm);
-            this.configurationStoreService.setNetworkEmulation(this.serverNetEm, true);
+            this.configurationStoreService.setNetworkEmulation(this.serverNetEm, this.clientNetEm);
         }
     }
 }

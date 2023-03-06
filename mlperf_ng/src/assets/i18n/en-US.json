@@ -241,7 +241,13 @@
         "experiment-results": "Experiment Results",
         "experiment-id": "Experiment ID",
         "eid-hint": "The ID of the experiment whose results will be retrieved",
-        "get-results": "Get Results"
+        "get-results": "Get Results",
+        "latency-x-label": "Number of Threads",
+        "latency-y-label": "Latency (ms)",
+        "throughput-x-label": "Number of Threads",
+        "throughput-y-label": "Throughput (qps)",
+        "latency-throughput-x-label": "Throughput (qps)",
+        "latency-throughput-y-label": "Latency (ms)"
     },
     "others": {
         "save": "Save",
