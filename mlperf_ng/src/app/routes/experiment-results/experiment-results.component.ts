@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Dropdown } from '@shared/components/form-inputs/dropdown/dropdown';
 import { ExperimentLatency, ExperimentQps } from '@shared/models/experiment.model';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
-import { ApexOptions, ChartComponent } from 'ng-apexcharts';
+import { ApexOptions } from 'ng-apexcharts';
 import { combineLatest, Observable } from 'rxjs';
 import { ExperimentService } from '../services/experiment.service';
 
@@ -14,7 +14,6 @@ import { ExperimentService } from '../services/experiment.service';
     styleUrls: ['./experiment-results.component.scss'],
 })
 export class ExperimentResultsComponent implements OnInit {
-    // @ViewChild('chart') chart!: ChartComponent;
     public latencyChartOptions!: Partial<ApexOptions>;
     public qpsChartOptions!: Partial<ApexOptions>;
     public latencyQpsChartOptions!: Partial<ApexOptions>;
