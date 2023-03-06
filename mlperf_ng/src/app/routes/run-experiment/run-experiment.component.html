@@ -6,4 +6,8 @@
             {{ 'experiments.run' | translate }}
         </button>
     </form>
+    <div *ngIf="experimentRunning" class="mt-3">
+        {{ 'experiments.experiment-is-running' | translate }}
+        <mat-progress-bar mode="indeterminate" class="mt-3"></mat-progress-bar>
+    </div>
 </mat-card>

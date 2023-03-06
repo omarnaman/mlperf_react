@@ -254,7 +254,9 @@
         "throughput-x-label": "Number of Threads",
         "throughput-y-label": "Throughput (qps)",
         "latency-throughput-x-label": "Throughput (qps)",
-        "latency-throughput-y-label": "Latency (ms)"
+        "latency-throughput-y-label": "Latency (ms)",
+        "experiment-ran-successfully": "Experiment ran successfully",
+        "experiment-is-running": "Experiment is Running"
     },
     "others": {
         "save": "Save",
