@@ -29,7 +29,7 @@ export class ProfileSelectionFormComponent implements OnInit {
         private inputGeneratorService: InputGeneratorService,
         private profileService: ProfileService,
         private configurationStoreService: ConfigurationStoreService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
     ) {}
 
     ngOnInit(): void {

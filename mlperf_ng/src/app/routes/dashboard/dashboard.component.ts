@@ -4,9 +4,7 @@ import {
     ChangeDetectionStrategy,
     ViewChild,
 } from '@angular/core';
-import { ChartOptions } from '@shared/constants';
-
-import { ChartComponent } from 'ng-apexcharts';
+import { ApexOptions, ChartComponent } from 'ng-apexcharts';
 
 @Component({
     selector: 'app-dashboard',
@@ -15,7 +13,7 @@ import { ChartComponent } from 'ng-apexcharts';
 })
 export class DashboardComponent implements OnInit {
     @ViewChild('chart') chart!: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
+    public chartOptions: Partial<ApexOptions>;
 
     constructor() {
         this.chartOptions = {

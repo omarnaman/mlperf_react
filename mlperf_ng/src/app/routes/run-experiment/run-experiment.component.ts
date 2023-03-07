@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { LoadGenConfiguration, MLPerfConfiguration } from '@core/configuration/interface';
+import { TranslateService } from '@ngx-translate/core';
 import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { LoadGenInstanceRequest } from '@shared/models/load-generator.model';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
+import { ToastrService } from 'ngx-toastr';
 import { LoadGeneratorService } from '../services/load-generator.service';
 
 @Component({
@@ -25,11 +27,14 @@ export class RunExperimentComponent implements OnInit {
             hint: 'configuration.eid-hint',
         },
     });
+    experimentRunning = false;
 
     constructor(
         private inputGeneratorService: InputGeneratorService,
         private loadGeneratorService: LoadGeneratorService,
         private configurationStoreService: ConfigurationStoreService,
+        private translateService: TranslateService,
+        private toastService: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -80,9 +85,18 @@ export class RunExperimentComponent implements OnInit {
                 scenario: this.loadGen?.scenario,
                 repeats: this.loadGen?.repeats,
             };
-            this.loadGeneratorService
-                .runLoadGeneratorInstance(eid, selector, payload)
-                .subscribe();
+            this.experimentRunning = true;
+            this.loadGeneratorService.runLoadGeneratorInstance(eid, selector, payload).subscribe(
+                () => {
+                    this.experimentRunning = false;
+                    this.toastService.success(
+                        this.translateService.instant('experiments.experiment-ran-successfully')
+                    );
+                },
+                () => {
+                    this.experimentRunning = false;
+                }
+            );
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { InputBase } from '../input-base';
 
@@ -10,6 +10,7 @@ import { InputBase } from '../input-base';
 export class CheckboxComponent implements OnInit {
     @Input() input!: InputBase<boolean>;
     @Input() form!: FormGroup;
+    @Output() valueUpdated = new EventEmitter<any>();
 
     constructor() {}
 

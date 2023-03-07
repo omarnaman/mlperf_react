@@ -5,6 +5,8 @@ import { Textbox } from '@shared/components/form-inputs/textbox/textbox';
 import { InputGeneratorService } from '@shared/services/input-generator.service';
 import { ConfigurationStoreService } from '@core/configuration/configuration.service';
 import { MLPerfConfiguration, SUTConfiguration } from '@core/configuration/interface';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-system-under-test-form',
@@ -85,6 +87,8 @@ export class SystemUnderTestFormComponent implements OnInit {
     constructor(
         private inputGeneratorService: InputGeneratorService,
         private configurationStoreService: ConfigurationStoreService,
+        private toastService: ToastrService,
+        private translateService: TranslateService,
     ) { }
 
     ngOnInit(): void {
@@ -120,6 +124,7 @@ export class SystemUnderTestFormComponent implements OnInit {
                 consumerThreads: parseInt(this.form.value.consumerThreads),
             };
             this.configurationStoreService.setSUT(this.sut!!);
+            this.toastService.success(this.translateService.instant('others.saved'));
         }
     }
 }

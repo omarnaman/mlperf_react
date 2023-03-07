@@ -8,30 +8,14 @@
     </form>
 </mat-card>
 <div class="my-2" *ngIf="latencyChartOptions">
-    <apx-chart
-      [series]="$any(latencyChartOptions.series)"
-      [chart]="$any(latencyChartOptions.chart)"
-      [xaxis]="$any(latencyChartOptions.xaxis)"
-      [title]="$any(latencyChartOptions.title)"
-      [stroke]="$any(latencyChartOptions.stroke)"
-      [colors]="['#662e9b', '#f9ce1d', '#666666']"
-    ></apx-chart>
+    <app-chart
+        [chartOptions]="latencyChartOptions"
+        [colors]="['#662e9b', '#f9ce1d', '#666666']"
+    ></app-chart>
 </div>
 <div class="my-2" *ngIf="qpsChartOptions">
-    <apx-chart
-      [series]="$any(qpsChartOptions.series)"
-      [chart]="$any(qpsChartOptions.chart)"
-      [xaxis]="$any(qpsChartOptions.xaxis)"
-      [title]="$any(qpsChartOptions.title)"
-      [colors]="['#662e9b']"
-    ></apx-chart>
+    <app-chart [chartOptions]="qpsChartOptions" [colors]="['#662e9b']"></app-chart>
 </div>
 <div class="my-2" *ngIf="latencyQpsChartOptions">
-    <apx-chart
-      [series]="$any(latencyQpsChartOptions.series)"
-      [chart]="$any(latencyQpsChartOptions.chart)"
-      [xaxis]="$any(latencyQpsChartOptions.xaxis)"
-      [title]="$any(latencyQpsChartOptions.title)"
-      [colors]="['#662e9b']"
-    ></apx-chart>
+    <app-chart [chartOptions]="latencyQpsChartOptions" [colors]="['#662e9b']"></app-chart>
 </div>

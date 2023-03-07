@@ -223,8 +223,16 @@
         "name": "Name",
         "description": "Description",
         "add-a-profile": "Add a Profile",
-        "delete-profile-confirmation": "Are you sure you want to delete this profile?"
-
+        "delete-profile-confirmation": "Are you sure you want to delete this profile?",
+        "select-this-profile": "Select this profile",
+        "update-profile": "Update Profile",
+        "aws": "Amazon Web Services",
+        "google-cloud": "Google Cloud",
+        "microsoft-azure": "Microsoft Azure",
+        "instance": "Instance",
+        "profile-created-successfully": "Profile created successfully",
+        "profile-updated-successfully": "Profile updated successfully",
+        "profile-deleted-successfully": "Profile deleted successfully"
     },
     "experiments": {
         "run-experiment": "Run Experiment",
@@ -240,13 +248,22 @@
         "experiment-results": "Experiment Results",
         "experiment-id": "Experiment ID",
         "eid-hint": "The ID of the experiment whose results will be retrieved",
-        "get-results": "Get Results"
+        "get-results": "Get Results",
+        "latency-x-label": "Number of Threads",
+        "latency-y-label": "Latency (ms)",
+        "throughput-x-label": "Number of Threads",
+        "throughput-y-label": "Throughput (qps)",
+        "latency-throughput-x-label": "Throughput (qps)",
+        "latency-throughput-y-label": "Latency (ms)",
+        "experiment-ran-successfully": "Experiment ran successfully",
+        "experiment-is-running": "Experiment is Running"
     },
     "others": {
         "save": "Save",
         "select": "Select",
         "yes": "Yes",
         "no": "No",
-        "confirm-action": "Confirm Action"
+        "confirm-action": "Confirm Action",
+        "saved": "Saved"
     }
 }

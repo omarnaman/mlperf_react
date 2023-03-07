@@ -12,9 +12,9 @@ import { LoadGeneratorFormComponent } from './load-generator-form/load-generator
 import { SystemUnderTestFormComponent } from './system-under-test-form/system-under-test-form.component';
 import { NetworkEmulationFormComponent } from './network-emulation-form/network-emulation-form.component';
 import { CloudDeploymentFormComponent } from './cloud-deployment-form/cloud-deployment-form.component';
-import { ProfileSelectionFormComponent } from './profile-selection-form/profile-selection-form.component';
 import { RunExperimentComponent } from './run-experiment/run-experiment.component';
 import { ExperimentResultsComponent } from './experiment-results/experiment-results.component';
+import { ProfileListComponent } from './profile-list/profile-list.component';
 
 const routes: Routes = [
     {
@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'run-experiment', pathMatch: 'full' },
             { path: 'dashboard', component: DashboardComponent },
             {
                 path: 'configuration',
@@ -32,7 +32,7 @@ const routes: Routes = [
                     { path: 'system-under-test', component: SystemUnderTestFormComponent },
                     { path: 'network-emulation', component: NetworkEmulationFormComponent },
                     { path: 'cloud-deployment', component: CloudDeploymentFormComponent },
-                    { path: 'profile-selection', component: ProfileSelectionFormComponent}
+                    { path: 'profile-selection', component: ProfileListComponent}
                 ],
             },
             { path: 'run-experiment', component: RunExperimentComponent },

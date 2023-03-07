@@ -29,6 +29,8 @@ import { FormInputComponent } from './components/form-inputs/form-input/form-inp
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { TextareaComponent } from './components/form-inputs/textarea/textarea.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 const MODULES: any[] = [
     CommonModule,
@@ -47,6 +49,7 @@ const MODULES: any[] = [
     ToastrModule,
     TranslateModule,
     MatSelectModule,
+    NgApexchartsModule,
 ];
 const COMPONENTS: any[] = [
     BreadcrumbComponent,
@@ -59,6 +62,7 @@ const COMPONENTS: any[] = [
     PageHeaderComponent,
     TextareaComponent,
     ConfirmationDialogComponent,
+    ChartComponent,
 ];
 const COMPONENTS_DYNAMIC: any[] = [];
 const DIRECTIVES: any[] = [DisableControlDirective];
