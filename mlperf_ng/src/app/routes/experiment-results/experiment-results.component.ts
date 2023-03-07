@@ -143,7 +143,7 @@ export class ExperimentResultsComponent implements OnInit {
                 },
             },
             xaxis: {
-                type: 'numeric',
+                type: 'category',
                 min: 0,
                 categories: latencySelectors,
                 title: {
@@ -207,7 +207,7 @@ export class ExperimentResultsComponent implements OnInit {
                 },
             },
             xaxis: {
-                type: 'numeric',
+                type: 'category',
                 min: 0,
                 categories: qpsSelectors,
                 title: {
