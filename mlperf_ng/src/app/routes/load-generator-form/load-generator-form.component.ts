@@ -164,7 +164,7 @@ export class LoadGeneratorFormComponent implements OnInit {
         private inputGeneratorService: InputGeneratorService,
         private configurationStoreService: ConfigurationStoreService,
         private toastService: ToastrService,
-        private translateService: TranslateService,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit(): void {
@@ -214,7 +214,7 @@ export class LoadGeneratorFormComponent implements OnInit {
 
     onSave(): void {
         this.form.markAllAsTouched();
-        if (this.form.valid) {
+        if (this.form.valid && this.validateMinMaxFields(this.form.value)) {
             this.loadGen = {
                 ...this.form.value,
                 [this.repeat.key]: parseInt(this.form.value[this.repeat.key]),
@@ -227,5 +227,25 @@ export class LoadGeneratorFormComponent implements OnInit {
             this.configurationStoreService.setLoadGen(this.loadGen!!);
             this.toastService.success(this.translateService.instant('others.saved'));
         }
+    }
+
+    validateMinMaxFields(formValue: any): boolean {
+        const minThreads = parseInt(formValue[this.minNumberOfThreads.key]);
+        const maxThreads = parseInt(formValue[this.maxNumberOfThreads.key]);
+        if (maxThreads < minThreads) {
+            this.toastService.error(
+                this.translateService.instant('configuration.threads-min-max-validation')
+            );
+            return false;
+        }
+        const minDuration = parseInt(formValue[this.minDuration.key]);
+        const maxDuration = parseInt(formValue[this.maxDuration.key]);
+        if (maxDuration < minDuration) {
+            this.toastService.error(
+                this.translateService.instant('configuration.duration-min-max-validation')
+            );
+            return false;
+        }
+        return true;
     }
 }

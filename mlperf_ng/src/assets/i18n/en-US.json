@@ -232,7 +232,9 @@
         "instance": "Instance",
         "profile-created-successfully": "Profile created successfully",
         "profile-updated-successfully": "Profile updated successfully",
-        "profile-deleted-successfully": "Profile deleted successfully"
+        "profile-deleted-successfully": "Profile deleted successfully",
+        "threads-min-max-validation": "Minimum number of threads should be larger than maximum number of threads",
+        "duration-min-max-validation": "Minimum duration should be larger than maximum duration"
     },
     "experiments": {
         "run-experiment": "Run Experiment",
