@@ -210,7 +210,7 @@ class Profile(db.Model):
             defaults = json.load(f)
 
         for profile in defaults:
-            if Profile.get_profile(profile["name"]) is None:
+            if Profile.get_profile_by_id(profile["id"]) is None:
                 Profile.add_profile(**profile)
         return {"profiles": defaults}
 
