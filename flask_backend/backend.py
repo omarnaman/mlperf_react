@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
-import flask
-from flask_cors import CORS, cross_origin
-from flask import request, abort
-import requests
 import io
+import json
 import time
-import kubernetes_manager
 from threading import Lock
+
+import flask
+import kubernetes_manager
+import requests
 from config import Config as BackendConfig
+from flask import abort, request
+from flask_cors import CORS, cross_origin
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -147,7 +149,6 @@ class Config():
     id = property(get_id)
 
 
-@app.route("/start/<eid>/<selector>", methods=["POST"])
 def start(eid, selector):
     global RUNNING_SELECTOR
     if JOB_LOCK.locked():
@@ -172,7 +173,6 @@ def start(eid, selector):
         
     
 
-@app.route("/running")
 def get_running():
     if RUNNING_SELECTOR != -1:
         return {
@@ -182,7 +182,6 @@ def get_running():
     else:
         return {}
 
-@app.route("/status/<selector>", methods=["GET"])
 def job_status(selector):
     status = K8S_Manager.is_job_running(selector)
     if status is not None:
@@ -190,7 +189,6 @@ def job_status(selector):
     else:
         abort(404)
 
-@app.route("/init_storage", methods=["POST"])
 def init_storage():
     cifss_pod, cifss_svc = K8S_Manager.createCIFSS()
     storage_pod, storage_svc = K8S_Manager.createStorage()
@@ -205,7 +203,6 @@ def init_storage():
         }
     }, 200
     
-@app.route("/sut", methods=["POST"])
 def create_sut():
     data = request.get_json()
     args = data.get("args", [])
@@ -224,7 +221,6 @@ def create_sut():
         }
     }, 200
 
-@app.route("/lg_server", methods=["POST"])
 def create_lg_server():
     data = request.get_json()
     args = data.get("args", [])
@@ -241,7 +237,6 @@ def create_lg_server():
         }
     }, 200
 
-@app.route("/lg_job/<eid>/<selector>", methods=["POST"])
 def create_lg_server_job(eid, selector):
     data = request.get_json()
     configs = Config.from_dict(data, selector)
@@ -266,8 +261,51 @@ def create_lg_server_job(eid, selector):
     return "", 200
 
 
+def get_backends():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"backends": data.get("backends", [])}
+    except Exception as e:
+        return {"backends": []}, 500
+
+def get_models():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"models": data.get("models", [])}
+    except Exception as e:
+        return {"models": []}, 500
+
+def get_datasets():
+    try:
+        with open("backend_list.json", 'r') as f:
+            data = json.load(f)
+            return {"datasets": data.get("datasets", [])}
+    except Exception as e: 
+        return {"datasets": []}, 500
+
+
 if __name__=="__main__":
     CONFIG = BackendConfig()
     CONFIG.load_config()
+    prefix = CONFIG.SERVER_PREFIX
+    if prefix != "":
+        prefix = "/" + prefix
+
+    
     K8S_Manager = kubernetes_manager.KubernetesManager("./kube.yaml", CONFIG)
+    app.add_url_rule(f"{prefix}/start/<eid>/<selector>", "start", start, methods=["POST"])
+    app.add_url_rule(f"{prefix}/running", "running", get_running, methods=["GET"])
+    app.add_url_rule(f"{prefix}/status/<selector>", "job_status", job_status, methods=["GET"])
+    app.add_url_rule(f"{prefix}/init_storage", "init_storage", init_storage, methods=["POST"])
+    app.add_url_rule(f"{prefix}/sut", "create_sut", create_sut, methods=["POST"])
+    app.add_url_rule(f"{prefix}/lg_server", "create_lg_server", create_lg_server, methods=["POST"])
+    app.add_url_rule(f"{prefix}/lg_job/<eid>/<selector>", "create_lg_server_job", create_lg_server_job, methods=["POST"])
+    app.add_url_rule(f"{prefix}/backends", "get_backends", get_backends, methods=["GET"])
+    app.add_url_rule(f"{prefix}/models", "get_models", get_models, methods=["GET"])
+    app.add_url_rule(f"{prefix}/datasets", "get_datasets", get_datasets, methods=["GET"])
+
+
+
     app.run(debug=True, port=PORT, host="0.0.0.0",)

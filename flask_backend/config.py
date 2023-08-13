@@ -14,6 +14,7 @@ class Config():
     LOADGEN_SERVER = None
     SUT_ADDRESS_K8S = None
     SERVICE_ACCOUNT_NAME = None
+    SERVER_PREFIX = None
 
     def load_config(self, path="backend_config.json"):
         with open(path, 'r') as f:
@@ -31,6 +32,6 @@ class Config():
         self.LOADGEN_SERVER = config["loadgen_server"]
         self.SUT_ADDRESS_K8S = config["sut_address_k8s"]
         self.SERVICE_ACCOUNT_NAME = config["service_account_name"]
-
+        self.SERVER_PREFIX = config.get("server_prefix", "")
         return self
 
